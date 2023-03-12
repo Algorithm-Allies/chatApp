@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Bootstrap Files-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <!--Box Icons Link-->
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <link href="style.css" rel="stylesheet">
+    <title>WebPage</title>
+</head>
+<body>
+    <div class ="position-fixed">
+    <div class ="bg-body vh-100">
+    <div class="container-fluid content">
+        <!--Top Navigation / Search Bar-->
+        <div class="row align-self-start pb-5">
+            <nav class="navbar fixed-top">
+                <div class="container-fluid overflow-auto">
+                    <!--Logo-->
+                    <a class="navbar-brand" href="#"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAA4JJREFUaEPtmbuvTlEQxX830aMWQRQKhUehRalCIxHxCH8AQrQoReJRkEg8Q6NyRUeBksKjERQeDRIFClEoyEr2udlnzn6dx3e+3OROcot7zpy915qZPTN7vhnmuczMc/wsEJi2B6fhgZXAZmAHsATYEjDCK+An8Mn9PQGehow1JgEBPRkBXOJIkdngiM3pj0FAVr7XA7hP7ihwwX8waQKyusCLxBByCzgwFgFtdCOC+jUwa2LcV9U50V8VdtU7nYPamZmUB2LgPwOngJuF7hDYx56uDvbSSXsgBP6Xi12Bbyv/zAc1ow/tgRh4WVKpsYuMRqAt+G3AcuAj8CjBbBQCbcBvAq4Daz3Qz4H9wNsAkcEIKBWuC+RzPT9iNlbMh8JmEfAeWBUA+hLYODQBgZNlBFBprURi4PXtIeBqYpGdLr1WKtr/R9dDfNilvDZFKAVeOM4AJxIE9O6s996mUaXhmiFDWUiAz9uKV2J6wFrQfiZPau2Y7AXueC+tflEhU5FR2IREFVTpUI2VL7KKepRcqlzmvtVZsPIdWAH88V6oWm/3/j/tomLuUcgDqnaLzer6UMQs8ELH1NT2GCvr5W9gN/DA05RRlGJ9UTdaM1KIgKql2l5f9NFW28p2Qe++We0Aqw58AG4DX8x6NhIa8S/9WCUOhdHQJFL8ddlRF+tLI3xSBPRuWiTWuwbOz36yvp4rvGuS64XGJhECL8DR7JYjMKYnYuCDoVO5oYTAGCRi4Bs3sLYh5OtPKpw6g88d4lCWGJpEL/BdCAwZTr3BdyUwBAlVWbXPtlHMxnyfM2C/7RNOoWrfGnwfD1RkupKwBO67UWPr7qQ0jV4BvtpO0O3WhcSoBK4BBx3YWFFpS8ISaPT5pa7IeWAfoNjMNlUteydLoFP8l5yBZ4CmCFb6ekKXH11ZK0m2CylvpDywJjLmSG2qtKhZvqYXvthWXBcV/27bmDoPEUKyUG2UXeiJHImqBvjLNW5aQxC4C+zKLHQMOBfQSZFQyvRvfJpktJl81LZLhZDuv7pkh+QFcNxMjq1ejITVuxgYjJU6IPkrpR3padE3wCXgcuEOJSQ0pes8LEh54C/wDXgHKBs9jP3QliGTItE5+1R75upAoaGzaiESmjFp8ta452ZX8xTGIqAtRUIVW4OqQcBr0TEJVHYTkV5W9z00DQJtIiSru0Aga6IJK/wHfcbgMRjDP/oAAAAASUVORK5CYII=" alt="rocket-logo" width="30" height= "25" class="d-inline-block align-text-top">
+                        AstroMail
+                    </a>
+                    <!--Login Icon Dropdown-->
+                   <div class ="nav-item me-5 me-lg-2 dropdown">
+                        <a class="dropdown-toggle" href="#" id="navbarDropdown" type="button" aria-expanded="false">
+                           <box-icon name='user-circle'></box-icon>
+                           </a>
+                        <!--Dropdown menu-->
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" type="button">Your Profile</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Sign In</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Log Out</a>
+                            </li>
+                        </ul>
+                    </div> 
+                    <!--Collapsible hamburger menu for mobile screen-->
+                    <div class="hamburger">
+                        <div class="line"></div>
+                        <div class="line"></div>
+                        <div class="line"></div>
+                    </div>
+                    <!--Icons for tablet size screen-->
+                    <div class="col mobile-icons"> 
+                        <box-icon name='inbox'href='#' type='solid'></box-icon>
+                        <box-icon name='star' href='#'></box-icon>
+                        <box-icon name='paper-plane' href='#'></box-icon>
+                        <box-icon name='edit-alt' href='#'></box-icon>
+                        <box-icon name='trash' href='#'></box-icon>
+                        <box-icon name='x-circle' href='#'></box-icon>
+                    </div>
+                </div>
+            </nav>
+                <!--Left Side / First Column-->
+                <div class=" col-xl-2 vh-99 left-bar">
+                        <!--Compose Button-->
+                        <button type="button" class = "btn buttonC"> <box-icon type='solid' name='edit'></box-icon> Compose </button>
+                        <!--Group of Navigation buttons-->
+                        <li class="list-group-item mybutton"> <box-icon name='inbox'type='solid'></box-icon> Inbox</li>
+                        <li class="list-group-item mybutton"> <box-icon name='star'></box-icon> Starred</li> 
+                        <li class="list-group-item mybutton"> <box-icon name='paper-plane'></box-icon> Sent</li>
+                        <li class="list-group-item mybutton"> <box-icon name='edit-alt'></box-icon> Drafts</li>
+                        <li class="list-group-item mybutton"> <box-icon name='trash'></box-icon> Trash</li> 
+                        <li class="list-group-item mybutton"> <box-icon name='x-circle'></box-icon> Junk</li> 
+                </div>
+                    <!--List of Emails / Second Column-->
+                <div class="col-md-3 col-sm-0 h-85 email-list">
+                    <!--Searchbar-->
+                    <div class = "searchbar">
+                        <form class="d-flex" role="search">
+                            <input type= "search" class="form-control" placeholder="Search mail">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                    <!--Email 1-->
+                    <div class = "col emails">
+                        <div class = "card-body">
+                            <h5 class="card-title">Email Sender</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Email Subject</h6>
+                            <p class="card-text">Example email content from the sender</p>
+                            <a href ="#" class="card-link">Reply</a>
+                            <a href ="#" class="card-link">Forward</a>
+                        </div>
+                        <!--Email 2-->
+                        <div class = "card-body">
+                            <h5 class="card-title">Email Sender</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Email Subject</h6>
+                            <p class="card-text">Example email content from the sender</p>
+                            <a href ="#" class="card-link">Reply</a>
+                            <a href ="#" class="card-link">Forward</a>
+                        </div>
+                        <!--Email 3-->
+                        <div class = "card-body">
+                            <h5 class="card-title">Email Sender</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Email Subject</h6>
+                            <p class="card-text">Example email content from the sender</p>
+                            <a href ="#" class="card-link">Reply</a>
+                            <a href ="#" class="card-link">Forward</a>
+                        </div>
+                        <!--Email 4-->
+                        <div class = "card-body">
+                            <h5 class="card-title">Email Sender</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Email Subject</h6>
+                            <p class="card-text">Example email content from the sender</p>
+                            <a href ="#" class="card-link">Reply</a>
+                            <a href ="#" class="card-link">Forward</a>
+                        </div>
+                    </div>
+                </div><!--Email List-->
+                <!--Email Content and Response Box / Third Column-->
+                <div class="col-md-6 h-85 email-content">
+                    <div class="column">
+                        <h6>To: janedoe@quillpost.com</h6>
+                        <h6>From: johndoe@quillpost.com</h6>
+                        <h3><strong>Subject Line</strong></h6>
+                        <p class="lh-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat repudiandae deleniti harum odit recusandae cupiditate maxime totam, dolor nostrum omnis tenetur possimus soluta sint facere! Nihil libero, repudiandae tempora magnam voluptate unde alias facilis a, commodi adipisci deleniti nobis aliquid velit necessitatibus perspiciatis ducimus in consequatur minima. Laudantium reiciendis ullam blanditiis. Voluptatibus, obcaecati voluptate! Unde quae quam consectetur. Debitis at facere error? Culpa libero eveniet veritatis, fuga quia dolorem? Ut eveniet, dolor commodi, illum quod ullam sapiente voluptatem ipsam asperiores, dolore esse. Nam molestiae amet maxime recusandae, animi eum rerum asperiores similique soluta nihil quod laborum iste sequi consequuntur blanditiis illum? Asperiores laborum reprehenderit iste quas, consequuntur cupiditate sunt! Mollitia excepturi tempora nostrum incidunt. Id nobis ab sequi doloremque, veritatis quaerat, obcaecati dicta explicabo totam velit voluptate ut, deleniti esse sapiente modi non vero accusantium consectetur culpa! Voluptatibus deserunt minus consequuntur exercitationem fugiat maxime, excepturi nesciunt culpa fugit commodi aspernatur illum quasi dolorem sed sit, incidunt voluptas ratione beatae dicta et! Mollitia autem saepe fugit, nam quae eligendi! Porro amet ipsam dolorem? Amet quae ut provident facere libero cumque iure nihil perspiciatis. Voluptatum eveniet maiores ipsum enim nisi sit atque perspiciatis vitae. Non quaerat dolores facere aliquid nostrum dignissimos quisquam!</p>
+                        <textarea id="reply"></textarea>
+                        <button id="emailreply">Reply</button>
+                    </div>
+                </div>
+            </div><!--Three Containers-->
+            </div><!--column-->
+        </div> <!--row-->
+    </div> <!--container-->
+</div><!--Background-->
+</div><!--Fixed-->
+</body> 
+</html>
