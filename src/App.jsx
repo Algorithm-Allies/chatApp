@@ -1,11 +1,12 @@
 import { useState } from 'react'
-
+import SignIn from './pages/SignIn'
+import "./style.scss"
 
 function App() {
   
   return (
     <>
-      <div className='text-6xl bg-neutral-500'>hi</div>
+      <SignIn/>
     </>
   )
 }
