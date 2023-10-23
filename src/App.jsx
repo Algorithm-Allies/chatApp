@@ -1,13 +1,14 @@
-import { useState } from 'react'
-
+import { useState } from "react";
+import Login from "./pages/Login";
 
 function App() {
-  
   return (
     <>
-      <div className='text-6xl bg-neutral-500'>hi</div>
+      <div className="bg-black">
+        <Login />
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
