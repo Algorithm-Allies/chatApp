@@ -25,6 +25,7 @@ const SignIn = () => {
           <input type="text" value={email} onChange={handleEmailChange} />
           <span className="identifier">Password</span>
           <input type="password" value={password} onChange={handlePasswordChange} />
+          <button>Sign in </button>
         </form>
         <p>
           Don’t have an account? <a href="#" className="link">Sign up</a>
