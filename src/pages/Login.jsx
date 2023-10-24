@@ -3,40 +3,39 @@ import React from "react";
 function Login() {
   return (
     <div className="flex justify-center items-center h-screen">
-      <form className="flex flex-col items-center justify-evenly w-[820px] h-[700px] bg-zinc-900 rounded-[20px] shadow">
-        {/* <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col items-center h-4/6 w-6/12 bg-zinc-900"> */}
-        <h2 className="w-[190px] text-center text-zinc-100 text-5xl font-bold font-['Inter']">
-          Login
-        </h2>
+      <form className="flex flex-col items-center p-10 bg-zinc-900 rounded-xl shadow-lg w-10/12 max-w-xl">
+        <h2 className="text-3xl font-bold text-zinc-100 mb-8">Login</h2>
 
-        <div className="mb-4 flex flex-col items-center">
+        <div className="w-full mb-6">
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4 w-[610px] h-14"
+            className="w-full h-12 p-3 rounded border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             id="username"
             type="text"
             placeholder="Username"
           />
+        </div>
 
+        <div className="w-full mb-6">
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline w-[610px] h-14"
+            className="w-full h-12 p-3 rounded border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
             id="password"
             type="password"
             placeholder="Password"
           />
         </div>
-        <div className="flex flex-col items-center w-6/12">
-          <button
-            className="w-[400px] h-[72px] text-center text-black text-4xl font-bold font-['Inter'] bg-white rounded-3xl"
-            type="button"
-          >
-            Login
-          </button>
-          <div className="mt-4 flex flex-row w-full justify-center">
-            <p className="text-sm text-white">Don't have an account?</p>
-            <a href="#" className="text-blue-500 hover:underline">
-              <p className="text-sm">Sign up</p>
-            </a>
-          </div>
+
+        <button
+          className="w-6/12 h-10 bg-white hover:bg-gray-200 text-zinc-900 font-bold rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          type="button"
+        >
+          Login
+        </button>
+
+        <div className="mt-4 text-sm text-zinc-100 w-full sm:w-6/12 flex flex-row justify-evenly ">
+          <p>Don't have an account?</p>
+          <a href="#" className="text-blue-500 hover:underline">
+            Sign up
+          </a>
         </div>
       </form>
     </div>
