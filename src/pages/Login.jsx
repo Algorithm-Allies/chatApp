@@ -23,11 +23,14 @@ function Login() {
     <div className="flex justify-center items-center h-screen">
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col items-center justify-evenly p-10 bg-zinc-900 rounded-xl shadow-lg md:w-6/12 w-10/12 h-4/6"
+        className="flex flex-col items-center justify-evenly p-10 bg-zinc-800 rounded-xl shadow-lg md:w-6/12 w-10/12 h-4/6 "
       >
         <h2 className="text-3xl font-bold text-zinc-100 mb-8">Login</h2>
         <div className="flex flex-col w-full">
           <div className="w-full mb-6">
+            <div className="text-white">
+              <h5 className="text-white">Username</h5>
+            </div>
             <input
               className="w-full h-12 p-3 rounded border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
               id="username"
@@ -39,6 +42,15 @@ function Login() {
           </div>
 
           <div className="w-full mb-6">
+            <div className="flex flex-row w-full justify-between">
+              <h5 className="text-white">Password</h5>
+              <a
+                href="#"
+                className="text-blue-500 hover:underline ml-2 text-sm"
+              >
+                Forgot Password
+              </a>
+            </div>
             <input
               className="w-full h-12 p-3 rounded border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
               id="password"
