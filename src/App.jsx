@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Create from "./pages/Create";
 import ChatPage from "./pages/ChatPage";
-import "./pages/login.css";
+import "./styles/login.css";
 
 const App = () => {
   return (

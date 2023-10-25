@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import Data from "../Data/Data.json";
+import Channels from "./Channels";
+import DirectMessages from "./DirectMessages";
+
 function ArrowUp() {
   return (
     <svg
@@ -65,20 +67,7 @@ function SideBar() {
             {!channelArrowClick ? <ArrowDown /> : <ArrowUp />}
           </button>
         </div>
-        {channelArrowClick && (
-          <div className="text-white">
-            {Data.channels.map((channel) => {
-              return (
-                <div
-                  key={channel.id}
-                  className="text-white hover:bg-gray-800 cursor-pointer p-1"
-                >
-                  #{channel.name}
-                </div>
-              );
-            })}
-          </div>
-        )}
+        {channelArrowClick && <Channels />}
       </div>
       <div className="flex flex-col w-full mt-4">
         <div className="text-white flex flex-row w-full justify-between items-center mb-2">
@@ -90,27 +79,7 @@ function SideBar() {
             {!messageArrowClick ? <ArrowDown /> : <ArrowUp />}
           </button>
         </div>
-        {messageArrowClick && (
-          <div className="text-white">
-            {Data.users.map((user) => {
-              return (
-                <div
-                  key={user.id}
-                  className="text-white hover:bg-gray-800 cursor-pointer flex items-center p-1"
-                >
-                  <img
-                    src={user.profile_pic}
-                    alt={`${user.first_name} ${user.last_name}`}
-                    className="h-6 w-6 rounded-full mr-2"
-                  />
-                  <span>
-                    {user.first_name} {user.last_name}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        )}
+        {messageArrowClick && <DirectMessages />}
       </div>
     </div>
   );
