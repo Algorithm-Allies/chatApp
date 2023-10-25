@@ -1,6 +1,6 @@
 import React from "react";
 import Data from "../Data/Data.json";
-function DirectMessages() {
+function DirectMessages({ handleSelect }) {
   return (
     <div className="text-white">
       {Data.users.map((user) => {
@@ -8,6 +8,7 @@ function DirectMessages() {
           <div
             key={user.id}
             className="text-white hover:bg-gray-800 cursor-pointer flex items-center p-1"
+            onClick={() => handleSelect(user)}
           >
             <img
               src={user.profile_pic}
