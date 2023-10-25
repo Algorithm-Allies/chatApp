@@ -58,7 +58,10 @@ function SideBar() {
       <div className="flex flex-col w-full">
         <div className="text-white flex flex-row w-full justify-between items-center mb-2">
           <h3 className="text-lg">Channels</h3>
-          <button onClick={channelArrowChange}>
+          <button
+            onClick={channelArrowChange}
+            className="bg-gray-800 p-1 rounded"
+          >
             {!channelArrowClick ? <ArrowDown /> : <ArrowUp />}
           </button>
         </div>
@@ -68,7 +71,7 @@ function SideBar() {
               return (
                 <div
                   key={channel.id}
-                  className="text-white hover:text-gray-400 cursor-pointer"
+                  className="text-white hover:bg-gray-800 cursor-pointer p-1"
                 >
                   #{channel.name}
                 </div>
@@ -80,7 +83,10 @@ function SideBar() {
       <div className="flex flex-col w-full mt-4">
         <div className="text-white flex flex-row w-full justify-between items-center mb-2">
           <h3 className="text-lg">Direct Messages</h3>
-          <button onClick={messageArrowChange}>
+          <button
+            onClick={messageArrowChange}
+            className="bg-gray-800 p-1 rounded"
+          >
             {!messageArrowClick ? <ArrowDown /> : <ArrowUp />}
           </button>
         </div>
@@ -90,9 +96,16 @@ function SideBar() {
               return (
                 <div
                   key={user.id}
-                  className="text-white hover:text-gray-400 cursor-pointer"
+                  className="text-white hover:bg-gray-800 cursor-pointer flex items-center p-1"
                 >
-                  {user.first_name} {user.last_name}
+                  <img
+                    src={user.profile_pic}
+                    alt={`${user.first_name} ${user.last_name}`}
+                    className="h-6 w-6 rounded-full mr-2"
+                  />
+                  <span>
+                    {user.first_name} {user.last_name}
+                  </span>
                 </div>
               );
             })}
