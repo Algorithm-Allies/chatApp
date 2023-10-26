@@ -11,6 +11,18 @@ function Create() {
   const [validConfirmPassword, setValidConfirmPassword] = useState(false)
 
   useEffect(() => {
+    if (fullName.length > 0) {
+      setValidFullName(true)
+    } else {
+      setValidFullName(false)
+    }
+
+    if (username.length >= 8) {
+      setValidUsername(true)
+    } else {
+      setValidUsername(false)
+    }
+
     if (password.length >= 8) {
       setValidPassword(true)
       console.log('password is valid')
@@ -18,6 +30,7 @@ function Create() {
       console.log('password not at least 8 characters')
       setValidPassword(false)
     }
+
     if (password === confirmPassword && confirmPassword.length >= 8) {
       setValidConfirmPassword(true)
       console.log('they match and are both at least 8 characters')
@@ -25,7 +38,7 @@ function Create() {
       setValidConfirmPassword(false)
       console.log('they do not match or are both not at least 8 characters')
     }
-  }, [password, confirmPassword])
+  }, [password, confirmPassword, fullName, username])
 
 
   const handleInputChanges = (e) => {
@@ -72,6 +85,7 @@ function Create() {
               onChange={handleInputChanges}
               required
             />
+            {!validFullName && fullName !== '' ? <p>Full Name must not be empty.</p> : null}
           </div>
           <div className="form-group">
             <label htmlFor="username" className="form-label">
@@ -87,6 +101,7 @@ function Create() {
               onChange={handleInputChanges}
               required
             />
+            {!validUsername && username !== '' ? <p>Username must be at least 8 characters.</p> : null}
           </div>
           <div className="form-group">
             <label htmlFor="password" className="form-label">
