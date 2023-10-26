@@ -34,7 +34,7 @@ function Popup({ onClose }) {
   );
 }
 
-function UserProfileSettings({ userSettings }) {
+function UserProfileSettings() {
   const [showPopup, setShowPopup] = useState(false);
 
   const handleLogout = () => {

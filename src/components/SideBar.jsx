@@ -85,10 +85,6 @@ function SideBar() {
     console.log("adding direct messages");
   };
 
-  const userSettings = (user) => {
-    console.log(user);
-  };
-
   return (
     <div className="flex flex-col items-center h-screen bg-black w-64 overflow-y-scroll">
       <div className="text-white text-2xl font-bold mb-4 mt-4">Ripple</div>
@@ -128,7 +124,7 @@ function SideBar() {
           {messageArrowClick && <DirectMessages handleSelect={handleSelect} />}
         </div>
       </div>
-      <UserProfileSettings userSettings={userSettings} />
+      <UserProfileSettings />
     </div>
   );
 }
