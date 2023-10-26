@@ -1,0 +1,19 @@
+{
+  "channels": [
+    { "id": 1, "name": "general", "serverId": 1 },
+    { "id": 2, "name": "random", "serverId": 1 },
+    { "id": 3, "name": "help", "serverId": 2 },
+    { "id": 4, "name": "music", "serverId": 2 },
+    { "id": 5, "name": "gaming", "serverId": 3 },
+    { "id": 6, "name": "off-topic", "serverId": 3 },
+    { "id": 7, "name": "programming", "serverId": 4 },
+    { "id": 8, "name": "design", "serverId": 4 },
+    { "id": 9, "name": "testing", "serverId": 5 },
+    { "id": 10, "name": "development", "serverId": 5 },
+    { "id": 11, "name": "movies", "serverId": 6 },
+    { "id": 12, "name": "tv-shows", "serverId": 6 },
+    { "id": 13, "name": "books", "serverId": 7 },
+    { "id": 14, "name": "science", "serverId": 7 },
+    { "id": 15, "name": "art", "serverId": 8 }
+  ]
+}

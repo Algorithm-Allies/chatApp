@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         "primary-black": "#0F1011",
+        "primary-gray": "#A9AAAB",
         "login-gray": "#1B1D1F",
         "input-fill": "#212426",
       },
