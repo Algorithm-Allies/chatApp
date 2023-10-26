@@ -87,3 +87,7 @@
 .create-account-link:hover {
     text-decoration: underline;
 }
+
+.validation-error {
+    color: red;
+}
