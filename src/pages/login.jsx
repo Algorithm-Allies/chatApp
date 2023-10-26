@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleInputChanges = (e) => {
     if (e.target.id === "username") {
@@ -18,11 +19,12 @@ function Login() {
     console.log("Login clicked!");
     console.log("Username: ", username);
     console.log("Password: ", password);
+    navigate("/home");
   };
 
   return (
     <div className="login-page font-inter bg-primary-black text-white w-screen h-screen flex justify-center items-center">
-      <div className="login-container flex bg-login-gray content-center flex-col justify-center items-center w-9/12 h-3/5 rounded-lg">
+      <div className="login-container flex bg-login-gray content-center flex-col justify-center items-center w-9/12 h-3/5 sm:w-3/5 md:w-1/2 lg:max-w-md rounded-lg">
         <h1 className="title text-2xl font-bold tracking-wider">Eclipse</h1>
         <form onSubmit={handleSubmit} className="w-full mt-4">
           <div className="form-inputs flex flex-col justify-center items-center m-6 text-sm">
