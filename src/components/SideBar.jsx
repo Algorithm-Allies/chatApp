@@ -92,7 +92,7 @@ function SideBar() {
   return (
     <div className="flex flex-col items-center h-screen bg-black w-64 overflow-y-scroll">
       <div className="text-white text-2xl font-bold mb-4 mt-4">Ripple</div>
-      <div className="flex flex-col w-full h-full p-3">
+      <div className="flex flex-col w-full h-full p-3 mb-72">
         <div className="flex flex-col w-full">
           <div className="text-white flex flex-row w-full justify-between items-center mb-2">
             <div className="flex flex-row">
