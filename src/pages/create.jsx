@@ -25,7 +25,11 @@ function Create() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    if (validFullName && validUsername && validPassword && validConfirmPassword) {
+      alert('Sign up success!')
+    } else {
+      alert('Sign up fail!')
+    }
     console.log("create acount clicked!");
     console.log("fullName:", fullName);
     console.log("Username: ", username);
