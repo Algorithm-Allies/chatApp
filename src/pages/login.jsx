@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./login.css";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -22,48 +21,54 @@ function Login() {
   };
 
   return (
-    <div className="login-page">
-      <div className="login-container">
-        <h1 className="heading">Ripple</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="username" className="form-label">
-              Username
-            </label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              placeholder="Enter your username"
-              className="form-input"
-              value={username}
-              onChange={handleInputChanges}
-            />
+    <div className="login-page font-inter bg-primary-black text-white w-screen h-screen flex justify-center items-center">
+      <div className="login-container flex bg-login-gray content-center flex-col justify-center items-center w-9/12 h-3/5 rounded-lg">
+        <h1 className="title text-2xl font-bold tracking-wider">Eclipse</h1>
+        <form onSubmit={handleSubmit} className="w-full mt-4">
+          <div className="form-inputs flex flex-col justify-center items-center m-6 text-sm">
+            <div className="input w-full mb-5">
+              <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Email"
+                className="form-input  bg-input-fill rounded-2xl p-2 w-full "
+                value={username}
+                onChange={handleInputChanges}
+              />
+            </div>
+            <div className="input w-full mb-5">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                className="form-input bg-input-fill rounded-2xl p-2 w-full"
+                value={password}
+                onChange={handleInputChanges}
+              />
+            </div>
+            <div className="button mt-8 w-full flex justify-center">
+              <button
+                type="submit"
+                className="login-button text-black font-bold bg-slate-200 p-2 rounded-xl w-2/4"
+              >
+                LOGIN
+              </button>
+            </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="password" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter your password"
-              className="form-input"
-              value={password}
-              onChange={handleInputChanges}
-            />
-          </div>
-          <button type="submit" className="login-button">
-            Login
-          </button>
         </form>
-        <p className="login-create-account">
-          Don't have an account?
-          <Link to="/create-account" className="create-account-link">
-            Create an account
-          </Link>
-        </p>
+        <div className="mt-2">
+          <p className="login-create-account text-sm">
+            Don't have an account?
+            <Link
+              to="/create-account"
+              className="create-account-link ml-1 text-blue-600"
+            >
+              Sign up!
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
