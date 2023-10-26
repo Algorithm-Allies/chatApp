@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function Create() {
   const [fullName, setFullName] = useState("");
@@ -9,6 +9,23 @@ function Create() {
   const [validUsername, setValidUsername] = useState(false)
   const [validPassword, setValidPassword] = useState(false)
   const [validConfirmPassword, setValidConfirmPassword] = useState(false)
+
+  useEffect(() => {
+    if (password.length >= 8) {
+      setValidPassword(true)
+      console.log('password is valid')
+    } else {
+      console.log('password not at least 8 characters')
+      setValidPassword(false)
+    }
+    if (password === confirmPassword && confirmPassword.length >= 8) {
+      setValidConfirmPassword(true)
+      console.log('they match and are both at least 8 characters')
+    } else {
+      setValidConfirmPassword(false)
+      console.log('they do not match or are both not at least 8 characters')
+    }
+  }, [password, confirmPassword])
 
 
   const handleInputChanges = (e) => {
@@ -85,6 +102,7 @@ function Create() {
               onChange={handleInputChanges}
               required
             />
+            {!validPassword && password !== '' ? <p>Password must be at least 8 characters.</p> : null}
           </div>
           <div className="form-group">
             <label htmlFor="confirm-password" className="form-label">
@@ -100,6 +118,7 @@ function Create() {
               onChange={handleInputChanges}
               required
             />
+            {!validConfirmPassword && confirmPassword !== '' ? <p>Passwords must match.</p> : null}
           </div>
           <button type="submit" className="login-button">
             Create Account
