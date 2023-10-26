@@ -4,12 +4,20 @@ function Create() {
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [validFullName, setValidFullName] = useState(false)
+  const [validUsername, setValidUsername] = useState(false)
+  const [validPassword, setValidPassword] = useState(false)
+  const [validConfirmPassword, setValidConfirmPassword] = useState(false)
+
 
   const handleInputChanges = (e) => {
     if (e.target.id === "username") {
       setUsername(e.target.value);
     } else if (e.target.id === "password") {
       setPassword(e.target.value);
+    } else if (e.target.id === "confirm-password") {
+      setConfirmPassword(e.target.value)
     } else if (e.target.id === "fullname") {
       setFullName(e.target.value);
     }
@@ -17,6 +25,7 @@ function Create() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     console.log("create acount clicked!");
     console.log("fullName:", fullName);
     console.log("Username: ", username);
@@ -67,6 +76,20 @@ function Create() {
               placeholder="Enter your password"
               className="form-input"
               value={password}
+              onChange={handleInputChanges}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="confirm-password" className="form-label">
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirm-password"
+              placeholder="Confirm your password"
+              className="form-input"
+              value={confirmPassword}
               onChange={handleInputChanges}
             />
           </div>
