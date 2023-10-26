@@ -5,17 +5,34 @@ import "./login.css";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [validUsername, setValidUsername] = useState(false)
+  const [validPassword, setValidPassword] = useState(false)
 
   const handleInputChanges = (e) => {
     if (e.target.id === "username") {
       setUsername(e.target.value);
+      if (e.target.value.length >= 8) {
+        setValidUsername(true)
+      } else {
+        setValidUsername(false)
+      }
     } else if (e.target.id === "password") {
       setPassword(e.target.value);
+      if (e.target.value.length >= 8) {
+        setValidPassword(true)
+      } else {
+        setValidPassword(false)
+      }
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (validUsername && validPassword) {
+      alert('Login success!')
+    } else {
+      alert('Login fail!')
+    }
     console.log("Login clicked!");
     console.log("Username: ", username);
     console.log("Password: ", password);
@@ -39,6 +56,7 @@ function Login() {
               value={username}
               onChange={handleInputChanges}
             />
+            {!validUsername && username !== '' ? <p className="validation-error">Username must be at least 8 characters.</p> : null}
           </div>
           <div className="form-group">
             <label htmlFor="password" className="form-label">
@@ -53,6 +71,7 @@ function Login() {
               value={password}
               onChange={handleInputChanges}
             />
+            {!validPassword && password !== '' ? <p className="validation-error">Password must be at least 8 characters.</p> : null}
           </div>
           <button type="submit" className="login-button">
             Login
