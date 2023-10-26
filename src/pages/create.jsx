@@ -49,6 +49,7 @@ function Create() {
               className="form-input"
               value={fullName}
               onChange={handleInputChanges}
+              required
             />
           </div>
           <div className="form-group">
@@ -63,6 +64,7 @@ function Create() {
               className="form-input"
               value={username}
               onChange={handleInputChanges}
+              required
             />
           </div>
           <div className="form-group">
@@ -77,6 +79,7 @@ function Create() {
               className="form-input"
               value={password}
               onChange={handleInputChanges}
+              required
             />
           </div>
           <div className="form-group">
@@ -91,6 +94,7 @@ function Create() {
               className="form-input"
               value={confirmPassword}
               onChange={handleInputChanges}
+              required
             />
           </div>
           <button type="submit" className="login-button">
