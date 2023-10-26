@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Channels from "./Channels";
 import DirectMessages from "./DirectMessages";
+import UserProfileSettings from "./UserProfileSettings";
 
 function ArrowUp() {
   return (
@@ -83,43 +84,51 @@ function SideBar() {
   const handleAddDirectMessage = () => {
     console.log("adding direct messages");
   };
+
+  const userSettings = (user) => {
+    console.log(user);
+  };
+
   return (
-    <div className="flex flex-col items-center h-screen bg-black w-64 p-4 overflow-y-scroll">
-      <div className="text-white text-2xl font-bold mb-4">Ripple</div>
-      <div className="flex flex-col w-full">
-        <div className="text-white flex flex-row w-full justify-between items-center mb-2">
-          <div className="flex flex-row">
-            <button
-              onClick={channelArrowChange}
-              className="bg-gray-800 p-1 rounded"
-            >
-              {!channelArrowClick ? <ArrowDown /> : <ArrowUp />}
+    <div className="flex flex-col items-center h-screen bg-black w-64 overflow-y-scroll">
+      <div className="text-white text-2xl font-bold mb-4 mt-4">Ripple</div>
+      <div className="flex flex-col w-full h-full p-3">
+        <div className="flex flex-col w-full">
+          <div className="text-white flex flex-row w-full justify-between items-center mb-2">
+            <div className="flex flex-row">
+              <button
+                onClick={channelArrowChange}
+                className="bg-gray-800 p-1 rounded"
+              >
+                {!channelArrowClick ? <ArrowDown /> : <ArrowUp />}
+              </button>
+              <h3 className="text-lg ml-1">Channels</h3>
+            </div>
+            <button onClick={handleAddChannel}>
+              <AddChannel />
             </button>
-            <h3 className="text-lg ml-1">Channels</h3>
           </div>
-          <button onClick={handleAddChannel}>
-            <AddChannel />
-          </button>
+          {channelArrowClick && <Channels handleSelect={handleSelect} />}
         </div>
-        {channelArrowClick && <Channels handleSelect={handleSelect} />}
-      </div>
-      <div className="flex flex-col w-full mt-4">
-        <div className="text-white flex flex-row w-full justify-between items-center mb-2">
-          <div className="flex flex-row">
-            <button
-              onClick={messageArrowChange}
-              className="bg-gray-800 p-1 rounded"
-            >
-              {!messageArrowClick ? <ArrowDown /> : <ArrowUp />}
+        <div className="flex flex-col w-full mt-4">
+          <div className="text-white flex flex-row w-full justify-between items-center mb-2">
+            <div className="flex flex-row">
+              <button
+                onClick={messageArrowChange}
+                className="bg-gray-800 p-1 rounded"
+              >
+                {!messageArrowClick ? <ArrowDown /> : <ArrowUp />}
+              </button>
+              <h3 className="text-lg ml-1">Direct Messages</h3>
+            </div>
+            <button onClick={handleAddDirectMessage}>
+              <AddChannel />
             </button>
-            <h3 className="text-lg ml-1">Direct Messages</h3>
           </div>
-          <button onClick={handleAddDirectMessage}>
-            <AddChannel />
-          </button>
+          {messageArrowClick && <DirectMessages handleSelect={handleSelect} />}
         </div>
-        {messageArrowClick && <DirectMessages handleSelect={handleSelect} />}
       </div>
+      <UserProfileSettings userSettings={userSettings} />
     </div>
   );
 }
