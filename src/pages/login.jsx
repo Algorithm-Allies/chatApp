@@ -8,23 +8,23 @@ function Login() {
   const [validUsername, setValidUsername] = useState(false)
   const [validPassword, setValidPassword] = useState(false)
 
-  const handleInputChanges = (e) => {
-    if (e.target.id === "username") {
-      setUsername(e.target.value);
-      if (e.target.value.length >= 8) {
-        setValidUsername(true)
-      } else {
-        setValidUsername(false)
-      }
-    } else if (e.target.id === "password") {
-      setPassword(e.target.value);
-      if (e.target.value.length >= 8) {
-        setValidPassword(true)
-      } else {
-        setValidPassword(false)
-      }
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+    if (e.target.value.length >= 8) {
+      setValidUsername(true)
+    } else {
+      setValidUsername(false)
     }
-  };
+  }
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    if (e.target.value.length >= 8) {
+      setValidPassword(true)
+    } else {
+      setValidPassword(false)
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,7 +54,7 @@ function Login() {
               placeholder="Enter your username"
               className="form-input"
               value={username}
-              onChange={handleInputChanges}
+              onChange={handleUsernameChange}
             />
             {!validUsername && username !== '' ? <p className="validation-error">Username must be at least 8 characters.</p> : null}
           </div>
@@ -69,7 +69,7 @@ function Login() {
               placeholder="Enter your password"
               className="form-input"
               value={password}
-              onChange={handleInputChanges}
+              onChange={handlePasswordChange}
             />
             {!validPassword && password !== '' ? <p className="validation-error">Password must be at least 8 characters.</p> : null}
           </div>
