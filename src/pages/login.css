@@ -1,7 +1,7 @@
 /* Login.css */
-@import 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css';
+@import "https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css";
 
-.login-page {
+/* .login-page {
     background-image: url('../assets/img.png'); 
     background-size: cover;
     background-repeat: no-repeat;
@@ -90,4 +90,4 @@
 
 .validation-error {
     color: red;
-}
+} */
