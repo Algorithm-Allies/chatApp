@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Create() {
   const [fullName, setFullName] = useState("");
@@ -28,9 +29,9 @@ function Create() {
       className="bg-no-repeat bg-cover bg-center flex h-screen justify-center items-center"
       style={{ backgroundImage: `url('/img.jpg')` }}
     >
-      <div className="bg-white p-6 rounded-lg shadow-md w-96">
-        <h2 className="text-2xl font-semibold mb-4">Create Account</h2>
-        <form onSubmit={handleSubmit}>
+      <div className="bg-white p-6 rounded-lg shadow-md  sm:w-96 w-11/12 flex flex-col items-center">
+        <h2 className="text-2xl font-semibold mb-4">Ripple</h2>
+        <form className="flex flex-col w-full" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="fullname" className="text-gray-700 font-semibold">
               Full Name
@@ -40,7 +41,7 @@ function Create() {
               id="fullname"
               name="fullname"
               placeholder="Enter your full name"
-              className="w-full border rounded px-2 py-1 focus:border-blue-500"
+              className="w-full border rounded px-3 py-2 focus:border-blue-500"
               value={fullName}
               onChange={handleInputChanges}
             />
@@ -54,7 +55,7 @@ function Create() {
               id="username"
               name="username"
               placeholder="Enter your username"
-              className="w-full border rounded px-2 py-1 focus:border-blue-500"
+              className="w-full border rounded px-3 py-2 focus:border-blue-500"
               value={username}
               onChange={handleInputChanges}
             />
@@ -68,7 +69,7 @@ function Create() {
               id="password"
               name="password"
               placeholder="Enter your password"
-              className="w-full border rounded px-2 py-1 focus:border-blue-500"
+              className="w-full border rounded px-3 py-2 focus:border-blue-500"
               value={password}
               onChange={handleInputChanges}
             />
@@ -80,61 +81,14 @@ function Create() {
             Create Account
           </button>
         </form>
+        <p className="text-sm text-gray-700 mt-4">
+          Already have an account?{" "}
+          <Link to="/" className="text-blue-500 hover:text-blue-800">
+            Login
+          </Link>
+        </p>
       </div>
     </div>
-
-    //  <div className="login-page">
-    //     <div className="login-container">
-    //       <h2 className="login-title">Create Account</h2>
-    //       <form onSubmit={handleSubmit}>
-    //         <div className="form-group">
-    //           <label htmlFor="username" className="form-label">
-    //             Full Name
-    //           </label>
-    //           <input
-    //             type="text"
-    //             id="fullname"
-    //             name="fullname"
-    //             placeholder="Enter your full name"
-    //             className="form-input"
-    //             value={fullName}
-    //             onChange={handleInputChanges}
-    //           />
-    //         </div>
-    //         <div className="form-group">
-    //           <label htmlFor="username" className="form-label">
-    //             Username
-    //           </label>
-    //           <input
-    //             type="text"
-    //             id="username"
-    //             name="username"
-    //             placeholder="Enter your username"
-    //             className="form-input"
-    //             value={username}
-    //             onChange={handleInputChanges}
-    //           />
-    //         </div>
-    //         <div className="form-group">
-    //           <label htmlFor="password" className="form-label">
-    //             Password
-    //           </label>
-    //           <input
-    //             type="password"
-    //             id="password"
-    //             name="password"
-    //             placeholder="Enter your password"
-    //             className="form-input"
-    //             value={password}
-    //             onChange={handleInputChanges}
-    //           />
-    //         </div>
-    //         <button type="submit" className="login-button">
-    //           Create Account
-    //         </button>
-    //       </form>
-    //     </div>
-    //   </div>
   );
 }
 
