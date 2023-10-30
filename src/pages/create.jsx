@@ -1,45 +1,40 @@
 import React, { useEffect, useState } from "react";
+import zxcvbn from "zxcvbn"; // Password strength estimator library
 
 function Create() {
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [validFullName, setValidFullName] = useState(false)
-  const [validUsername, setValidUsername] = useState(false)
-  const [validPassword, setValidPassword] = useState(false)
-  const [validConfirmPassword, setValidConfirmPassword] = useState(false)
+  const [validFullName, setValidFullName] = useState(false);
+  const [validUsername, setValidUsername] = useState(false);
+  const [validPassword, setValidPassword] = useState(false);
+  const [validConfirmPassword, setValidConfirmPassword] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState(0);
 
   useEffect(() => {
     if (fullName.length > 0) {
-      setValidFullName(true)
+      setValidFullName(true);
     } else {
-      setValidFullName(false)
+      setValidFullName(false);
     }
 
     if (username.length >= 8) {
-      setValidUsername(true)
+      setValidUsername(true);
     } else {
-      setValidUsername(false)
+      setValidUsername(false);
     }
 
-    if (password.length >= 8) {
-      setValidPassword(true)
-      console.log('password is valid')
-    } else {
-      console.log('password not at least 8 characters')
-      setValidPassword(false)
-    }
+    // Password strength estimation using zxcvbn
+    const passwordResult = zxcvbn(password);
+    setPasswordStrength(passwordResult.score);
 
-    if (password === confirmPassword && confirmPassword.length >= 8) {
-      setValidConfirmPassword(true)
-      console.log('they match and are both at least 8 characters')
+    if (password.length >= 8 && password === confirmPassword) {
+      setValidConfirmPassword(true);
     } else {
-      setValidConfirmPassword(false)
-      console.log('they do not match or are both not at least 8 characters')
+      setValidConfirmPassword(false);
     }
-  }, [password, confirmPassword, fullName, username])
-
+  }, [password, confirmPassword, fullName, username]);
 
   const handleInputChanges = (e) => {
     if (e.target.id === "username") {
@@ -47,7 +42,7 @@ function Create() {
     } else if (e.target.id === "password") {
       setPassword(e.target.value);
     } else if (e.target.id === "confirm-password") {
-      setConfirmPassword(e.target.value)
+      setConfirmPassword(e.target.value);
     } else if (e.target.id === "fullname") {
       setFullName(e.target.value);
     }
@@ -55,10 +50,15 @@ function Create() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validFullName && validUsername && validPassword && validConfirmPassword) {
-      alert('Sign up success!')
+    if (
+      validFullName &&
+      validUsername &&
+      validPassword &&
+      validConfirmPassword
+    ) {
+      alert("Sign up success!");
     } else {
-      alert('Sign up fail!')
+      alert("Sign up fail!");
     }
     console.log("create acount clicked!");
     console.log("fullName:", fullName);
@@ -69,7 +69,7 @@ function Create() {
   return (
     <div className="login-page">
       <div className="login-container">
-        <h2 className="login-title">Create Account</h2>
+        <h1 className="heading">Ripple</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username" className="form-label">
@@ -85,7 +85,9 @@ function Create() {
               onChange={handleInputChanges}
               required
             />
-            {!validFullName && fullName !== '' ? <p>Full Name must not be empty.</p> : null}
+            {!validFullName && fullName !== "" ? (
+              <p>Full Name must not be empty.</p>
+            ) : null}
           </div>
           <div className="form-group">
             <label htmlFor="username" className="form-label">
@@ -101,7 +103,9 @@ function Create() {
               onChange={handleInputChanges}
               required
             />
-            {!validUsername && username !== '' ? <p>Username must be at least 8 characters.</p> : null}
+            {!validUsername && username !== "" ? (
+              <p>Username must be at least 8 characters.</p>
+            ) : null}
           </div>
           <div className="form-group">
             <label htmlFor="password" className="form-label">
@@ -117,7 +121,10 @@ function Create() {
               onChange={handleInputChanges}
               required
             />
-            {!validPassword && password !== '' ? <p>Password must be at least 8 characters.</p> : null}
+
+            <p className="text-sm mt-1">
+              Password strength: {passwordStrength}/4
+            </p>
           </div>
           <div className="form-group">
             <label htmlFor="confirm-password" className="form-label">
@@ -133,7 +140,9 @@ function Create() {
               onChange={handleInputChanges}
               required
             />
-            {!validConfirmPassword && confirmPassword !== '' ? <p>Passwords must match.</p> : null}
+            {!validConfirmPassword && confirmPassword !== "" ? (
+              <p>Passwords must match.</p>
+            ) : null}
           </div>
           <button type="submit" className="login-button">
             Create Account
