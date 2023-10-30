@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import background from "../assets/img.png";
+
 function Create() {
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
@@ -26,7 +26,7 @@ function Create() {
   return (
     <div
       className="bg-no-repeat bg-cover bg-center flex h-screen justify-center items-center"
-      style={{ backgroundImage: `url('/assets/img.png')` }}
+      style={{ backgroundImage: `url('/img.jpg')` }}
     >
       <div className="bg-white p-6 rounded-lg shadow-md w-96">
         <h2 className="text-2xl font-semibold mb-4">Create Account</h2>

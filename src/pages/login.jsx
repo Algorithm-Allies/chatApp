@@ -40,10 +40,10 @@ function Login() {
 
   return (
     <div
-      className="bg-cover bg-no-repeat bg-center flex h-screen justify-center items-center"
-      // style={{ backgroundImage: "url('../assets/img.png')" }}
+      className=" bg-cover bg-no-repeat bg-center flex h-screen justify-center items-center "
+      style={{ backgroundImage: `url('/img.jpg')` }}
     >
-      <div className="bg-white p-6 rounded-lg shadow-md w-56 sm:w-72">
+      <div className="bg-white p-6 rounded-lg shadow-md w-56 sm:w-72 flex flex-col ">
         <h2 className="text-lg sm:text-xl font-semibold mb-4">Ripple</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

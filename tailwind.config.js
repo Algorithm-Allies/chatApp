@@ -4,7 +4,14 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        main: "url('../src/assets/img.png')",
+        main: "url('/img.jpg')",
+        turg: "#264653",
+      },
+      colors: {
+        turg: "#264653",
+      },
+      backgroundColor: {
+        turg: "#2a9d8f",
       },
     },
   },
