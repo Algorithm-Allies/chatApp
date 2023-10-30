@@ -29,10 +29,12 @@ function Create() {
     const passwordResult = zxcvbn(password);
     setPasswordStrength(passwordResult.score);
 
-    if (password.length >= 8 && password === confirmPassword) {
-      setValidConfirmPassword(true);
+    if (passwordStrength > 2 && password === confirmPassword) {
+      setValidPassword(true);
+      setValidConfirmPassword(true)
     } else {
-      setValidConfirmPassword(false);
+      setValidPassword(false);
+      setValidConfirmPassword(false)
     }
   }, [password, confirmPassword, fullName, username]);
 
@@ -60,6 +62,11 @@ function Create() {
     } else {
       alert("Sign up fail!");
     }
+    console.log("validFullName:", validFullName);
+    console.log("validUsername:", validUsername);
+    console.log("validPassword:", validPassword);
+    console.log("validConfirmPassword:", validConfirmPassword);
+
     console.log("create acount clicked!");
     console.log("fullName:", fullName);
     console.log("Username: ", username);
