@@ -36,7 +36,6 @@ function Login() {
     console.log("Username: ", username);
     console.log("Password: ", password);
   };
-
   return (
     <div
       className=" bg-cover bg-no-repeat bg-center flex h-screen justify-center items-center "
