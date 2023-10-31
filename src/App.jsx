@@ -1,17 +1,8 @@
-<<<<<<< HEAD
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
-import Login from './pages/Login'; 
-import Create from './pages/Create';
-
-import './index.css'
-=======
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
-import Create from "./pages/Create";
-import "./pages/login.css";
->>>>>>> fa3f56e (save)
+import Create from "./pages/create";
+import "./index.css";
 
 const App = () => {
   return (
