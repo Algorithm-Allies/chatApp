@@ -1,43 +1,45 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import "./login.css";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [validUsername, setValidUsername] = useState(false);
-  const [validPassword, setValidPassword] = useState(false);
+  const [validUsername, setValidUsername] = useState(false)
+  const [validPassword, setValidPassword] = useState(false)
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
     if (e.target.value.length >= 8) {
-      setValidUsername(true);
+      setValidUsername(true)
     } else {
-      setValidUsername(false);
+      setValidUsername(false)
     }
-  };
+  }
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
     if (e.target.value.length >= 8) {
-      setValidPassword(true);
+      setValidPassword(true)
     } else {
-      setValidPassword(false);
+      setValidPassword(false)
     }
-  };
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validUsername && validPassword) {
-      alert("Login success!");
+      alert('Login success!')
     } else {
-      alert("Login fail!");
+      alert('Login fail!')
     }
     console.log("Login clicked!");
     console.log("Username: ", username);
     console.log("Password: ", password);
   };
-
+  
   return (
+
     <div
       className=" bg-cover bg-no-repeat bg-center flex h-screen justify-center items-center"
       style={{ backgroundImage: `url('/img.jpg')` }}
@@ -50,6 +52,7 @@ function Login() {
               htmlFor="username"
               className="text-gray-700 font-semibold block mb-2"
             >
+
               Username
             </label>
             <input
@@ -57,21 +60,14 @@ function Login() {
               id="username"
               name="username"
               placeholder="Enter your username"
-              className="w-full border rounded px-3 py-2 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="form-input"
               value={username}
               onChange={handleUsernameChange}
             />
-            {!validUsername && username !== "" && (
-              <p className="text-red-500 text-xs italic">
-                Username must be at least 8 characters.
-              </p>
-            )}
+            {!validUsername && username !== '' ? <p className="validation-error">Username must be at least 8 characters.</p> : null}
           </div>
-          <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="text-gray-700 font-semibold block mb-2"
-            >
+          <div className="form-group">
+            <label htmlFor="password" className="form-label">
               Password
             </label>
             <input
@@ -79,30 +75,20 @@ function Login() {
               id="password"
               name="password"
               placeholder="Enter your password"
-              className="w-full border rounded px-3 py-2 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="form-input"
               value={password}
               onChange={handlePasswordChange}
             />
-            {!validPassword && password !== "" && (
-              <p className="text-red-500 text-xs italic">
-                Password must be at least 8 characters.
-              </p>
-            )}
+            {!validPassword && password !== '' ? <p className="validation-error">Password must be at least 8 characters.</p> : null}
           </div>
-          <button
-            type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
+          <button type="submit" className="login-button">
             Login
           </button>
         </form>
-        <p className="text-sm text-gray-700 mt-4">
-          Don't have an account?{" "}
-          <Link
-            to="/create-account"
-            className="text-blue-500 hover:text-blue-800"
-          >
-            Create Account
+        <p className="login-create-account">
+          Don't have an account?
+          <Link to="/create-account" className="create-account-link">
+            Create an account
           </Link>
         </p>
       </div>
