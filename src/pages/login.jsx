@@ -39,20 +39,12 @@ function Login() {
   };
   
   return (
-
-    <div
-      className=" bg-cover bg-no-repeat bg-center flex h-screen justify-center items-center"
-      style={{ backgroundImage: `url('/img.jpg')` }}
-    >
-      <div className="bg-white p-6 rounded-lg shadow-md sm:w-96 w-11/12 flex flex-col items-center">
-        <h2 className="text-lg sm:text-xl font-semibold mb-4">Ripple</h2>
-        <form className="flex flex-col w-full" onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label
-              htmlFor="username"
-              className="text-gray-700 font-semibold block mb-2"
-            >
-
+    <div className="login-page">
+      <div className="login-container">
+        <h1 className="heading">Ripple</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="username" className="form-label">
               Username
             </label>
             <input
