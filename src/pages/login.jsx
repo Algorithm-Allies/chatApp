@@ -1,33 +1,57 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+
 import "../styles/login.css";
+
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [validUsername, setValidUsername] = useState(false);
+  const [validPassword, setValidPassword] = useState(false);
 
-  const handleInputChanges = (e) => {
-    if (e.target.id === "username") {
-      setUsername(e.target.value);
-    } else if (e.target.id === "password") {
-      setPassword(e.target.value);
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+    if (e.target.value.length >= 8) {
+      setValidUsername(true);
+    } else {
+      setValidUsername(false);
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    if (e.target.value.length >= 8) {
+      setValidPassword(true);
+    } else {
+      setValidPassword(false);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (validUsername && validPassword) {
+      alert("Login success!");
+    } else {
+      alert("Login fail!");
+    }
     console.log("Login clicked!");
     console.log("Username: ", username);
     console.log("Password: ", password);
   };
-  
   return (
-    <div className="login-page">
-      <div className="login-container">
-        <h1 className="heading">Ripple</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="username" className="form-label">
+    <div
+      className=" bg-cover bg-no-repeat bg-center flex h-screen justify-center items-center "
+      style={{ backgroundImage: `url('/img.jpg')` }}
+    >
+      <div className="bg-white p-6 rounded-lg shadow-md sm:w-96 w-11/12 flex flex-col items-center">
+        <h2 className="text-lg sm:text-xl font-semibold mb-4">Ripple</h2>
+        <form className="flex flex-col w-full" onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label
+              htmlFor="username"
+              className="text-gray-700 font-semibold block mb-2"
+            >
               Username
             </label>
             <input
@@ -35,13 +59,21 @@ function Login() {
               id="username"
               name="username"
               placeholder="Enter your username"
-              className="form-input"
+              className="w-full border rounded px-3 py-2 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={username}
-              onChange={handleInputChanges}
+              onChange={handleUsernameChange}
             />
+            {!validUsername && username !== "" && (
+              <p className="text-red-500 text-xs italic">
+                Username must be at least 8 characters.
+              </p>
+            )}
           </div>
-          <div className="form-group">
-            <label htmlFor="password" className="form-label">
+          <div className="mb-6">
+            <label
+              htmlFor="password"
+              className="text-gray-700 font-semibold block mb-2"
+            >
               Password
             </label>
             <input
@@ -49,19 +81,30 @@ function Login() {
               id="password"
               name="password"
               placeholder="Enter your password"
-              className="form-input"
+              className="w-full border rounded px-3 py-2 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={password}
-              onChange={handleInputChanges}
+              onChange={handlePasswordChange}
             />
+            {!validPassword && password !== "" && (
+              <p className="text-red-500 text-xs italic">
+                Password must be at least 8 characters.
+              </p>
+            )}
           </div>
-          <button type="submit" className="login-button">
+          <button
+            type="submit"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
             Login
           </button>
         </form>
-        <p className="login-create-account">
-          Don't have an account?
-          <Link to="/create-account" className="create-account-link">
-            Create an account
+        <p className="text-sm text-gray-700 mt-4">
+          Don't have an account?{" "}
+          <Link
+            to="/create-account"
+            className="text-blue-500 hover:text-blue-800"
+          >
+            Create Account
           </Link>
         </p>
       </div>
