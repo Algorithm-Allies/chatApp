@@ -182,6 +182,12 @@
           "sender": 13,
           "timestamp": "today",
           "content": "Mia says hello as well."
+        },
+        {
+          "id": 6,
+          "sender": 12,
+          "timestamp": "today",
+          "content": "James is here too!"
         }
       ]
     },
