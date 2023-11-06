@@ -6,7 +6,9 @@ export default {
   theme: {
     extend: {
       colors:
-      {}
+      {
+        'chazz': '#1B1D1F'
+      }
     },
   },
   plugins: [],

@@ -184,6 +184,100 @@
           "content": "Mia says hello as well."
         }
       ]
+    },
+    "2": {
+      "id": 2,
+      "name": "Random",
+      "serverId": 1,
+      "users": [1, 2],
+      "messages": [
+        {
+          "id": 1,
+          "sender": 1,
+          "timestamp": "today",
+          "content": "THIS IS RANDOM CHANNEL"
+        },
+        { "id": 2, "sender": 2, "timestamp": "today", "content": "Hi there!" },
+        {
+          "id": 3,
+          "sender": 11,
+          "timestamp": "today",
+          "content": "This is Sophia's message."
+        },
+        {
+          "id": 4,
+          "sender": 12,
+          "timestamp": "today",
+          "content": "James is here too!"
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        }
+      ]
     }
+    
   }
 }

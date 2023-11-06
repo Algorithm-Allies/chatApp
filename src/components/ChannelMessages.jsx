@@ -4,14 +4,15 @@ import RestructuredData from "../Data/RestructuredData.json";
 
 const ChannelMessages = () => {
   
-  const messages = RestructuredData.channels[1].messages;
+  const channelId = 1;
+  const messages = RestructuredData.channels[channelId].messages;
   const users = RestructuredData.users
 
   return (
     <div className="bg-gray-400 flex flex-col h-full p-4">
       <div className="text-5xl border-b border-gray-700 pb-4 flex items-centerjustify-center">
         <div>#</div>
-        <div>general</div>
+        <div>{RestructuredData.channels[channelId].name}</div>
       </div>
 
       <br />
