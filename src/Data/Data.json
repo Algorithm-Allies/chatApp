@@ -92,7 +92,40 @@
     }
   ],
   "channels": [
-    { "id": 1, "name": "general", "serverId": 1 },
+    {
+      "id": 1,
+      "name": "general",
+      "serverId": 1,
+      "users": [1, 2],
+      "messages": [
+        {
+          "id": 1,
+          "sender": 1,
+          "timestamp": "today",
+          "content": "Hello, everyone!"
+        },
+        { "id": 2, "sender": 2, "timestamp": "today", "content": "Hi there!" },
+
+        {
+          "id": 3,
+          "sender": 11,
+          "timestamp": "today",
+          "content": "This is Sophia's message."
+        },
+        {
+          "id": 4,
+          "sender": 12,
+          "timestamp": "today",
+          "content": "James is here too!"
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        }
+      ]
+    },
     { "id": 2, "name": "random", "serverId": 1 },
     { "id": 3, "name": "help", "serverId": 2 },
     { "id": 4, "name": "music", "serverId": 2 },

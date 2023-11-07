@@ -1,4 +1,8 @@
+
 import React, { useEffect, useState } from "react";
+
+import { Link } from "react-router-dom";
+
 
 function Create() {
   const [fullName, setFullName] = useState("");
@@ -67,12 +71,15 @@ function Create() {
   };
 
   return (
-    <div className="login-page">
-      <div className="login-container">
-        <h2 className="login-title">Create Account</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="username" className="form-label">
+    <div
+      className="bg-no-repeat bg-cover bg-center flex h-screen justify-center items-center"
+      style={{ backgroundImage: `url('/img.jpg')` }}
+    >
+      <div className="bg-white p-6 rounded-lg shadow-md  sm:w-96 w-11/12 flex flex-col items-center">
+        <h2 className="text-2xl font-semibold mb-4">Ripple</h2>
+        <form className="flex flex-col w-full" onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label htmlFor="fullname" className="text-gray-700 font-semibold">
               Full Name
             </label>
             <input
@@ -80,15 +87,15 @@ function Create() {
               id="fullname"
               name="fullname"
               placeholder="Enter your full name"
-              className="form-input"
+              className="w-full border rounded px-3 py-2 focus:border-blue-500"
               value={fullName}
               onChange={handleInputChanges}
               required
             />
             {!validFullName && fullName !== '' ? <p>Full Name must not be empty.</p> : null}
           </div>
-          <div className="form-group">
-            <label htmlFor="username" className="form-label">
+          <div className="mb-4">
+            <label htmlFor="username" className="text-gray-700 font-semibold">
               Username
             </label>
             <input
@@ -96,15 +103,15 @@ function Create() {
               id="username"
               name="username"
               placeholder="Enter your username"
-              className="form-input"
+              className="w-full border rounded px-3 py-2 focus:border-blue-500"
               value={username}
               onChange={handleInputChanges}
               required
             />
             {!validUsername && username !== '' ? <p>Username must be at least 8 characters.</p> : null}
           </div>
-          <div className="form-group">
-            <label htmlFor="password" className="form-label">
+          <div className="mb-6">
+            <label htmlFor="password" className="text-gray-700 font-semibold">
               Password
             </label>
             <input
@@ -112,7 +119,7 @@ function Create() {
               id="password"
               name="password"
               placeholder="Enter your password"
-              className="form-input"
+              className="w-full border rounded px-3 py-2 focus:border-blue-500"
               value={password}
               onChange={handleInputChanges}
               required
@@ -135,10 +142,19 @@ function Create() {
             />
             {!validConfirmPassword && confirmPassword !== '' ? <p>Passwords must match.</p> : null}
           </div>
-          <button type="submit" className="login-button">
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white font-semibold py-2 rounded hover:bg-blue-600 focus:outline-none"
+          >
             Create Account
           </button>
         </form>
+        <p className="text-sm text-gray-700 mt-4">
+          Already have an account?{" "}
+          <Link to="/" className="text-blue-500 hover:text-blue-800">
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );
