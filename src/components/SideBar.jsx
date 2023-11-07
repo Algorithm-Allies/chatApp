@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import Channels from "./Channels";
 import DirectMessages from "./DirectMessages";
 import UserProfileSettings from "./UserProfileSettings";
+import { Menu, Item, Separator, Submenu, useContextMenu } from 'react-contexify';
+import 'react-contexify/ReactContexify.css';
+
+const MENU_ID = 'blahblah';
 
 function ArrowUp() {
   return (
@@ -80,10 +84,27 @@ function SideBar() {
 
   const handleAddChannel = () => {
     console.log("adding channel");
+    displayMenu()
   };
   const handleAddDirectMessage = () => {
     console.log("adding direct messages");
   };
+
+  const { show } = useContextMenu({
+    id: MENU_ID
+  });
+
+  function handleItemClick({ event, props, triggerEvent, data }) {
+    console.log(event, props, triggerEvent, data);
+  }
+
+  function displayMenu(e) {
+    show({
+      event: e,
+    });
+  }
+
+
 
   return (
     <div className="flex flex-col items-center h-screen bg-black w-64 overflow-y-scroll">
@@ -100,9 +121,17 @@ function SideBar() {
               </button>
               <h3 className="text-lg ml-1">Channels</h3>
             </div>
-            <button onClick={handleAddChannel}>
+            <button onClick={displayMenu}>
               <AddChannel />
             </button>
+            <Menu id={MENU_ID}>
+              <Item onClick={handleItemClick}>
+                Create Channel
+              </Item>
+              <Item onClick={handleItemClick}>
+                Join Channel
+              </Item>
+            </Menu>
           </div>
           {channelArrowClick && <Channels handleSelect={handleSelect} />}
         </div>
