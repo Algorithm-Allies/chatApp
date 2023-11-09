@@ -2,6 +2,7 @@ import React from "react";
 import SideBar from "../components/SideBar";
 import TextBox from "../components/TextBox";
 import ChannelMessages from "../components/channelMessages";
+//Chat page
 function ChatPage() {
   return (
     <div className="flex flex-row h-full">
