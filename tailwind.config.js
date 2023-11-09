@@ -4,7 +4,12 @@ export default {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors:
+      {
+        'chazz': '#1B1D1F'
+      }
+    },
   },
   plugins: [],
 }
