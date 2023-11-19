@@ -1,84 +1,69 @@
-
 import React, { useEffect, useState } from "react";
 import zxcvbn from "zxcvbn"; // Password strength estimator library
 
 import { Link } from "react-router-dom";
 
-
 function Create() {
-  const [fullName, setFullName] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [validFullName, setValidFullName] = useState(false);
-  const [validUsername, setValidUsername] = useState(false);
-  const [validPassword, setValidPassword] = useState(false);
-  const [validConfirmPassword, setValidConfirmPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+  });
   const [passwordStrength, setPasswordStrength] = useState(0);
 
   useEffect(() => {
-    if (fullName.length > 0) {
-      setValidFullName(true);
-    } else {
-      setValidFullName(false);
-    }
-
-    if (username.length >= 8) {
-      setValidUsername(true);
-    } else {
-      setValidUsername(false);
-    }
-
     // Password strength estimation using zxcvbn
-    const passwordResult = zxcvbn(password);
+    const passwordResult = zxcvbn(formData.password);
     setPasswordStrength(passwordResult.score);
+  }, [formData.password]);
 
-    if (passwordStrength > 2 && password === confirmPassword) {
-      setValidPassword(true);
-      setValidConfirmPassword(true)
-    } else {
-      setValidPassword(false);
-      setValidConfirmPassword(false)
-    }
-  }, [password, confirmPassword, fullName, username]);
-
+  // Handle input changes
   const handleInputChanges = (e) => {
-    if (e.target.id === "username") {
-      setUsername(e.target.value);
-    } else if (e.target.id === "password") {
-      setPassword(e.target.value);
-    } else if (e.target.id === "confirm-password") {
-      setConfirmPassword(e.target.value);
-    } else if (e.target.id === "fullname") {
-      setFullName(e.target.value);
-    }
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (
-      validFullName &&
-      validUsername &&
-      validPassword &&
-      validConfirmPassword
-    ) {
-      alert("Sign up success!");
-    } else {
-      alert("Sign up fail!");
-    }
-    console.log("validFullName:", validFullName);
-    console.log("validUsername:", validUsername);
-    console.log("validPassword:", validPassword);
-    console.log("validConfirmPassword:", validConfirmPassword);
 
-    console.log("create acount clicked!");
-    console.log("fullName:", fullName);
-    console.log("Username: ", username);
-    console.log("Password: ", password);
+    // Destructure values from formData
+    const { fullName, username, password, confirmPassword } = formData;
+
+    // Perform validation checks
+    if (fullName.trim() === "") {
+      alert("Full Name must not be empty.");
+      return;
+    }
+
+    if (username.length < 8) {
+      alert("Username must be at least 8 characters.");
+      return;
+    }
+
+    // Password strength estimation
+    const passwordResult = zxcvbn(password);
+    const passwordStrength = passwordResult.score;
+
+    if (passwordStrength <= 2) {
+      alert("Password is weak. Please use a stronger password.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+
+    // If all validations pass, proceed with form submission
+    alert("Sign up success!");
+    console.log("formData:", formData);
   };
 
   return (
-
     <div
       className="bg-no-repeat bg-cover bg-center flex h-screen justify-center items-center"
       style={{ backgroundImage: `url('/img.jpg')` }}
@@ -87,21 +72,21 @@ function Create() {
         <h2 className="text-2xl font-semibold mb-4">Ripple</h2>
         <form className="flex flex-col w-full" onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="fullname" className="text-gray-700 font-semibold">
+            <label htmlFor="fullName" className="text-gray-700 font-semibold">
               Full Name
             </label>
             <input
               type="text"
-              id="fullname"
-              name="fullname"
+              id="fullName"
+              name="fullName"
               placeholder="Enter your full name"
               className="w-full border rounded px-3 py-2 focus:border-blue-500"
-              value={fullName}
+              value={formData.fullName}
               onChange={handleInputChanges}
               required
             />
-            {!validFullName && fullName !== "" ? (
-              <p>Full Name must not be empty.</p>
+            {!formData.fullName && formData.fullName !== "" ? (
+              <p className="text-red-500">Full Name must not be empty.</p>
             ) : null}
           </div>
           <div className="mb-4">
@@ -114,12 +99,14 @@ function Create() {
               name="username"
               placeholder="Enter your username"
               className="w-full border rounded px-3 py-2 focus:border-blue-500"
-              value={username}
+              value={formData.username}
               onChange={handleInputChanges}
               required
             />
-            {!validUsername && username !== "" ? (
-              <p>Username must be at least 8 characters.</p>
+            {formData.username.length < 8 && formData.username !== "" ? (
+              <p className="text-red-500">
+                Username must be at least 8 characters.
+              </p>
             ) : null}
           </div>
           <div className="mb-6">
@@ -132,7 +119,7 @@ function Create() {
               name="password"
               placeholder="Enter your password"
               className="w-full border rounded px-3 py-2 focus:border-blue-500"
-              value={password}
+              value={formData.password}
               onChange={handleInputChanges}
               required
             />
@@ -148,16 +135,17 @@ function Create() {
             <input
               type="password"
               id="confirm-password"
-              name="confirm-password"
+              name="confirmPassword"
               placeholder="Confirm your password"
               className="form-input"
-              value={confirmPassword}
+              value={formData.confirmPassword}
               onChange={handleInputChanges}
               required
             />
-            {!validConfirmPassword && confirmPassword !== "" ? (
-              <p>Passwords must match.</p>
-            ) : null}
+            {formData.confirmPassword !== "" &&
+              formData.password !== formData.confirmPassword && (
+                <p className="text-red-500">Passwords must match.</p>
+              )}
           </div>
           <button
             type="submit"
