@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 
 function Create() {
   const [formData, setFormData] = useState({
-    fullName: "",
+    firstName: "",
+    lastName: "",
     username: "",
     password: "",
     confirmPassword: "",
@@ -31,11 +32,16 @@ function Create() {
     e.preventDefault();
 
     // Destructure values from formData
-    const { fullName, username, password, confirmPassword } = formData;
+    const { firstName, lastName, username, password, confirmPassword } = formData;
 
     // Perform validation checks
-    if (fullName.trim() === "") {
-      alert("Full Name must not be empty.");
+    if (firstName.trim() === "") {
+      alert("First Name must not be empty.");
+      return;
+    }
+
+    if (lastName.trim() === "") {
+      alert("Last Name must not be empty.");
       return;
     }
 
