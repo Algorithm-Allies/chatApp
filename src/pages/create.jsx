@@ -77,7 +77,7 @@ function Create() {
       <div className="bg-white p-6 rounded-lg shadow-md  sm:w-96 w-11/12 flex flex-col items-center">
         <h2 className="text-2xl font-semibold mb-4">Ripple</h2>
         <form className="flex flex-col w-full" onSubmit={handleSubmit}>
-          <div className="mb-4 border flex">
+          <div className="mb-4 flex">
             <div className="w-1/2">
             <label htmlFor="firstName" className="text-gray-700 font-semibold">
               First Name
