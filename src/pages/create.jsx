@@ -77,7 +77,8 @@ function Create() {
       <div className="bg-white p-6 rounded-lg shadow-md  sm:w-96 w-11/12 flex flex-col items-center">
         <h2 className="text-2xl font-semibold mb-4">Ripple</h2>
         <form className="flex flex-col w-full" onSubmit={handleSubmit}>
-          <div className="mb-4">
+          <div className="mb-4 border flex">
+            <div className="w-1/2">
             <label htmlFor="fullName" className="text-gray-700 font-semibold">
               Full Name
             </label>
@@ -94,6 +95,29 @@ function Create() {
             {!formData.fullName && formData.fullName !== "" ? (
               <p className="text-red-500">Full Name must not be empty.</p>
             ) : null}
+            </div>
+            <div className="w-1/2">
+            <label htmlFor="fullName" className="text-gray-700 font-semibold">
+              Full Name
+            </label>
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              placeholder="Enter your full name"
+              className="w-full border rounded px-3 py-2 focus:border-blue-500"
+              value={formData.fullName}
+              onChange={handleInputChanges}
+              required
+            />
+            {!formData.fullName && formData.fullName !== "" ? (
+              <p className="text-red-500">Full Name must not be empty.</p>
+            ) : null}
+            </div>
+            
+          </div>
+          <div className="mb-4">
+           
           </div>
           <div className="mb-4">
             <label htmlFor="username" className="text-gray-700 font-semibold">
