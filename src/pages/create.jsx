@@ -79,39 +79,39 @@ function Create() {
         <form className="flex flex-col w-full" onSubmit={handleSubmit}>
           <div className="mb-4 border flex">
             <div className="w-1/2">
-            <label htmlFor="fullName" className="text-gray-700 font-semibold">
-              Full Name
+            <label htmlFor="firstName" className="text-gray-700 font-semibold">
+              First Name
             </label>
             <input
               type="text"
-              id="fullName"
-              name="fullName"
-              placeholder="Enter your full name"
+              id="firstName"
+              name="firstName"
+              placeholder="Enter your first name"
               className="w-full border rounded px-3 py-2 focus:border-blue-500"
-              value={formData.fullName}
+              value={formData.firstName}
               onChange={handleInputChanges}
               required
             />
-            {!formData.fullName && formData.fullName !== "" ? (
+            {!formData.firstName && formData.firstName !== "" ? (
               <p className="text-red-500">Full Name must not be empty.</p>
             ) : null}
             </div>
             <div className="w-1/2">
-            <label htmlFor="fullName" className="text-gray-700 font-semibold">
-              Full Name
+            <label htmlFor="lastName" className="text-gray-700 font-semibold">
+              Last Name
             </label>
             <input
               type="text"
-              id="fullName"
-              name="fullName"
-              placeholder="Enter your full name"
+              id="lastName"
+              name="lastName"
+              placeholder="Enter your last name"
               className="w-full border rounded px-3 py-2 focus:border-blue-500"
-              value={formData.fullName}
+              value={formData.lastName}
               onChange={handleInputChanges}
               required
             />
-            {!formData.fullName && formData.fullName !== "" ? (
-              <p className="text-red-500">Full Name must not be empty.</p>
+            {!formData.lastName && formData.lastName !== "" ? (
+              <p className="text-red-500">Last Name must not be empty.</p>
             ) : null}
             </div>
             
