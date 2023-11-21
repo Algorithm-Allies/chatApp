@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 
-function CreateChannelModal() {
+function CreateChannelModal({showCreateChannelModal, setShowCreateChannelModal}) {
+
   return (
+    showCreateChannelModal
+    ?
     <div>
-      A modal for creating a channel.
+      <p>Hello I'm a modal.</p>
+      <button onClick={() => setShowCreateChannelModal(false)}>Cancel</button>
     </div>
+    :
+    null
   );
 }
 
