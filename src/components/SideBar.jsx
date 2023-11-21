@@ -64,7 +64,7 @@ function AddChannel() {
   );
 }
 
-function SideBar() {
+function SideBar({showCreateChannelModal, setShowCreateChannelModal}) {
   const [channelArrowClick, setChannelArrowClick] = useState(false);
   const [messageArrowClick, setMessageArrowClick] = useState(false);
 
@@ -95,6 +95,7 @@ function SideBar() {
   });
 
   function handleItemClick({ event, props, triggerEvent, data }) {
+    setShowCreateChannelModal(true)
     console.log(event, props, triggerEvent, data);
   }
 
