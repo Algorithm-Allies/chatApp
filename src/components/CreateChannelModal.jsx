@@ -1,6 +1,6 @@
 import React from "react";
 
-function createChannelModal() {
+function CreateChannelModal() {
   return (
     <div>
       A modal for creating a channel.
@@ -8,4 +8,4 @@ function createChannelModal() {
   );
 }
 
-export default createChannelModal;
+export default CreateChannelModal;
