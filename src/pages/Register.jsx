@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
-function Create() {
+function Register() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -97,7 +97,7 @@ function Create() {
 
       localStorage.setItem("userInfo", JSON.stringify(data));
 
-      navigate("/chat-page");
+      navigate("/");
     } catch (error) {
       // Handle error
       console.error("Error:", error);
@@ -266,4 +266,4 @@ function Create() {
   );
 }
 
-export default Create;
+export default Register;
