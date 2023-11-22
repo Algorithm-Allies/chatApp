@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react";
 import zxcvbn from "zxcvbn"; // Password strength estimator library
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import axios from "axios";
 
 function Create() {
   const [formData, setFormData] = useState({
-    fullName: "",
+    firstName: "",
+    lastName: "",
+    email: "",
     username: "",
     password: "",
+    dateOfBirth: "",
     confirmPassword: "",
   });
+  const navigate = useNavigate(); // Use useNavigate
+
   const [passwordStrength, setPasswordStrength] = useState(0);
 
   useEffect(() => {
@@ -31,16 +38,19 @@ function Create() {
     e.preventDefault();
 
     // Destructure values from formData
-    const { fullName, username, password, confirmPassword } = formData;
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      username,
+      dateOfBirth,
+      confirmPassword,
+    } = formData;
 
     // Perform validation checks
-    if (fullName.trim() === "") {
+    if (firstName.trim() === "" || lastName.trim() === "") {
       alert("Full Name must not be empty.");
-      return;
-    }
-
-    if (username.length < 8) {
-      alert("Username must be at least 8 characters.");
       return;
     }
 
@@ -48,7 +58,7 @@ function Create() {
     const passwordResult = zxcvbn(password);
     const passwordStrength = passwordResult.score;
 
-    if (passwordStrength <= 2) {
+    if (passwordStrength < 0) {
       alert("Password is weak. Please use a stronger password.");
       return;
     }
@@ -58,36 +68,43 @@ function Create() {
       return;
     }
 
-    // If all validations pass, proceed with form submission
+    // If all validations pass, proceed with form submission using Axios
     try {
-      const response = await fetch("/api/users/", {
-        method: "POST",
+      const config = {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          firstName: fullName, // Map fullName to firstName as per your backend
-          lastName: "", // You may adjust this based on your backend requirements
-          email: username, // Map username to email as per your backend
-          password,
-          dateOfBirth: "", // You may adjust this based on your backend requirements
-          profilePhoto: "", // You may adjust this based on your backend requirements
-        }),
-      });
+      };
 
-      if (response.ok) {
-        const result = await response.json();
-        alert("Sign up success!");
-        console.log("formData:", formData);
-        console.log("Server response:", result);
-      } else {
-        const result = await response.json();
-        alert(`Error: ${result.message}`);
-      }
+      const { data } = await axios.post(
+        "http://localhost:3000/api/users/",
+        {
+          firstName,
+          lastName,
+          email,
+          password,
+          username,
+          dateOfBirth,
+          profilePhoto: "",
+        },
+        config
+      );
+
+      // Handle successful response
+      alert("Sign up success!");
+      console.log("formData:", formData);
+      console.log("Server response:", data);
+
+      localStorage.setItem("userInfo", JSON.stringify(data));
+
+      navigate("/chat-page");
     } catch (error) {
+      // Handle error
       console.error("Error:", error);
       alert("An error occurred. Please try again.");
     }
+
+    console.log("nice");
   };
 
   return (
@@ -99,21 +116,78 @@ function Create() {
         <h2 className="text-2xl font-semibold mb-4">Ripple</h2>
         <form className="flex flex-col w-full" onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="fullName" className="text-gray-700 font-semibold">
-              Full Name
+            <label htmlFor="email" className="text-gray-700 font-semibold">
+              Email
             </label>
             <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              placeholder="Enter your full name"
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
               className="w-full border rounded px-3 py-2 focus:border-blue-500"
-              value={formData.fullName}
+              value={formData.email}
               onChange={handleInputChanges}
               required
             />
-            {!formData.fullName && formData.fullName !== "" ? (
-              <p className="text-red-500">Full Name must not be empty.</p>
+            {!formData.email && formData.email !== "" ? (
+              <p className="text-red-500">Email must not be empty.</p>
+            ) : null}
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="dateOfBirth"
+              className="text-gray-700 font-semibold"
+            >
+              Date of Birth
+            </label>
+            <input
+              type="date"
+              id="dateOfBirth"
+              name="dateOfBirth"
+              className="w-full border rounded px-3 py-2 focus:border-blue-500"
+              value={formData.dateOfBirth}
+              onChange={handleInputChanges}
+              required
+            />
+            {!formData.dateOfBirth && formData.dateOfBirth !== "" ? (
+              <p className="text-red-500">Date of Birth must not be empty.</p>
+            ) : null}
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="firstName" className="text-gray-700 font-semibold">
+              First Name
+            </label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              placeholder="Enter your first name"
+              className="w-full border rounded px-3 py-2 focus:border-blue-500"
+              value={formData.firstName}
+              onChange={handleInputChanges}
+              required
+            />
+            {!formData.firstName && formData.firstName !== "" ? (
+              <p className="text-red-500">First Name must not be empty.</p>
+            ) : null}
+          </div>
+          <div className="mb-4">
+            <label htmlFor="lastName" className="text-gray-700 font-semibold">
+              Last Name
+            </label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              placeholder="Enter your last name"
+              className="w-full border rounded px-3 py-2 focus:border-blue-500"
+              value={formData.lastName}
+              onChange={handleInputChanges}
+              required
+            />
+            {!formData.lastName && formData.lastName !== "" ? (
+              <p className="text-red-500">Last Name must not be empty.</p>
             ) : null}
           </div>
           <div className="mb-4">
