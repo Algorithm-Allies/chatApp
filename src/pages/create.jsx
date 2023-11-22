@@ -27,7 +27,7 @@ function Create() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Destructure values from formData
@@ -59,8 +59,35 @@ function Create() {
     }
 
     // If all validations pass, proceed with form submission
-    alert("Sign up success!");
-    console.log("formData:", formData);
+    try {
+      const response = await fetch("/api/users/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: fullName, // Map fullName to firstName as per your backend
+          lastName: "", // You may adjust this based on your backend requirements
+          email: username, // Map username to email as per your backend
+          password,
+          dateOfBirth: "", // You may adjust this based on your backend requirements
+          profilePhoto: "", // You may adjust this based on your backend requirements
+        }),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        alert("Sign up success!");
+        console.log("formData:", formData);
+        console.log("Server response:", result);
+      } else {
+        const result = await response.json();
+        alert(`Error: ${result.message}`);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again.");
+    }
   };
 
   return (
