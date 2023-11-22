@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 function Create() {
   const [formData, setFormData] = useState({
     fullName: "",
+    dateOfBirth: "",
+    email: "",
     username: "",
     password: "",
     confirmPassword: "",
@@ -31,11 +33,29 @@ function Create() {
     e.preventDefault();
 
     // Destructure values from formData
-    const { fullName, username, password, confirmPassword } = formData;
+    const { fullName, dateOfBirth, email, username, password, confirmPassword } = formData;
 
     // Perform validation checks
     if (fullName.trim() === "") {
       alert("Full Name must not be empty.");
+      return;
+    }
+
+    if (dateOfBirth.trim() === "") {
+      alert("Date of birth must not be empty.");
+    } else {
+      let dateOfBirthValidation = dateOfBirth.split("-");
+      let dateOfBirthInMilliseconds = new Date(parseInt(dateOfBirthValidation[2], 10), parseInt(dateOfBirthValidation[1], 10) - 1 , parseInt(dateOfBirthValidation[0]), 10).getTime()
+      let now = new Date().getTime()
+      if (now - dateOfBirthInMilliseconds > 567648000000) {
+        return;
+      } else {
+        alert("You must be 18 years or older to register.")
+      }
+    }
+
+    if (email.trim() === "") {
+      alert("Email must not be empty.");
       return;
     }
 
@@ -87,6 +107,41 @@ function Create() {
             />
             {!formData.fullName && formData.fullName !== "" ? (
               <p className="text-red-500">Full Name must not be empty.</p>
+            ) : null}
+          </div>
+          <div className="mb-4">
+            <label htmlFor="dateOfBirth" className="text-gray-700 font-semibold">
+              Date of Birth
+            </label>
+            <input
+              type="date"
+              id="dateOfBirth"
+              name="dateOfBirth"
+              className="w-full border rounded px-3 py-2 focus:border-blue-500"
+              value={formData.dateOfBirth}
+              onChange={handleInputChanges}
+              required
+            />
+            {!formData.dateOfBirth && formData.dateOfBirth !== "" ? (
+              <p className="text-red-500">Date of Birth must not be empty.</p>
+            ) : null}
+          </div>
+          <div className="mb-4">
+            <label htmlFor="email" className="text-gray-700 font-semibold">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              className="w-full border rounded px-3 py-2 focus:border-blue-500"
+              value={formData.email}
+              onChange={handleInputChanges}
+              required
+            />
+            {!formData.email && formData.email !== "" ? (
+              <p className="text-red-500">Email must not be empty.</p>
             ) : null}
           </div>
           <div className="mb-4">
