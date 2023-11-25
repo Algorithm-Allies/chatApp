@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import zxcvbn from "zxcvbn"; // Password strength estimator library
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -12,6 +14,8 @@ function RegisterForm() {
     dateOfBirth: "",
   });
   const [passwordStrength, setPasswordStrength] = useState(0);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Password strength estimation using zxcvbn
@@ -28,7 +32,7 @@ function RegisterForm() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Destructure values from formData
     const {
@@ -99,8 +103,33 @@ function RegisterForm() {
     }
 
     // If all validations pass, proceed with form submission
-    alert("Sign up success!");
-    console.log("formData:", formData);
+    try {
+      const response = await axios.post(
+        "https://chatapp-backend-dcb3e47f1f84.herokuapp.com/api/users",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status !== 201) {
+        throw new Error("Network response was not ok.");
+      }
+
+      // Handle successful API response data if needed
+      alert("Registration successful!");
+      console.log("formData:", formData);
+
+      // Redirect to login page
+      navigate("/");
+    } catch (error) {
+      // Handle errors from fetch or server response
+      console.error("Error:", error.message);
+      // Optionally, show an error to the user if necessary
+      alert("There was an error registering the user.");
+    }
   };
   return (
     <form className="flex flex-col w-full" onSubmit={handleSubmit}>
