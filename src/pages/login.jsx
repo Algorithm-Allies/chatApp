@@ -24,18 +24,17 @@ function Login() {
       const response = await axios.post(
         "https://chatapp-backend-dcb3e47f1f84.herokuapp.com/api/users/login",
         {
-          email: email, // Assuming username is the email here
+          email: email,
           password: password,
         }
       );
 
-      // Handle the response after successful login
       const { data } = response;
 
       alert("Login success!");
 
-      // Store the JWT token in local storage or session storage
-      localStorage.setItem("token", data.token); // Adjust this according to your storage preference
+      // Store the JWT token in local storage but you can also use cookies
+      localStorage.setItem("token", data.token);
 
       // Redirect the user to the chat page
       navigate("/chat-page");

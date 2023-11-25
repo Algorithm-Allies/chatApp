@@ -118,16 +118,13 @@ function RegisterForm() {
         throw new Error("Network response was not ok.");
       }
 
-      // Handle successful API response data if needed
       alert("Registration successful!");
       console.log("formData:", formData);
 
       // Redirect to login page
       navigate("/");
     } catch (error) {
-      // Handle errors from fetch or server response
       console.error("Error:", error.message);
-      // Optionally, show an error to the user if necessary
       alert("There was an error registering the user.");
     }
   };
@@ -220,9 +217,9 @@ function RegisterForm() {
           onChange={handleInputChanges}
           required
         />
-        {formData.username.length < 8 && formData.username !== "" ? (
+        {formData.username.length < 5 && formData.username !== "" ? (
           <p className="text-red-500">
-            Username must be at least 8 characters.
+            Username must be at least 5 characters.
           </p>
         ) : null}
       </div>

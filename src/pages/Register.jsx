@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import zxcvbn from "zxcvbn"; // Password strength estimator library
 import RegisterForm from "../components/RegisterForm";
 import { Link } from "react-router-dom";
 
