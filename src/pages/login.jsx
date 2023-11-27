@@ -1,43 +1,48 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import "../styles/login.css";
 
-
 function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [validUsername, setValidUsername] = useState(false);
-  const [validPassword, setValidPassword] = useState(false);
+  const navigate = useNavigate();
 
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-    if (e.target.value.length >= 8) {
-      setValidUsername(true);
-    } else {
-      setValidUsername(false);
-    }
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    if (e.target.value.length >= 8) {
-      setValidPassword(true);
-    } else {
-      setValidPassword(false);
-    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validUsername && validPassword) {
+    try {
+      const response = await axios.post(
+        "https://chatapp-backend-dcb3e47f1f84.herokuapp.com/api/users/login",
+        {
+          email: email,
+          password: password,
+        }
+      );
+
+      const { data } = response;
+
       alert("Login success!");
-    } else {
-      alert("Login fail!");
+
+      // Store the JWT token in local storage but you can also use cookies
+      localStorage.setItem("token", data.token);
+
+      // Redirect the user to the chat page
+      navigate("/chat-page");
+    } catch (error) {
+      // Handle login failure/error
+      console.error("Login error:", error);
+      alert("Login failed. Please check your credentials.");
     }
-    console.log("Login clicked!");
-    console.log("Username: ", username);
-    console.log("Password: ", password);
   };
   return (
     <div
@@ -52,22 +57,17 @@ function Login() {
               htmlFor="username"
               className="text-gray-700 font-semibold block mb-2"
             >
-              Username
+              Email
             </label>
             <input
               type="text"
-              id="username"
-              name="username"
-              placeholder="Enter your username"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
               className="w-full border rounded px-3 py-2 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={username}
-              onChange={handleUsernameChange}
+              value={email}
+              onChange={handleEmailChange}
             />
-            {!validUsername && username !== "" && (
-              <p className="text-red-500 text-xs italic">
-                Username must be at least 8 characters.
-              </p>
-            )}
           </div>
           <div className="mb-6">
             <label
@@ -85,11 +85,6 @@ function Login() {
               value={password}
               onChange={handlePasswordChange}
             />
-            {!validPassword && password !== "" && (
-              <p className="text-red-500 text-xs italic">
-                Password must be at least 8 characters.
-              </p>
-            )}
           </div>
           <button
             type="submit"
