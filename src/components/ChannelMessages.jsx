@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import Message from "./Message";
 import RestructuredData from "../Data/RestructuredData.json";
 
-const ChannelMessages = () => {
-  const channelId = 1;
+const ChannelMessages = ({channelID}) => {
   const [inputMessage, setInputMessage] = useState("");
   const [messages, setMessages] = useState(
-    RestructuredData.channels[channelId].messages
+    RestructuredData.channels[channelID].messages
   );
 
   const users = RestructuredData.users;
@@ -32,7 +31,7 @@ const ChannelMessages = () => {
     <div className="bg-gray-400 flex flex-col h-full p-4">
       <div className="text-5xl border-b border-gray-700 pb-4 flex items-center">
         <div>#</div>
-        <div>{RestructuredData.channels[channelId].name}</div>
+        <div>{RestructuredData.channels[channelID].name}</div>
       </div>
 
       <br />
