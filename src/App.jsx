@@ -4,6 +4,7 @@ import ChatPage from "./pages/ChatPage";
 import "./styles/login.css";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import UserProfile from "./components/UserProfile";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <Route path="/register" element={<Register />} />
 
       <Route path="/chat-page" element={<ChatPage />} />
+      <Route path="/profile" element={<UserProfile />} />
     </Routes>
   );
 };
