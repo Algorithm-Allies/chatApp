@@ -11,8 +11,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/create-account" element={<Create />} />
-
-      <Route path="/chat-page" element={<ChatPage />} />
+      <Route path="/chat-page/:id" element={<ChatPage />} />
     </Routes>
   );
 };
