@@ -64,7 +64,7 @@ function AddChannel() {
   );
 }
 
-function SideBar() {
+function SideBar({channelID, setChannelID}) {
   const [channelArrowClick, setChannelArrowClick] = useState(false);
   const [messageArrowClick, setMessageArrowClick] = useState(false);
 
@@ -79,7 +79,8 @@ function SideBar() {
   };
 
   const handleSelect = (info) => {
-    console.log(info);
+    console.log(info.id);
+    setChannelID(info.id)
   };
 
   const handleAddChannel = () => {
