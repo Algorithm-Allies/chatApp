@@ -1,13 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Message from "./Message";
 import RestructuredData from "../Data/RestructuredData.json";
-
+import { ChatContext } from "../context/Context";
 const ChannelMessages = () => {
+  const { messages, selectedChannel, fetchMessages, channels } =
+    useContext(ChatContext);
+
+  useEffect(() => {
+    fetchMessages(1, "channel");
+  }, []);
+
   const channelId = 1;
   const [inputMessage, setInputMessage] = useState("");
-  const [messages, setMessages] = useState(
-    RestructuredData.channels[channelId].messages
-  );
+  // const [messages, setMessages] = useState(
+  //   RestructuredData.channels[channelId].messages
+  // );
 
   const users = RestructuredData.users;
 

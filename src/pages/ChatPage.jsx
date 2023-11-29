@@ -1,7 +1,7 @@
 import React from "react";
 import SideBar from "../components/SideBar";
 import TextBox from "../components/TextBox";
-import ChannelMessages from "../components/channelMessages";
+import ChannelMessages from "../components/ChannelMessages";
 //Chat page
 function ChatPage() {
   return (
@@ -9,7 +9,6 @@ function ChatPage() {
       <SideBar />
 
       <div className="flex flex-col h-screen w-screen bg-stone-800">
-        
         <ChannelMessages />
       </div>
     </div>
