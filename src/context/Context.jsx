@@ -10,7 +10,8 @@ export const ChatProvider = ({ children }) => {
   const [channels, setChannels] = useState([]);
   const [directMessages, setDirectMessages] = useState([]);
   const [users, setUsers] = useState(RestructuredData.users);
-  const [titleName, setTitleName] = useState("");
+  const [titleName, setTitleName] = useState([]);
+  const [isChannel, setIsChannel] = useState(true);
 
   const fetchMessages = (id, type) => {
     let fetchedMessages = [];
@@ -46,14 +47,18 @@ export const ChatProvider = ({ children }) => {
   const fetchSingleChannel = (id) => {
     const channel = RestructuredData.channels[id];
     setSelectedChannel(channel);
-    const title = (
-      <div className="flex items-center text-xlg ">
-        <div>#</div>
-        <div>{channel.name}</div>
-      </div>
-    );
+    // const title = (
+    //   <div className="flex items-center ">
+    //     <div>#</div>
+    //     <div>{channel.name}</div>
+    //   </div>
+    // );
+    const title = {
+      title: channel.name,
+    };
     setTitleName(title);
     fetchMessages(id, "channel");
+    setIsChannel(true);
   };
 
   const fetchDirectMessages = () => {
@@ -67,20 +72,24 @@ export const ChatProvider = ({ children }) => {
     const direct = RestructuredData.directMessages[id];
     const img = userInfo.profile_pic;
     const name = userInfo.first_name + " " + userInfo.last_name;
-    const title = (
-      <div className="flex items-center">
-        <img
-          src={img}
-          className="rounded-full w-12 h-12 mr-2"
-          alt="Profile Pic"
-        />
-        <span className="text-xlg ">{name}</span>
-      </div>
-    );
-
+    // const title = (
+    //   <div className="flex items-center">
+    //     <img
+    //       src={img}
+    //       className="rounded-full w-12 h-12 mr-2"
+    //       alt="Profile Pic"
+    //     />
+    //     <span className=" ">{name}</span>
+    //   </div>
+    // );
+    const title = {
+      title: name,
+      img: img,
+    };
     setSelectDirect(direct);
     setTitleName(title);
     fetchMessages(id, "direct");
+    setIsChannel(false);
   };
 
   useEffect(() => {
@@ -102,6 +111,7 @@ export const ChatProvider = ({ children }) => {
     fetchSingleDirectMessages,
     selectedDirect,
     titleName,
+    isChannel,
   };
 
   return (
