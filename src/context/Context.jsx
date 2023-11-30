@@ -10,6 +10,7 @@ export const ChatProvider = ({ children }) => {
   const [channels, setChannels] = useState([]);
   const [directMessages, setDirectMessages] = useState([]);
   const [users, setUsers] = useState(RestructuredData.users);
+  const [titleName, setTitleName] = useState("");
 
   const fetchMessages = (id, type) => {
     let fetchedMessages = [];
@@ -45,6 +46,13 @@ export const ChatProvider = ({ children }) => {
   const fetchSingleChannel = (id) => {
     const channel = RestructuredData.channels[id];
     setSelectedChannel(channel);
+    const title = (
+      <div className="flex items-center text-xlg ">
+        <div>#</div>
+        <div>{channel.name}</div>
+      </div>
+    );
+    setTitleName(title);
     fetchMessages(id, "channel");
   };
 
@@ -54,9 +62,24 @@ export const ChatProvider = ({ children }) => {
     }, 1000);
   };
 
-  const fetchSingleDirectMessages = (id) => {
+  const fetchSingleDirectMessages = (userInfo) => {
+    const id = userInfo.id;
     const direct = RestructuredData.directMessages[id];
+    const img = userInfo.profile_pic;
+    const name = userInfo.first_name + " " + userInfo.last_name;
+    const title = (
+      <div className="flex items-center">
+        <img
+          src={img}
+          className="rounded-full w-12 h-12 mr-2"
+          alt="Profile Pic"
+        />
+        <span className="text-xlg ">{name}</span>
+      </div>
+    );
+
     setSelectDirect(direct);
+    setTitleName(title);
     fetchMessages(id, "direct");
   };
 
@@ -78,6 +101,7 @@ export const ChatProvider = ({ children }) => {
     users,
     fetchSingleDirectMessages,
     selectedDirect,
+    titleName,
   };
 
   return (

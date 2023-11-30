@@ -293,6 +293,7 @@
 
   "directMessages": {
     "1": {
+      "id": 1,
       "direct_user": 1,
       "users": [1, 2],
       "messages": [
@@ -311,6 +312,7 @@
       ]
     },
     "2": {
+      "id": 2,
       "direct_user": 3,
       "users": [3, 2],
       "messages": [

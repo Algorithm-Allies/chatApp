@@ -3,18 +3,23 @@ import Message from "./Message";
 import { ChatContext } from "../context/Context";
 import AddMessageInput from "./AddMessageInput";
 const ChannelMessages = () => {
-  const { messages, selectedChannel, users, fetchSingleChannel } =
-    useContext(ChatContext);
+  const {
+    messages,
+    selectedChannel,
+    users,
+    fetchSingleChannel,
+    selectedDirect,
+    titleName,
+  } = useContext(ChatContext);
 
   useEffect(() => {
     fetchSingleChannel(1);
   }, []);
-
+  console.log(titleName);
   return (
     <div className="bg-gray-400 flex flex-col h-full p-4">
       <div className="text-5xl border-b border-gray-700 pb-4 flex items-center">
-        <div>#</div>
-        <div>{selectedChannel.name}</div>
+        <div>{titleName}</div>
       </div>
 
       <br />

@@ -6,9 +6,8 @@ function DirectMessages() {
     useContext(ChatContext);
 
   const handleSelect = (userInfo) => {
-    console.log(userInfo);
+    fetchSingleDirectMessages(userInfo);
   };
-  console.log(directMessages);
 
   return (
     <div className="text-white">
