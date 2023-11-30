@@ -1,31 +1,41 @@
 import React, { createContext, useState, useEffect } from "react";
 import RestructuredData from "../Data/RestructuredData.json";
 
-// Create a context
 export const ChatContext = createContext();
 
-// Create a provider to wrap your components
 export const ChatProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
-  const [selectedChannel, setSelectedChannel] = useState(null);
+  const [selectedChannel, setSelectedChannel] = useState([]);
+  const [selectedDirect, setSelectDirect] = useState([]);
   const [channels, setChannels] = useState([]);
   const [directMessages, setDirectMessages] = useState([]);
+  const [users, setUsers] = useState(RestructuredData.users);
 
-  // Fetch messages for a specific channel
   const fetchMessages = (id, type) => {
     let fetchedMessages = [];
 
     if (type === "channel") {
       fetchedMessages = RestructuredData.channels[id]?.messages || [];
     } else if (type === "direct") {
-      // Fetch direct messages logic here
-      // fetchedMessages = yourDirectMessagesFetchingFunction(id);
+      fetchedMessages = RestructuredData.directMessages[id]?.messages || [];
     }
 
     setMessages(fetchedMessages);
   };
 
-  // Fetch channels from your data source (could be an API)
+  const handleSendMessage = (messageContent) => {
+    if (messageContent.trim() === "") return;
+
+    const newMessage = {
+      id: messages.length + 1,
+      sender: 2,
+      timestamp: "today",
+      content: messageContent,
+    };
+
+    setMessages([...messages, newMessage]);
+  };
+
   const fetchChannels = () => {
     setTimeout(() => {
       setChannels(RestructuredData.channels);
@@ -39,20 +49,22 @@ export const ChatProvider = ({ children }) => {
   };
 
   const fetchDirectMessages = () => {
-    // Simulating an API call with setTimeout
     setTimeout(() => {
-      // Fetch direct messages logic here
-      // setDirectMessages(updatedDirectMessages);
+      setDirectMessages(RestructuredData.directMessages);
     }, 1000);
   };
 
-  // Load channels and direct messages when the component mounts
+  const fetchSingleDirectMessages = (id) => {
+    const direct = RestructuredData.directMessages[id];
+    setSelectDirect(direct);
+    fetchMessages(id, "direct");
+  };
+
   useEffect(() => {
     fetchChannels();
     fetchDirectMessages();
   }, []);
 
-  // The context value containing state and functions to be available
   const contextValue = {
     messages,
     setMessages,
@@ -62,7 +74,10 @@ export const ChatProvider = ({ children }) => {
     directMessages,
     fetchMessages,
     fetchSingleChannel,
-    // ... other functions or states needed for chat app
+    handleSendMessage,
+    users,
+    fetchSingleDirectMessages,
+    selectedDirect,
   };
 
   return (

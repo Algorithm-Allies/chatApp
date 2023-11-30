@@ -146,7 +146,7 @@ function SideBar() {
               <AddChannel />
             </button>
           </div>
-          {messageArrowClick && <DirectMessages handleSelect={handleSelect} />}
+          {messageArrowClick && <DirectMessages />}
         </div>
       </div>
       <UserProfileSettings />

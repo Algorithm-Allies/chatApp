@@ -9,7 +9,6 @@ function Channels() {
   const handleSelect = (info) => {
     fetchSingleChannel(info.id);
   };
-  console.log(selectedChannel, "selected");
 
   return (
     <div className="text-white">
