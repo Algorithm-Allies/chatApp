@@ -10,7 +10,6 @@ function AddMessageInput() {
   };
 
   const sendMessage = () => {
-    console.log(inputMessage);
     handleSendMessage(inputMessage);
   };
 

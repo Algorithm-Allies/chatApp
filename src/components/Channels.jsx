@@ -1,10 +1,8 @@
 import React, { useContext, useEffect } from "react";
-import Data from "../Data/RestructuredData.json";
 import { ChatContext } from "../context/Context";
 
 function Channels() {
-  const { selectedChannel, channels, fetchSingleChannel } =
-    useContext(ChatContext);
+  const { channels, fetchSingleChannel } = useContext(ChatContext);
 
   const handleSelect = (info) => {
     fetchSingleChannel(info.id);
