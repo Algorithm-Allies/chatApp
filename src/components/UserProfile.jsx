@@ -91,7 +91,7 @@ const UserProfile = () => {
             </div>
             <div className='ml-8'>
                 <p>Preview</p>
-                <div className='rounded-md border-2 border-white max-w-sm mt-1' style={{ backgroundColor: primaryColor }}>
+                <div className='rounded-md border-2 border-white mt-1 max-w-sm' style={{ backgroundColor: primaryColor, minWidth: '24rem' }}>
                     <div className='rounded-t-sm h-32 bg-cover bg-no-repeat' style={{ backgroundImage: `url(https://images.unsplash.com/photo-1613278137247-0bf3fff95fe2?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)` }}>
 
                     </div>
