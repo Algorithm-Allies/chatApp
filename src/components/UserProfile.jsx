@@ -51,7 +51,7 @@ const UserProfile = () => {
                     <input className='mt-1 p-3 bg-zinc-900 rounded-md' type="text" placeholder='he/him' value={pronouns} onChange={handlePronounsChange} />
                 </div>
                 <hr className='my-6' />
-                <div className='flex flex-col items-start mt-12'>
+                <div className='flex flex-col items-start'>
                     <p>Avatar</p>
                     <div className='mt-2'>
                         <label htmlFor='profile-avatar' className='rounded-md text-gray-200 bg-blue-600 px-4 py-2 hover:cursor-pointer hover:bg-blue-700'>Change Avatar</label>
