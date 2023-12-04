@@ -35,7 +35,7 @@ function ChatPage() {
       </div>
       {
         isVisible && (
-          <ProfilePopup position={position} name={name} />
+          <ProfilePopup position={position} />
         )
       }
     </div>
