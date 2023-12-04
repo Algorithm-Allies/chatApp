@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Message from "./Message";
 import RestructuredData from "../Data/RestructuredData.json";
 
-const ChannelMessages = ({position, handleProfilePopup, setIsVisible, displayProfilePopup}) => {
+const ChannelMessages = ({position, displayProfilePopup}) => {
   const channelId = 1;
   const [inputMessage, setInputMessage] = useState("");
   const [messages, setMessages] = useState(
@@ -49,8 +49,6 @@ const ChannelMessages = ({position, handleProfilePopup, setIsVisible, displayPro
             message={messageData.content}
             timestamp={messageData.timestamp}
             position={position}
-            handleProfilePopup={handleProfilePopup}
-            setIsVisible={setIsVisible}
             displayProfilePopup={displayProfilePopup}
           />
         ))}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Message = ({ profilePic, name, lastName, message, timestamp, handleProfilePopup, setIsVisible, displayProfilePopup }) => {
+const Message = ({ profilePic, name, lastName, message, timestamp, displayProfilePopup }) => {
 
   return (
     <div className="flex mb-4 items-center">
