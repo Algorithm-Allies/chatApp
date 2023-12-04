@@ -9,6 +9,15 @@ function ChatPage() {
   const [isVisible, setIsVisible] = useState(false)
   const popupRef = useRef(null)
 
+  useEffect(() => {
+    let handler = (e) => {
+      if (popupRef.current && !popupRef.current.contains(e.target)) {
+        setIsVisible(false)
+      }
+    }
+    document.addEventListener('mousedown', handler)
+  })
+
   const handleProfilePopup = (event) => {
     setPosition({x: event.clientX, y: event.clientY})
   }
@@ -42,7 +51,7 @@ function ChatPage() {
   }
 
   return (
-    <div className="flex flex-row h-full" onClick={hideProfilePopup}>
+    <div className="flex flex-row h-full" onClick={getRef}>
       <SideBar />
 
       <div className="flex flex-col h-screen w-screen bg-stone-800">
