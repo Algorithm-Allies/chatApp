@@ -2,11 +2,6 @@ import React, {forwardRef} from 'react'
 
 const ProfilePopup = forwardRef(
   ({ position }, ref) => {
-    const handleClickInsidePopup = (event) => {
-      if (ref.current && ref.current.contains(event.target)) {
-        return
-      }
-    }
     return (
       <div ref={ref} style={{ top: `${position.y}px`, left: `${position.x + 20}px` }} className='absolute bg-zinc-800 p-4 text-white z-50 max-w-xs rounded-md'>
         <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" className='w-24 h-24 bg-black rounded-full object-cover' />
