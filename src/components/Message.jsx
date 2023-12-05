@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Message = ({ profilePic, name, lastName, message, timestamp, displayProfilePopup }) => {
+const Message = ({ profilePic, name, lastName, message, timestamp, displayProfilePopup, isVisible }) => {
 
   return (
     <div className="flex mb-4 items-center">
@@ -11,7 +11,7 @@ const Message = ({ profilePic, name, lastName, message, timestamp, displayProfil
         onClick={displayProfilePopup}
       />
       <div>
-        <div className="flex items-center cursor-pointer" onClick={displayProfilePopup}>
+        <div className="flex items-center cursor-pointer" onClick={isVisible ? undefined : displayProfilePopup}>
           <div className="text-sm font-bold mr-2">{name}</div>
           <div className="text-sm font-bold mr-2">{lastName}</div>
           <div className="text-sm text-gray-500">{timestamp}</div>
