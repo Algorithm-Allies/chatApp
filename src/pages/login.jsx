@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
+import { useAuth } from "../AuthContext";
 
 import "../styles/login.css";
-
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [validUsername, setValidUsername] = useState(false);
   const [validPassword, setValidPassword] = useState(false);
+  const { login } = useAuth();
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -28,16 +31,38 @@ function Login() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validUsername && validPassword) {
-      alert("Login success!");
+    const email = username
+    if (email && validPassword) {
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/api/users/login",
+          {
+            email,
+            password,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          const userData = response.data;
+          login(userData);
+          alert("Login success!");
+        } else {
+          alert("Login failed. Please check your email and password.");
+        }
+      } catch (error) {
+        console.error("Error during login:", error);
+        alert("Login failed. Please try again later.");
+      }
     } else {
-      alert("Login fail!");
+      alert("Please enter a valid email and password.");
     }
-    console.log("Login clicked!");
-    console.log("Username: ", username);
-    console.log("Password: ", password);
   };
   return (
     <div
