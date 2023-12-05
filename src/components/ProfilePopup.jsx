@@ -28,7 +28,7 @@ const ProfilePopup = forwardRef(
           <hr className='mt-2' />
           <p className='mt-2'>Member since</p>
           <p>Dec 10, 2022</p>
-          <input type="text" placeholder='Message @Namey McName' className='p-2 mt-8 bg-transparent border w-full rounded-md' />
+          <input type="text" name='message' placeholder='Message @Namey McName' className='p-2 mt-8 bg-transparent border w-full rounded-md' />
           <button className='bg-white text-black p-2 mt-4 font-medium rounded-md'>View Profile</button>
         </div>
       </div>
