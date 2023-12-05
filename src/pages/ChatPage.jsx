@@ -5,7 +5,7 @@ import ChannelMessages from "../components/channelMessages";
 import ProfilePopup from "../components/ProfilePopup";
 //Chat page
 function ChatPage() {
-  const [position, setPosition] = useState({x: 0, y: 0})
+  const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
   const popupRef = useRef(null)
 
@@ -19,16 +19,14 @@ function ChatPage() {
   })
 
   const displayProfilePopup = (event) => {
-    setPosition({x: event.clientX, y: event.clientY})
+    setPosition({ x: event.clientX, y: event.clientY })
     setIsVisible(true)
   }
 
   return (
     <div className="flex flex-row h-full">
       <SideBar />
-
       <div className="flex flex-col h-screen w-screen bg-stone-800">
-        
         <ChannelMessages position={position} displayProfilePopup={displayProfilePopup} />
       </div>
       {
@@ -37,7 +35,6 @@ function ChatPage() {
         )
       }
     </div>
-    
   );
 }
 
