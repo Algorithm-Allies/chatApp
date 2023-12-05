@@ -11,8 +11,6 @@ function ChatPage() {
   const popupRef = useRef(null)
 
   const displayProfilePopup = (event) => {
-    console.log(event.target)
-    console.log(elementClicked)
     setPosition({ x: event.clientX, y: event.clientY })
     setElementClicked(event.target)
     if (event.target == elementClicked) {
@@ -27,11 +25,8 @@ function ChatPage() {
   useEffect(() => {
     let handler = (e) => {
       e.preventDefault()
-      console.log(e.target)
-      console.log(elementClicked)
       if (popupRef.current && !popupRef.current.contains(e.target)) {
         if (e.target !== elementClicked && elementClicked !== null) {
-          console.log('e.target and elementClicked does not match')
           setElementClicked(null)
           setIsVisible(false)
         }
