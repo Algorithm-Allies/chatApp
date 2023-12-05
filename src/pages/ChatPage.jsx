@@ -15,7 +15,7 @@ function ChatPage() {
         setIsVisible(false)
       }
     }
-    document.addEventListener('mousedown', handler)
+    document.addEventListener('mouseup', handler)
   })
 
   const displayProfilePopup = (event) => {
