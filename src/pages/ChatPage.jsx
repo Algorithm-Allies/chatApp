@@ -11,27 +11,42 @@ function ChatPage() {
   const popupRef = useRef(null)
 
   const displayProfilePopup = (event) => {
-    if (event.target === elementClicked) {
+    console.log(event.target)
+    console.log(elementClicked)
+    setPosition({ x: event.clientX, y: event.clientY })
+    setElementClicked(event.target)
+    if (event.target == elementClicked) {
       setElementClicked(null)
-      return
-    }
-      setPosition({ x: event.clientX, y: event.clientY })
+      setIsVisible(false)
+    } else {
       setIsVisible(true)
-      setElementClicked(event.target)
-      console.log(elementClicked, 'from displayprofilepopup')
+    }
+    
   }
 
   useEffect(() => {
     let handler = (e) => {
       e.preventDefault()
+      console.log(e.target)
+      console.log(elementClicked)
       if (popupRef.current && !popupRef.current.contains(e.target)) {
-        setIsVisible(false)
+        if (e.target !== elementClicked && elementClicked !== null) {
+          console.log('e.target and elementClicked does not match')
+          setElementClicked(null)
+          setIsVisible(false)
+        }
+        
       }
-    }
+    };
+
     document.addEventListener('mouseup', handler)
+
+    return () => {
+      document.removeEventListener('mouseup', handler)
+    }
   }, [elementClicked])
 
- 
+
 
   return (
     <div className="flex flex-row h-full">
