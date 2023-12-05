@@ -1,8 +1,5 @@
 import React, { useContext } from "react";
 import Message from "./Message";
-
-import RestructuredData from "../Data/RestructuredData.json";
-
 import { ChatContext } from "../context/Context";
 import AddMessageInput from "./AddMessageInput";
 const ChannelMessages = () => {
@@ -51,9 +48,6 @@ const ChannelMessages = () => {
             lastName={users[messageData.sender].last_name}
             message={messageData.content}
             timestamp={messageData.timestamp}
-            position={position}
-            displayProfilePopup={displayProfilePopup}
-            isVisible={isVisible}
           />
         ))}
       </div>
