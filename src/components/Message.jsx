@@ -8,7 +8,7 @@ const Message = ({ profilePic, name, lastName, message, timestamp, displayProfil
         src={profilePic}
         alt={name}
         className="w-10 h-10 rounded-full mr-4 cursor-pointer"
-        onClick={displayProfilePopup}
+        onClick={isVisible ? undefined : displayProfilePopup}
       />
       <div>
         <div className="flex items-center cursor-pointer" onClick={isVisible ? undefined : displayProfilePopup}>

@@ -7,28 +7,31 @@ import ProfilePopup from "../components/ProfilePopup";
 function ChatPage() {
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isVisible, setIsVisible] = useState(false)
+  const [elementClicked, setElementClicked] = useState(null)
   const popupRef = useRef(null)
+
+  const displayProfilePopup = (event) => {
+    if (event.target === elementClicked) {
+      setElementClicked(null)
+      return
+    }
+      setPosition({ x: event.clientX, y: event.clientY })
+      setIsVisible(true)
+      setElementClicked(event.target)
+      console.log(elementClicked, 'from displayprofilepopup')
+  }
 
   useEffect(() => {
     let handler = (e) => {
-      console.log(popupRef)
+      e.preventDefault()
       if (popupRef.current && !popupRef.current.contains(e.target)) {
         setIsVisible(false)
       }
     }
-    document.addEventListener('mousedown', handler)
-  }, [])
+    document.addEventListener('mouseup', handler)
+  }, [elementClicked])
 
-  const displayProfilePopup = (event) => {
-    if (popupRef.current && !popupRef.current.contains(e.target)) {
-      setIsVisible(false)
-      console.log('popup ref contains')
-    } else {
-      setPosition({ x: event.clientX, y: event.clientY })
-      setIsVisible(true)
-      console.log('popup ref nothing')
-    }
-  }
+ 
 
   return (
     <div className="flex flex-row h-full">
