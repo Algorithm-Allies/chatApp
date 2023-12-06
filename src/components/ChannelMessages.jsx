@@ -5,7 +5,7 @@ import RestructuredData from "../Data/RestructuredData.json";
 
 import { ChatContext } from "../context/Context";
 import AddMessageInput from "./AddMessageInput";
-const ChannelMessages = () => {
+const ChannelMessages = ({position, displayProfilePopup, isVisible}) => {
   const { messages, users, titleName, isChannel } = useContext(ChatContext);
 
   return (
