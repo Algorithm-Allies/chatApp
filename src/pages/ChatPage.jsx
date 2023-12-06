@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import SideBar from "../components/SideBar";
-
-import TextBox from "../components/TextBox";
-import ChannelMessages from "../components/channelMessages";
+import ChannelMessages from "../components/ChannelMessages";
 import ProfilePopup from "../components/ProfilePopup";
 
 //Chat page
