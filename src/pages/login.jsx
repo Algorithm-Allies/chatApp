@@ -7,20 +7,11 @@ import { useAuth } from "../AuthContext";
 import "../styles/login.css";
 
 function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [validUsername, setValidUsername] = useState(false);
+
   const [validPassword, setValidPassword] = useState(false);
   const { login } = useAuth();
-
-  const handleUsernameChange = (e) => {
-    setUsername(e.target.value);
-    if (e.target.value.length >= 8) {
-      setValidUsername(true);
-    } else {
-      setValidUsername(false);
-    }
-  };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -33,7 +24,7 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const email = username
+
     if (email && validPassword) {
       try {
         const response = await axios.post(
@@ -74,25 +65,19 @@ function Login() {
         <form className="flex flex-col w-full" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
-              htmlFor="username"
+              htmlFor="email"
               className="text-gray-700 font-semibold block mb-2"
             >
-              Username
+              Email
             </label>
             <input
               type="text"
-              id="username"
-              name="username"
-              placeholder="Enter your username"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
               className="w-full border rounded px-3 py-2 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={username}
-              onChange={handleUsernameChange}
+              value={email}
             />
-            {!validUsername && username !== "" && (
-              <p className="text-red-500 text-xs italic">
-                Username must be at least 8 characters.
-              </p>
-            )}
           </div>
           <div className="mb-6">
             <label
