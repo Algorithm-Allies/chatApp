@@ -219,7 +219,8 @@
           "id": 4,
           "sender": 12,
           "timestamp": "today",
-          "content": "dan is here too!"
+          "content": "CHAZZ is here too!"
+
         },
         {
           "id": 5,
@@ -288,7 +289,35 @@
           "content": "Mia says hello as well."
         }
       ]
+    },
+    "3": {
+      "id": 2,
+      "name": "Help",
+      "serverId": 1,
+      "users": [1, 2],
+      "messages": [
+        {
+          "id": 1,
+          "sender": 1,
+          "timestamp": "today",
+          "content": "THIS IS RANDOM CHANNEL"
+        },
+        { "id": 2, "sender": 2, "timestamp": "today", "content": "Hi there!" },
+        {
+          "id": 3,
+          "sender": 11,
+          "timestamp": "today",
+          "content": "This is Sophia's message."
+        },
+        {
+          "id": 4,
+          "sender": 12,
+          "timestamp": "today",
+          "content": "CHAZZ is here too!"
+        }
+      ]
     }
+
   },
 
   "directMessages": {
@@ -330,5 +359,6 @@
         }
       ]
     }
+
   }
 }
