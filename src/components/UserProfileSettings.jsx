@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const user = {
-  id: 1,
-  first_name: "John",
-  last_name: "Doe",
-  profile_pic: "https://www.w3schools.com/howto/img_avatar.png",
-};
+// const user = {
+//   id: 1,
+//   first_name: "John",
+//   last_name: "Doe",
+//   profile_pic: "https://www.w3schools.com/howto/img_avatar.png",
+// };
 
 function Popup({ onClose }) {
   return (
@@ -36,6 +37,38 @@ function Popup({ onClose }) {
 
 function UserProfileSettings() {
   const [showPopup, setShowPopup] = useState(false);
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userId = localStorage.getItem("userId");
+        const token = localStorage.getItem("token");
+        console.log(userId);
+        console.log(token);
+
+        const [header, payload, signature] = token.split(".");
+
+        const decodedHeader = atob(header);
+        const decodedPayload = atob(payload);
+        console.log("decodedHeader", decodedHeader);
+        console.log("decodedPayload", decodedPayload);
+
+        const response = await axios.get(
+          `http://localhost:3500/api/users/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setUser(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUser();
+  }, []);
 
   const handleLogout = () => {
     setShowPopup(false);
@@ -50,12 +83,15 @@ function UserProfileSettings() {
       >
         <div className="flex items-center">
           <img
-            src={user.profile_pic}
+            src={
+              user.profilePhoto ||
+              "https://www.w3schools.com/howto/img_avatar.png"
+            }
             alt={`${user.first_name} ${user.last_name}`}
             className="h-8 w-8 rounded-full mr-2"
           />
           <span>
-            {user.first_name} {user.last_name}
+            {user.firstName} {user.lastName}
           </span>
         </div>
       </div>
