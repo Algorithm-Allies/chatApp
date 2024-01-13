@@ -3,10 +3,11 @@ import Data from "../Data/Data.json";
 import "../styles/CreateChannelModal.css";
 
 function CreateChannelModal({ channelModalRef, closeChannelModal }) {
+  const [channelName, setChannelName] = useState('')
   const handleCreateChannel = () => {
     console.log('created channel')
     console.log(Data.channels)
-    Data.channels.push({ "id": 777, "name": "add channel test", "serverId": 1 },)
+    Data.channels.push({ "id": 777, "name": channelName, "serverId": 1 },)
     console.log(Data.channels)
     closeChannelModal()
   }
@@ -20,6 +21,8 @@ function CreateChannelModal({ channelModalRef, closeChannelModal }) {
           id="channel-modal-input"
           type="text"
           placeholder="Enter channel name here"
+          value={channelName}
+          onChange={(e) => setChannelName(e.target.value)}
         />
         <fieldset className="overflow-y-scroll h-40 text-white">
           <legend>Add users to channel</legend>
