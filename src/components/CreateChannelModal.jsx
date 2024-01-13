@@ -5,6 +5,7 @@ import "../styles/CreateChannelModal.css";
 function CreateChannelModal({ channelModalRef, closeChannelModal }) {
   const [channelName, setChannelName] = useState('')
   const handleCreateChannel = () => {
+    if (channelName === '') return
     console.log('created channel')
     console.log(Data.channels)
     Data.channels.push({ "id": 777, "name": channelName, "serverId": 1 },)
