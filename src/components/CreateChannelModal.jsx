@@ -14,7 +14,7 @@ function CreateChannelModal({ channelModalRef, closeChannelModal }) {
   return (
     <dialog ref={channelModalRef}>
       <div id="channel-modal">
-        <label id="channel-modal-input-label" htmlFor="">
+        <label className="channel-modal-input-label" htmlFor="">
           Channel Name
         </label>
         <input
@@ -25,7 +25,7 @@ function CreateChannelModal({ channelModalRef, closeChannelModal }) {
           onChange={(e) => setChannelName(e.target.value)}
         />
         <fieldset className="overflow-y-scroll h-40 text-white">
-          <legend>Add users to channel</legend>
+          <legend className="channel-modal-input-label">Add users to channel</legend>
           {Data.users.map((user) => (
             <div key={user.id} className="flex">
               <input type="checkbox" />
