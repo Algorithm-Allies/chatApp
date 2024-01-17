@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import Channels from "./Channels";
 import DirectMessages from "./DirectMessages";
 import UserProfileSettings from "./UserProfileSettings";
-import { Menu, Item, Separator, Submenu, useContextMenu } from 'react-contexify';
-import 'react-contexify/ReactContexify.css';
+import {
+  Menu,
+  Item,
+  Separator,
+  Submenu,
+  useContextMenu,
+} from "react-contexify";
+import "react-contexify/ReactContexify.css";
 
-const MENU_ID = 'blahblah';
+const MENU_ID = "blahblah";
 
 function ArrowUp() {
   return (
@@ -78,20 +84,16 @@ function SideBar({openChannelModal}) {
     setMessageArrowClick(!messageArrowClick);
   };
 
-  const handleSelect = (info) => {
-    console.log(info);
-  };
-
   const handleAddChannel = () => {
     console.log("adding channel");
-    displayMenu()
+    displayMenu();
   };
   const handleAddDirectMessage = () => {
     console.log("adding direct messages");
   };
 
   const { show } = useContextMenu({
-    id: MENU_ID
+    id: MENU_ID,
   });
 
   function handleItemClick({ event, props, triggerEvent, data }) {
@@ -104,8 +106,6 @@ function SideBar({openChannelModal}) {
       event: e,
     });
   }
-
-
 
   return (
     <div className="flex flex-col items-center h-screen bg-black w-64 overflow-y-scroll">
@@ -126,15 +126,11 @@ function SideBar({openChannelModal}) {
               <AddChannel />
             </button>
             <Menu id={MENU_ID}>
-              <Item onClick={handleItemClick}>
-                Create Channel
-              </Item>
-              <Item onClick={handleItemClick}>
-                Join Channel
-              </Item>
+              <Item onClick={handleItemClick}>Create Channel</Item>
+              <Item onClick={handleItemClick}>Join Channel</Item>
             </Menu>
           </div>
-          {channelArrowClick && <Channels handleSelect={handleSelect} />}
+          {channelArrowClick && <Channels />}
         </div>
         <div className="flex flex-col w-full mt-4">
           <div className="text-white flex flex-row w-full justify-between items-center mb-2">
@@ -151,7 +147,7 @@ function SideBar({openChannelModal}) {
               <AddChannel />
             </button>
           </div>
-          {messageArrowClick && <DirectMessages handleSelect={handleSelect} />}
+          {messageArrowClick && <DirectMessages />}
         </div>
       </div>
       <UserProfileSettings />
