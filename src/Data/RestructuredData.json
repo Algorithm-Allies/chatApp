@@ -96,7 +96,7 @@
       "id": 1,
       "name": "general",
       "serverId": 1,
-      "users": [1, 2],
+      "users": [1, 2, 3, 4, 5, 6],
       "messages": [
         {
           "id": 1,
@@ -124,67 +124,67 @@
           "content": "Mia says hello as well."
         },
         {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
           "id": 6,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 7,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 99,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 8,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 9,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 10,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 11,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 12,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 13,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 14,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 15,
           "sender": 12,
           "timestamp": "today",
           "content": "James is here too!"
@@ -194,6 +194,105 @@
     "2": {
       "id": 2,
       "name": "Random",
+      "serverId": 1,
+      "users": [1, 2],
+      "messages": [
+        {
+          "id": 1,
+          "sender": 1,
+          "timestamp": "today",
+          "content": "THIS IS RANDOM CHANNEL"
+        },
+        {
+          "id": 2,
+          "sender": 2,
+          "timestamp": "today",
+          "content": "Hello there!"
+        },
+        {
+          "id": 3,
+          "sender": 11,
+          "timestamp": "today",
+          "content": "This is Jacks message."
+        },
+        {
+          "id": 4,
+          "sender": 12,
+          "timestamp": "today",
+          "content": "CHAZZ is here too!"
+
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "john says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "thomis says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "william says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "annete says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "clare says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "joe says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "donald says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "jerry says hello as well."
+        },
+        {
+          "id": 5,
+          "sender": 13,
+          "timestamp": "today",
+          "content": "Mia says hello as well."
+        }
+      ]
+    },
+    "3": {
+      "id": 2,
+      "name": "Help",
       "serverId": 1,
       "users": [1, 2],
       "messages": [
@@ -214,76 +313,52 @@
           "id": 4,
           "sender": 12,
           "timestamp": "today",
-          "content": "James is here too!"
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
-        },
-        {
-          "id": 5,
-          "sender": 13,
-          "timestamp": "today",
-          "content": "Mia says hello as well."
+          "content": "CHAZZ is here too!"
         }
       ]
     }
-    
+
+  },
+
+  "directMessages": {
+    "1": {
+      "id": 1,
+      "direct_user": 1,
+      "users": [1, 2],
+      "messages": [
+        {
+          "id": 1,
+          "sender": 1,
+          "timestamp": "today",
+          "content": "Hello Jane!"
+        },
+        {
+          "id": 2,
+          "sender": 2,
+          "timestamp": "today",
+          "content": "Hey John!"
+        }
+      ]
+    },
+    "2": {
+      "id": 2,
+      "direct_user": 3,
+      "users": [3, 2],
+      "messages": [
+        {
+          "id": 1,
+          "sender": 3,
+          "timestamp": "today",
+          "content": "Hi Robert!"
+        },
+        {
+          "id": 2,
+          "sender": 2,
+          "timestamp": "today",
+          "content": "Hello Michael!"
+        }
+      ]
+    }
+
   }
 }

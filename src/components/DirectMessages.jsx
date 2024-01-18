@@ -1,9 +1,16 @@
-import React from "react";
-import Data from "../Data/Data.json";
-function DirectMessages({ handleSelect }) {
+import React, { useContext } from "react";
+
+import { ChatContext } from "../context/Context";
+function DirectMessages() {
+  const { users, fetchSingleDirectMessages } = useContext(ChatContext);
+
+  const handleSelect = (userInfo) => {
+    fetchSingleDirectMessages(userInfo);
+  };
+
   return (
     <div className="text-white">
-      {Data.users.map((user) => {
+      {Object.values(users).map((user) => {
         return (
           <div
             key={user.id}
