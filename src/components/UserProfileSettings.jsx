@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 // const user = {
@@ -10,7 +11,13 @@ import axios from "axios";
 
 function Popup({ onClose }) {
   return (
-    <div className="w-11/12 m-2 bg-white flex justify-center">
+    <div className="w-11/12 m-2 bg-white flex flex-col justify-center">
+      <Link
+        className="p-2 flex flex-row justify-start hover:bg-gray-400 w-full cursor-pointer"
+        to="/profile"
+      >
+        Profile
+      </Link>
       <div
         className="p-2 flex flex-row justify-start hover:bg-gray-400 w-full cursor-pointer"
         onClick={onClose}
