@@ -44,15 +44,6 @@ function UserProfileSettings() {
       try {
         const userId = localStorage.getItem("userId");
         const token = localStorage.getItem("token");
-        console.log(userId);
-        console.log(token);
-
-        const [header, payload, signature] = token.split(".");
-
-        const decodedHeader = atob(header);
-        const decodedPayload = atob(payload);
-        console.log("decodedHeader", decodedHeader);
-        console.log("decodedPayload", decodedPayload);
 
         const response = await axios.get(
           `http://localhost:3500/api/users/${userId}`,
@@ -87,7 +78,7 @@ function UserProfileSettings() {
               user.profilePhoto ||
               "https://www.w3schools.com/howto/img_avatar.png"
             }
-            alt={`${user.first_name} ${user.last_name}`}
+            alt={`${user.firstName} ${user.lastName}`}
             className="h-8 w-8 rounded-full mr-2"
           />
           <span>
