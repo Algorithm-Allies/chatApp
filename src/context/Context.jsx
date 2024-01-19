@@ -14,18 +14,22 @@ export const ChatProvider = ({ children }) => {
   const [titleName, setTitleName] = useState([]);
   const [isChannel, setIsChannel] = useState(true);
 
-  const fetchMessages = (id, type) => {
-    let fetchedMessages = [];
-
-    if (type === "channel") {
-      //api call for messages that are in a specific channel
-      fetchedMessages = RestructuredData.channels[id]?.messages || [];
-    } else if (type === "direct") {
-      //api call for messages in a direct message
-      fetchedMessages = RestructuredData.directMessages[id]?.messages || [];
+  const fetchMessages = async (id, type) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        `http://localhost:3500/api/messages/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const messages = response.data;
+      setMessages(messages);
+    } catch (error) {
+      console.error(error);
     }
-
-    setMessages(fetchedMessages);
   };
 
   const handleSendMessage = (messageContent) => {
@@ -62,7 +66,7 @@ export const ChatProvider = ({ children }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `http://localhost:3500/api/channels/${id}`,
+        `http://localhost:3500/api/channels/getChannelById/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -105,7 +109,18 @@ export const ChatProvider = ({ children }) => {
   };
 
   const fetchUsers = () => {
-    setUsers(RestructuredData.users);
+    const token = localStorage.getItem("token");
+    try {
+      const response = axios.get("http://localhost:3500/api/users", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const users = response.data;
+      setUsers(users);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {

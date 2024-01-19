@@ -1,13 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Message from "./Message";
-
 import RestructuredData from "../Data/RestructuredData.json";
-
 import { ChatContext } from "../context/Context";
 import AddMessageInput from "./AddMessageInput";
-const ChannelMessages = ({position, displayProfilePopup, isVisible}) => {
-  const { messages, users, titleName, isChannel } = useContext(ChatContext);
 
+const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
+  const { messages, users, titleName, isChannel } = useContext(ChatContext);
+  const { fetchMessages } = useContext(ChatContext);
+
+  useEffect(() => {
+    fetchMessages(titleName._id, isChannel);
+  }, []);
+
+  console.log(messages);
   return (
     <div className="bg-gray-400 flex flex-col h-full p-4">
       <div className="text-5xl border-b border-gray-700 pb-4 flex items-center">
@@ -43,14 +48,17 @@ const ChannelMessages = ({position, displayProfilePopup, isVisible}) => {
             </div>
           )}
         </div>
-        {messages.map((messageData, index) => (
+        {messages.map((message, index) => (
           <Message
-            key={messageData.id + index}
-            profilePic={users[messageData.sender].profile_pic}
-            name={users[messageData.sender].first_name}
-            lastName={users[messageData.sender].last_name}
-            message={messageData.content}
-            timestamp={messageData.timestamp}
+            key={message._id}
+            profilePic={
+              message.user.profilePhoto ||
+              "https://www.w3schools.com/howto/img_avatar.png"
+            }
+            name={message.user.firstName}
+            lastName={message.user.lastName}
+            message={message.text}
+            timestamp={message.timestamp}
             position={position}
             displayProfilePopup={displayProfilePopup}
             isVisible={isVisible}
