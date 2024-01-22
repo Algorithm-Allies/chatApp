@@ -70,7 +70,7 @@ function AddChannel() {
   );
 }
 
-function SideBar() {
+function SideBar({openChannelModal}) {
   const [channelArrowClick, setChannelArrowClick] = useState(false);
   const [messageArrowClick, setMessageArrowClick] = useState(false);
 
@@ -97,6 +97,7 @@ function SideBar() {
   });
 
   function handleItemClick({ event, props, triggerEvent, data }) {
+    openChannelModal()
     console.log(event, props, triggerEvent, data);
   }
 
