@@ -1,15 +1,12 @@
-
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
-
-// const user = {
-//   id: 1,
-//   first_name: "John",
-//   last_name: "Doe",
-//   profile_pic: "https://www.w3schools.com/howto/img_avatar.png",
-// };
+const user = {
+  id: 1,
+  first_name: "John",
+  last_name: "Doe",
+  profile_pic: "https://www.w3schools.com/howto/img_avatar.png",
+};
 
 function Popup({ onClose }) {
   return (
@@ -20,6 +17,7 @@ function Popup({ onClose }) {
       >
         Profile
       </Link>
+
       <div
         className="p-2 flex flex-row justify-start hover:bg-gray-400 w-full cursor-pointer"
         onClick={onClose}
@@ -46,29 +44,6 @@ function Popup({ onClose }) {
 
 function UserProfileSettings() {
   const [showPopup, setShowPopup] = useState(false);
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userId = localStorage.getItem("userId");
-        const token = localStorage.getItem("token");
-
-        const response = await axios.get(
-          `http://localhost:3500/api/users/${userId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setUser(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUser();
-  }, []);
 
   const handleLogout = () => {
     setShowPopup(false);
@@ -83,15 +58,12 @@ function UserProfileSettings() {
       >
         <div className="flex items-center">
           <img
-            src={
-              user.profilePhoto ||
-              "https://www.w3schools.com/howto/img_avatar.png"
-            }
-            alt={`${user.firstName} ${user.lastName}`}
+            src={user.profile_pic}
+            alt={`${user.first_name} ${user.last_name}`}
             className="h-8 w-8 rounded-full mr-2"
           />
           <span>
-            {user.firstName} {user.lastName}
+            {user.first_name} {user.last_name}
           </span>
         </div>
       </div>
