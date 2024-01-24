@@ -2,30 +2,21 @@ import React, { useContext, useEffect } from "react";
 import { ChatContext } from "../context/Context";
 
 function Channels() {
-  const { channels, fetchChannels, fetchSingleChannel } =
-    useContext(ChatContext);
+  const { channels, fetchSingleChannel } = useContext(ChatContext);
 
-  useEffect(() => {
-    fetchChannels();
-  }, []);
-
-  const handleSelect = (channelId) => {
-    fetchSingleChannel(channelId);
+  const handleSelect = (info) => {
+    fetchSingleChannel(info.id);
   };
 
   return (
     <div className="text-white">
-      {channels.map((channel) => (
+      {Object.values(channels).map((channel) => (
         <div
-          key={channel._id}
-          id={channel._id}
-          className="border-b border-gray-800 p-4 hover:bg-gray-800 cursor-pointer"
-          onClick={() => handleSelect(channel._id)}
+          key={channel.id}
+          className="text-white hover:bg-gray-800 cursor-pointer p-1"
+          onClick={() => handleSelect(channel)}
         >
-          <div className="flex items-center">
-            <span className="text-green-500">#</span>
-            <span>{channel.chatName}</span>
-          </div>
+          <div>#{channel.name}</div>
         </div>
       ))}
     </div>

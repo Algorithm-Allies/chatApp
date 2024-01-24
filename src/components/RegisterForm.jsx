@@ -105,7 +105,7 @@ function RegisterForm() {
     // If all validations pass, proceed with form submission
     try {
       const response = await axios.post(
-        "http//localhost:3500/api/users",
+        "https://chatapp-backend-dcb3e47f1f84.herokuapp.com/api/users",
         formData,
         {
           headers: {
