@@ -12,7 +12,6 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
     fetchMessages(titleName._id, isChannel);
   }, []);
 
-  console.log(messages);
   return (
     <div className="bg-gray-400 flex flex-col h-full p-4">
       <div className="text-5xl border-b border-gray-700 pb-4 flex items-center">

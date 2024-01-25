@@ -123,13 +123,6 @@ export const ChatProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    fetchSingleChannel(1);
-    fetchUsers();
-    fetchChannels();
-    fetchDirectMessages();
-  }, []);
-
   const contextValue = {
     messages,
     setMessages,
