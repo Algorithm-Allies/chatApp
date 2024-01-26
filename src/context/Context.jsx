@@ -18,7 +18,7 @@ export const ChatProvider = ({ children }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `http://localhost:3500/api/messages/${id}`,
+        `http://localhost:3000/api/messages/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -50,7 +50,7 @@ export const ChatProvider = ({ children }) => {
     //api call for all channels
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:3500/api/channels", {
+      const response = await axios.get("http://localhost:3000/api/channels", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -66,7 +66,7 @@ export const ChatProvider = ({ children }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `http://localhost:3500/api/channels/getChannelById/${id}`,
+        `http://localhost:3000/api/channels/getChannelById/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -111,7 +111,7 @@ export const ChatProvider = ({ children }) => {
   const fetchUsers = () => {
     const token = localStorage.getItem("token");
     try {
-      const response = axios.get("http://localhost:3500/api/users", {
+      const response = axios.get(`http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

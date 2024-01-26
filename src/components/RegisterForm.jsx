@@ -105,7 +105,7 @@ function RegisterForm() {
     // If all validations pass, proceed with form submission
     try {
       const response = await axios.post(
-        "http//localhost:3500/api/users",
+        `http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/users`,
         formData,
         {
           headers: {
