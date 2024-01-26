@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import RestructuredData from "../Data/RestructuredData.json";
+import { fetchUserProfile } from "./appControllers";
 
 export const ChatContext = createContext();
 
@@ -12,6 +13,7 @@ export const ChatProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
   const [titleName, setTitleName] = useState([]);
   const [isChannel, setIsChannel] = useState(true);
+  const [userProfile, setUserProfile] = useState([]);
 
   const fetchMessages = (id, type) => {
     let fetchedMessages = [];
@@ -92,6 +94,7 @@ export const ChatProvider = ({ children }) => {
     fetchUsers();
     fetchChannels();
     fetchDirectMessages();
+    fetchUserProfile(setUserProfile);
   }, []);
 
   const contextValue = {
@@ -109,6 +112,8 @@ export const ChatProvider = ({ children }) => {
     selectedDirect,
     titleName,
     isChannel,
+    userProfile,
+    setUserProfile,
   };
 
   return (
