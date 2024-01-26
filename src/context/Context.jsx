@@ -1,6 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
 import RestructuredData from "../Data/RestructuredData.json";
-import axios from "axios";
 
 export const ChatContext = createContext();
 
@@ -29,7 +28,10 @@ export const ChatProvider = ({ children }) => {
       setMessages(messages);
     } catch (error) {
       console.error(error);
+
     }
+
+    setMessages(fetchedMessages);
   };
 
   const handleSendMessage = (messageContent) => {
@@ -45,6 +47,7 @@ export const ChatProvider = ({ children }) => {
 
     setMessages([...messages, newMessage]);
   };
+
 
   const fetchChannels = async () => {
     //api call for all channels
@@ -83,6 +86,7 @@ export const ChatProvider = ({ children }) => {
       fetchMessages(id, "channel");
       setIsChannel(true);
     } catch (error) {}
+
   };
 
   const fetchDirectMessages = () => {
@@ -109,6 +113,7 @@ export const ChatProvider = ({ children }) => {
   };
 
   const fetchUsers = () => {
+
     const token = localStorage.getItem("token");
     try {
       const response = axios.get(`http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/users`, {
@@ -121,6 +126,7 @@ export const ChatProvider = ({ children }) => {
     } catch (error) {
       console.error(error);
     }
+
   };
 
   useEffect(() => {
@@ -145,7 +151,6 @@ export const ChatProvider = ({ children }) => {
     selectedDirect,
     titleName,
     isChannel,
-    fetchChannels,
   };
 
   return (
