@@ -45,31 +45,6 @@ function Popup({ onClose }) {
 function UserProfileSettings() {
   const [showPopup, setShowPopup] = useState(false);
 
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userId = localStorage.getItem("userId");
-        const token = localStorage.getItem("token");
-      
-        const response = await axios.get(
-          `http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/users/${userId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setUser(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUser();
-  }, []);
-
-
   const handleLogout = () => {
     setShowPopup(false);
   };
