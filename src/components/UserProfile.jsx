@@ -14,13 +14,6 @@ const UserProfile = () => {
     accentColor: user.accentColor,
   });
 
-  //   const [displayName, setDisplayName] = useState("Mario Mario");
-  //   const [pronouns, setPronouns] = useState("he/him");
-  //   const [aboutMe, setAboutMe] = useState(
-  //     "Saving princesses, and fighting Koopas, because why not? I never chose this life."
-  //   );
-  //   const [primaryColor, setPrimaryColor] = useState("black");
-  //   const [accentColor, setAccentColor] = useState("red");
   const [isChanged, setIsChanged] = useState(false);
 
   console.log(userProfile);

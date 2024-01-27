@@ -1,7 +1,5 @@
 import axios from "axios";
 
-const link = "http://localhost:3000/api/";
-
 export const fetchUserProfile = async (setUserProfile) => {
   try {
     const token = localStorage.getItem("token");

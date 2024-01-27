@@ -1,15 +1,7 @@
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-
-
-// const user = {
-//   id: 1,
-//   first_name: "John",
-//   last_name: "Doe",
-//   profile_pic: "https://www.w3schools.com/howto/img_avatar.png",
-// };
+import { ChatContext } from "../context/Context";
+import { fetchUserProfile } from "../context/appControllers";
 
 function Popup({ onClose }) {
   return (
@@ -45,35 +37,26 @@ function Popup({ onClose }) {
 }
 
 function UserProfileSettings() {
+  const { userProfile, channels, setUserProfile } = useContext(ChatContext);
+
   const [showPopup, setShowPopup] = useState(false);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(userProfile.data);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userId = localStorage.getItem("userId");
-        const token = localStorage.getItem("token");
-      
-        const response = await axios.get(
-          `http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/users/${userId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setUser(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUser();
-  }, []);
+    fetchUserProfile(setUserProfile);
+    if (userProfile.data) {
+      setUser(userProfile.data);
+    }
+  }, [!userProfile.data]);
 
   const handleLogout = () => {
     setShowPopup(false);
   };
 
+  console.log(userProfile.data);
+  if (!user) {
+    return null; // or render a loading state
+  }
   return (
     <div className="sticky bottom-0 w-full flex flex-col items-center bg-black">
       {showPopup && <Popup onClose={() => setShowPopup(false)} />}

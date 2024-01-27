@@ -3,7 +3,7 @@ import { ChatContext } from "../context/Context";
 
 function Channels() {
   const { channels, fetchSingleChannel } = useContext(ChatContext);
-
+  console.log(channels);
   const handleSelect = (info) => {
     fetchSingleChannel(info.id);
   };
@@ -16,7 +16,7 @@ function Channels() {
           className="text-white hover:bg-gray-800 cursor-pointer p-1"
           onClick={() => handleSelect(channel)}
         >
-          <div>#{channel.name}</div>
+          <div>#{channel.chatName}</div>
         </div>
       ))}
     </div>

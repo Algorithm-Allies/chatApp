@@ -128,12 +128,33 @@ export const ChatProvider = ({ children }) => {
     }
   };
 
+  const fetchProfile = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("Authentication token not found");
+      }
+
+      const resp = await axios.get("http://localhost:3000/api/profile/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(resp);
+      setUserProfile(resp);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   useEffect(() => {
     fetchSingleChannel(1);
     fetchUsers();
     fetchChannels();
     fetchDirectMessages();
-    fetchUserProfile(setUserProfile);
+    //fetchUserProfile(setUserProfile);
+    //fetchProfile();
+    console.log("effect call");
   }, []);
 
   const contextValue = {
