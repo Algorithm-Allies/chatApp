@@ -1,51 +1,64 @@
 import React, { useState, useContext, useEffect } from "react";
-import { fetchUserProfile } from "../context/appControllers";
 import { ChatContext } from "../context/Context";
+import Loading from "./Loading/Loading";
 
 const UserProfile = () => {
-  const { userProfile } = useContext(ChatContext);
-  const user = userProfile.data;
-  console.log(userProfile);
+  const { userProfile, isLoading, fetchProfile, saveNewProfile } =
+    useContext(ChatContext);
+
   const [userInfo, setUserInfo] = useState({
-    displayName: user.username,
-    pronouns: user.pronouns,
-    aboutMe: user.aboutMe,
-    primaryColor: user.primaryColor,
-    accentColor: user.accentColor,
+    displayName: "",
+    pronouns: "",
+    aboutMe: "",
+    primaryColor: "",
+    accentColor: "",
+    profilePic: "",
   });
 
   const [isChanged, setIsChanged] = useState(false);
 
-  console.log(userProfile);
-  const handleDisplayNameChange = (event) => {
-    setDisplayName(event.target.value);
+  useEffect(() => {
+    fetchProfile()
+      .then((data) => {
+        setUserInfo({
+          displayName: data.username,
+          pronouns: data.pronouns,
+          aboutMe: data.aboutMe,
+          primaryColor: data.primaryColor,
+          accentColor: data.accentColor,
+          profilePic: data.profilePhoto,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [setUserInfo]);
+
+  const handleChange = (e) => {
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
     setIsChanged(true);
   };
 
-  const handlePronounsChange = (event) => {
-    setPronouns(event.target.value);
-    setIsChanged(true);
+  const handleSave = async () => {
+    try {
+      const obj = {
+        newUsername: userInfo.displayName,
+        newPronouns: userInfo.pronouns,
+        newAboutMe: userInfo.aboutMe,
+        newPrimaryColor: userInfo.primaryColor,
+        newAccentColor: userInfo.accentColor,
+        newProfilePic: userInfo.profilePic,
+      };
+      await saveNewProfile(obj);
+      setIsChanged(false);
+    } catch (error) {
+      console.error("Error saving profile:", error);
+    }
   };
 
-  const handleAboutMeChange = (event) => {
-    setAboutMe(event.target.value);
-    setIsChanged(true);
-  };
-
-  const handlePrimaryColorChange = (event) => {
-    setPrimaryColor(event.target.value);
-    setIsChanged(true);
-  };
-
-  const handleAccentColorChange = (event) => {
-    setAccentColor(event.target.value);
-    setIsChanged(true);
-  };
-
-  const handleSave = () => {
-    setIsChanged(false);
-  };
-
+  if (isLoading) {
+    return <Loading />; // or render a loading spinner, etc.
+  }
   return (
     <div className="bg-zinc-700	p-4 flex text-white justify-center items-start">
       <div>
@@ -54,9 +67,10 @@ const UserProfile = () => {
           <input
             className="mt-1 p-3 bg-zinc-900 rounded-md"
             type="text"
+            name="displayName"
             placeholder="Enter username"
             value={userInfo.displayName}
-            onChange={handleDisplayNameChange}
+            onChange={handleChange}
           />
         </div>
         <hr className="my-6" />
@@ -65,9 +79,10 @@ const UserProfile = () => {
           <input
             className="mt-1 p-3 bg-zinc-900 rounded-md"
             type="text"
+            name="pronouns"
             placeholder="he/him"
             value={userInfo.pronouns}
-            onChange={handlePronounsChange}
+            onChange={handleChange}
           />
         </div>
         <hr className="my-6" />
@@ -80,20 +95,21 @@ const UserProfile = () => {
             >
               Change Avatar
             </label>
-            <input id="profile-avatar" className="hidden" type="file" />
-            <button className="ml-4 hover:underline">Remove Avatar</button>
+            <input
+              id="profile-avatar"
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                const file = e.target.files[0];
+                setIsChanged(true);
+                setUserInfo((prevUserInfo) => ({
+                  ...prevUserInfo,
+                  profilePic: URL.createObjectURL(file), // Assuming you want to display a preview of the selected image
+                }));
+              }}
+              className="hidden"
+            />
           </div>
-        </div>
-        <hr className="my-6" />
-        <div className="flex flex-col items-start">
-          <p>Profile Banner</p>
-          <label
-            htmlFor="profile-banner"
-            className="rounded-md text-gray-200 bg-blue-600 px-4 py-2 mt-2 hover:cursor-pointer hover:bg-blue-700"
-          >
-            Change Banner
-          </label>
-          <input id="profile-banner" className="hidden" type="file" />
         </div>
         <hr className="my-6" />
         <div>
@@ -109,8 +125,9 @@ const UserProfile = () => {
                 id="profile-primary"
                 className="hidden"
                 type="color"
+                name="primaryColor"
                 value={userInfo.primaryColor}
-                onChange={handlePrimaryColorChange}
+                onChange={handleChange}
               />
               <p>Primary</p>
             </div>
@@ -124,8 +141,9 @@ const UserProfile = () => {
                 id="profile-accent"
                 className="hidden"
                 type="color"
+                name="accentColor"
                 value={userInfo.accentColor}
-                onChange={handleAccentColorChange}
+                onChange={handleChange}
               />
               <p>Accent</p>
             </div>
@@ -136,12 +154,12 @@ const UserProfile = () => {
           <label className="text-gray-200">About Me</label>
           <textarea
             className="rounded-md mt-2 p-4 bg-zinc-900"
-            name=""
+            name="aboutMe"
             id=""
             cols="40"
             rows="8"
             value={userInfo.aboutMe}
-            onChange={handleAboutMeChange}
+            onChange={handleChange}
           ></textarea>
         </div>
       </div>
@@ -149,18 +167,16 @@ const UserProfile = () => {
         <p>Preview</p>
         <div
           className="rounded-md border-2 border-white mt-1 max-w-sm"
-          style={{ backgroundColor: userInfo.primaryColor, minWidth: "24rem" }}
+          style={{
+            backgroundColor: userInfo.primaryColor,
+            minWidth: "24rem",
+          }}
         >
-          <div
-            className="rounded-t-sm h-32 bg-cover bg-no-repeat"
-            style={{
-              backgroundImage: `url(https://images.unsplash.com/photo-1613278137247-0bf3fff95fe2?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,
-            }}
-          ></div>
-          <div className="rounded-md bg-white p-4 m-4 text-black flex flex-col">
+          <div className="rounded-t-sm bg-cover bg-no-repeat"></div>
+          <div className="rounded-md bg-white p-4 m-4 text-black flex flex-col ">
             <img
-              className="rounded-md w-20 border border-black"
-              src="https://cdn.vox-cdn.com/thumbor/qTxuxzcM3KZpe6G3HUztP9jFpVo=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/12095359/nintendo_direct_mario.0.0.0.jpg"
+              className="rounded-md h-20 w-20 border border-black"
+              src={userInfo.profilePic}
               alt=""
             />
             <p className="font-bold mt-2">{userInfo.displayName}</p>

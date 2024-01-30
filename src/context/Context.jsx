@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 import RestructuredData from "../Data/RestructuredData.json";
 import { fetchUserProfile } from "./appControllers";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 export const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
@@ -15,6 +15,7 @@ export const ChatProvider = ({ children }) => {
   const [titleName, setTitleName] = useState([]);
   const [isChannel, setIsChannel] = useState(true);
   const [userProfile, setUserProfile] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchMessages = async (id, type) => {
     try {
@@ -128,34 +129,74 @@ export const ChatProvider = ({ children }) => {
     }
   };
 
-  const fetchProfile = async () => {
+  const fetchProfile = () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        setIsLoading(true);
+
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("Authentication token not found");
+        }
+
+        const resp = await axios.get("http://localhost:3000/api/profile/", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setUserProfile(resp.data);
+        resolve(resp.data);
+      } catch (error) {
+        reject(error);
+      } finally {
+        setIsLoading(false);
+      }
+    });
+  };
+
+  const saveNewProfile = async (profileData) => {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
         throw new Error("Authentication token not found");
       }
-
-      const resp = await axios.get("http://localhost:3000/api/profile/", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(resp);
-      setUserProfile(resp);
+      console.log(profileData);
+      const resp = await axios.put(
+        "http://localhost:3000/api/profile/",
+        profileData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Profile updated successfully:", resp.data);
     } catch (error) {
-      throw error;
+      console.error("Error updating profile:", error);
     }
   };
 
-  useEffect(() => {
-    fetchSingleChannel(1);
-    fetchUsers();
-    fetchChannels();
-    fetchDirectMessages();
-    //fetchUserProfile(setUserProfile);
-    //fetchProfile();
-    console.log("effect call");
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setIsLoading(true);
+
+  //     try {
+  //       await fetchSingleChannel(1);
+  //       await fetchUsers();
+  //       await fetchChannels();
+  //       await fetchDirectMessages();
+  //       await fetchProfile();
+  //     } catch (error) {
+  //       console.error(error);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
 
   const contextValue = {
     messages,
@@ -175,6 +216,9 @@ export const ChatProvider = ({ children }) => {
     userProfile,
     setUserProfile,
     fetchChannels,
+    isLoading,
+    fetchProfile,
+    saveNewProfile,
   };
 
   return (
