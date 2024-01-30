@@ -1,8 +1,6 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
 import RestructuredData from "../Data/RestructuredData.json";
-import { fetchUserProfile } from "./appControllers";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 export const ChatContext = createContext();
 
 export const ChatProvider = ({ children }) => {
@@ -59,6 +57,7 @@ export const ChatProvider = ({ children }) => {
         },
       });
       const channels = response.data;
+      console.log(channels);
       setChannels(channels);
     } catch (error) {
       console.error(error);
@@ -88,11 +87,23 @@ export const ChatProvider = ({ children }) => {
     } catch (error) {}
   };
 
-  const fetchDirectMessages = () => {
-    setTimeout(() => {
-      //api call for all direct messages
-      setDirectMessages(RestructuredData.directMessages);
-    }, 1000);
+  const fetchDirectMessages = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        "http://localhost:3000/api/directMessages/",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const directMessages = response.data;
+      console.log(directMessages);
+      setDirectMessages(directMessages);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const fetchSingleDirectMessages = (userInfo) => {
@@ -178,26 +189,6 @@ export const ChatProvider = ({ children }) => {
     }
   };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     setIsLoading(true);
-
-  //     try {
-  //       await fetchSingleChannel(1);
-  //       await fetchUsers();
-  //       await fetchChannels();
-  //       await fetchDirectMessages();
-  //       await fetchProfile();
-  //     } catch (error) {
-  //       console.error(error);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
   const contextValue = {
     messages,
     setMessages,
@@ -219,6 +210,7 @@ export const ChatProvider = ({ children }) => {
     isLoading,
     fetchProfile,
     saveNewProfile,
+    fetchDirectMessages,
   };
 
   return (

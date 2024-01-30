@@ -1,25 +1,26 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { ChatContext } from "../context/Context";
-import { fetchUserProfile } from "../context/appControllers";
 import { Popup } from "./Popup";
+import Loading from "./Loading/Loading";
 
 function UserProfileSettings() {
-  const { userProfile, setUserProfile } = useContext(ChatContext);
+  const { userProfile, fetchProfile } = useContext(ChatContext);
 
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
-    fetchUserProfile(setUserProfile);
+    fetchProfile();
   }, []);
 
+  console.log(userProfile);
   const handleLogout = () => {
     setShowPopup(false);
   };
-  const user = userProfile.data;
+
+  const user = userProfile;
 
   if (!user) {
-    return null; // or render a loading state
+    return <Loading />;
   }
   return (
     <div className="sticky bottom-0 w-full flex flex-col items-center bg-black">

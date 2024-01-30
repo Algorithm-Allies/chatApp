@@ -3,7 +3,6 @@ import SideBar from "../components/SideBar";
 import ChannelMessages from "../components/ChannelMessages";
 import ProfilePopup from "../components/ProfilePopup";
 import CreateChannelModal from "../components/CreateChannelModal";
-import { fetchUserProfile } from "../context/appControllers";
 import { ChatContext } from "../context/Context";
 
 function ChatPage() {
@@ -13,7 +12,7 @@ function ChatPage() {
   const popupRef = useRef(null);
   const channelModalRef = useRef(null);
 
-  const { setUserProfile } = useContext(ChatContext);
+  const { fetchChannels, fetchDirectMessages } = useContext(ChatContext);
 
   const openChannelModal = () => {
     if (channelModalRef.current) {
@@ -40,6 +39,8 @@ function ChatPage() {
   };
 
   useEffect(() => {
+    fetchChannels();
+    fetchDirectMessages();
     let handler = (e) => {
       e.preventDefault();
 

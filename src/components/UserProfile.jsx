@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import { ChatContext } from "../context/Context";
+import { useNavigate } from "react-router-dom";
 import Loading from "./Loading/Loading";
 
 const UserProfile = () => {
-  const { userProfile, isLoading, fetchProfile, saveNewProfile } =
-    useContext(ChatContext);
+  const { isLoading, fetchProfile, saveNewProfile } = useContext(ChatContext);
 
   const [userInfo, setUserInfo] = useState({
     displayName: "",
@@ -16,7 +16,7 @@ const UserProfile = () => {
   });
 
   const [isChanged, setIsChanged] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     fetchProfile()
       .then((data) => {
@@ -39,6 +39,15 @@ const UserProfile = () => {
     setIsChanged(true);
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setIsChanged(true);
+    setUserInfo((prevUserInfo) => ({
+      ...prevUserInfo,
+      profilePic: URL.createObjectURL(file),
+    }));
+  };
+
   const handleSave = async () => {
     try {
       const obj = {
@@ -56,6 +65,9 @@ const UserProfile = () => {
     }
   };
 
+  const handleEscPress = () => {
+    navigate("/chat-page");
+  };
   if (isLoading) {
     return <Loading />; // or render a loading spinner, etc.
   }
@@ -99,14 +111,7 @@ const UserProfile = () => {
               id="profile-avatar"
               type="file"
               accept="image/*"
-              onChange={(e) => {
-                const file = e.target.files[0];
-                setIsChanged(true);
-                setUserInfo((prevUserInfo) => ({
-                  ...prevUserInfo,
-                  profilePic: URL.createObjectURL(file), // Assuming you want to display a preview of the selected image
-                }));
-              }}
+              onChange={handleFileChange}
               className="hidden"
             />
           </div>
@@ -193,14 +198,22 @@ const UserProfile = () => {
             </button>
           </div>
         </div>
-        {isChanged && (
+        <div className="flex flex-col w-1/2">
           <button
-            className="rounded-md bg-green-600 p-4 mt-4"
-            onClick={handleSave}
+            className="rounded-md bg-red-500 text-white px-4 py-2 mt-4"
+            onClick={handleEscPress}
           >
-            Save Changes
+            Close
           </button>
-        )}
+          {isChanged && (
+            <button
+              className="rounded-md bg-green-600 p-4 mt-4"
+              onClick={handleSave}
+            >
+              Save Changes
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
