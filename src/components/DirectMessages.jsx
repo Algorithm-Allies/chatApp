@@ -2,9 +2,8 @@ import React, { useContext } from "react";
 
 import { ChatContext } from "../context/Context";
 function DirectMessages() {
-  const { users, fetchSingleDirectMessages, directMessages } =
-    useContext(ChatContext);
-  console.log(directMessages);
+  const { users, fetchSingleDirectMessages } = useContext(ChatContext);
+
   const handleSelect = (userInfo) => {
     fetchSingleDirectMessages(userInfo);
   };
