@@ -1,31 +1,30 @@
 import React, { useContext } from "react";
+import { SelectChatFunc } from "./../utils/SelectChatFunc";
 
 import { ChatContext } from "../context/Context";
 function DirectMessages() {
-  const { users, fetchSingleDirectMessages, directMessages } =
+  const { directMessages, fetchMessages, setTitleName, setSelectedChat } =
     useContext(ChatContext);
-  console.log(directMessages);
-  const handleSelect = (userInfo) => {
-    fetchSingleDirectMessages(userInfo);
-  };
 
   return (
     <div className="text-white">
-      {Object.values(users).map((user) => {
+      {Object.values(directMessages).map((chat) => {
+        const user = chat.members[1].user;
+        console.log(user.profilePhoto);
         return (
           <div
-            key={user.id}
+            key={chat.id}
             className="text-white hover:bg-gray-800 cursor-pointer flex items-center p-1"
-            onClick={() => handleSelect(user)}
+            onClick={() =>
+              SelectChatFunc(chat, setTitleName, fetchMessages, setSelectedChat)
+            }
           >
             <img
-              src={user.profile_pic}
-              alt={`${user.first_name} ${user.last_name}`}
+              src={user.profilePhoto}
+              alt={`${chat.chatName} `}
               className="h-6 w-6 rounded-full mr-2"
             />
-            <span>
-              {user.first_name} {user.last_name}
-            </span>
+            <span>{chat.chatName}</span>
           </div>
         );
       })}

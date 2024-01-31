@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { ChatContext } from "../context/Context";
 
-function AddMessageInput() {
+function AddMessageInput({ selectedChat }) {
   const { handleSendMessage } = useContext(ChatContext);
   const [inputMessage, setInputMessage] = useState("");
 
@@ -10,7 +10,8 @@ function AddMessageInput() {
   };
 
   const sendMessage = () => {
-    handleSendMessage(inputMessage);
+    console.log(selectedChat);
+    //handleSendMessage(selectedChat._id, inputMessage);
   };
 
   return (
