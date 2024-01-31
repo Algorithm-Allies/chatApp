@@ -3,6 +3,9 @@ import Message from "./Message";
 import RestructuredData from "../Data/RestructuredData.json";
 import { ChatContext } from "../context/Context";
 import AddMessageInput from "./AddMessageInput";
+import io from "socket.io-client";
+
+const ENDPOINT = "http://localhost:3500";
 
 const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
   const { messages, users, titleName, isChannel } = useContext(ChatContext);
@@ -10,6 +13,10 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
 
   useEffect(() => {
     fetchMessages(titleName._id, isChannel);
+  }, []);
+
+  useEffect(() => {
+    const socket = io(ENDPOINT);
   }, []);
 
   return (
