@@ -18,7 +18,7 @@ export const ChatProvider = ({ children }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `http://localhost:3000/api/messages/${id}`,
+        `http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/messages/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -66,7 +66,7 @@ export const ChatProvider = ({ children }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `http://localhost:3000/api/channels/getChannelById/${id}`,
+        `http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/channels/getChannelById/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
