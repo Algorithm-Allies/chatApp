@@ -50,7 +50,7 @@ export const ChatProvider = ({ children }) => {
     //api call for all channels
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:3000/api/channels", {
+      const response = await axios.get(`http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/channels`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
