@@ -53,9 +53,9 @@ function UserProfileSettings() {
       try {
         const userId = localStorage.getItem("userId");
         const token = localStorage.getItem("token");
-      
+
         const response = await axios.get(
-          `http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/users/${userId}`,
+          `http://localhost:3500/api/users/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

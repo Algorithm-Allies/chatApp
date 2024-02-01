@@ -22,7 +22,7 @@ function Login() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/users/login`,
+        "http://localhost:3500/api/users/login",
         {
           email: email,
           password: password,
