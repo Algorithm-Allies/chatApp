@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import Message from "./Message";
 import RestructuredData from "../Data/RestructuredData.json";
 import { ChatContext } from "../context/Context";
@@ -8,15 +8,47 @@ import io from "socket.io-client";
 const ENDPOINT = "http://localhost:3500";
 
 const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
-  const { messages, users, titleName, isChannel } = useContext(ChatContext);
-  const { fetchMessages } = useContext(ChatContext);
+  const {
+    messages,
+    setMessages,
+    users,
+    titleName,
+    isChannel,
+    selectedChannel,
+    fetchMessages,
+    fetchCurrentUser,
+    currentUser,
+  } = useContext(ChatContext);
+
+  const socket = useRef(null);
+  const messageContainerRef = useRef(null);
+
+  const chatId = isChannel ? selectedChannel._id : selectedChannel.user._id;
 
   useEffect(() => {
-    fetchMessages(titleName._id, isChannel);
+    fetchMessages(chatId, isChannel);
+    fetchCurrentUser();
   }, []);
 
   useEffect(() => {
-    const socket = io(ENDPOINT);
+    const token = localStorage.getItem("token");
+    socket.current = io(ENDPOINT, {
+      auth: { token },
+    });
+    socket.current.on("connect", () => {
+      console.log("Connected to server,", socket.current.id);
+    });
+    socket.current.on("disconnect", () => {
+      console.log("Disconnected from server");
+    });
+    socket.current.on("newMessage", (message) => {
+      console.log("New message received:", message);
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
+
+    return () => {
+      socket.current.disconnect();
+    };
   }, []);
 
   return (
@@ -68,11 +100,13 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
             position={position}
             displayProfilePopup={displayProfilePopup}
             isVisible={isVisible}
+            currentUser={currentUser}
+            senderId={message.user._id}
           />
         ))}
       </div>
 
-      <AddMessageInput />
+      <AddMessageInput socket={socket.current} chatId={chatId} />
     </div>
   );
 };
