@@ -1,18 +1,16 @@
-import React, { useEffect, useState, useRef, useContext } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import SideBar from "../components/SideBar";
 import ChannelMessages from "../components/ChannelMessages";
 import ProfilePopup from "../components/ProfilePopup";
-import CreateChannelModal from "../components/CreateChannelModal";
-import { ChatContext } from "../context/Context";
+import CreateChannelModal from "../components/CreateChannelModal"; // Assuming this import is correct
 
+// Chat page
 function ChatPage() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
   const [elementClicked, setElementClicked] = useState(null);
   const popupRef = useRef(null);
   const channelModalRef = useRef(null);
-
-  const { fetchChannels, fetchDirectMessages } = useContext(ChatContext);
 
   const openChannelModal = () => {
     if (channelModalRef.current) {
@@ -39,8 +37,6 @@ function ChatPage() {
   };
 
   useEffect(() => {
-    fetchChannels();
-    fetchDirectMessages();
     let handler = (e) => {
       e.preventDefault();
 
