@@ -30,6 +30,7 @@ function Login() {
       );
 
       const { data } = response;
+      console.log(data);
 
       alert("Login success!");
 
