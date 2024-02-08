@@ -1,17 +1,11 @@
-
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
-
-// const user = {
-//   id: 1,
-//   first_name: "John",
-//   last_name: "Doe",
-//   profile_pic: "https://www.w3schools.com/howto/img_avatar.png",
-// };
+import { handleLogout } from "./LogoutFunc/LogoutFunc";
+import { useNavigate } from "react-router-dom";
 
 function Popup({ onClose }) {
+  const navigate = useNavigate();
   return (
     <div className="w-11/12 m-2 bg-white flex flex-col justify-center">
       <Link
@@ -22,7 +16,7 @@ function Popup({ onClose }) {
       </Link>
       <div
         className="p-2 flex flex-row justify-start hover:bg-gray-400 w-full cursor-pointer"
-        onClick={onClose}
+        onClick={handleLogout()}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -69,10 +63,6 @@ function UserProfileSettings() {
     };
     fetchUser();
   }, []);
-
-  const handleLogout = () => {
-    setShowPopup(false);
-  };
 
   return (
     <div className="sticky bottom-0 w-full flex flex-col items-center bg-black">
