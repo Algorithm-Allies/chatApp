@@ -14,9 +14,31 @@ export const ChatProvider = ({ children }) => {
   const [isChannel, setIsChannel] = useState(true);
   const [userProfile, setUserProfile] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentChannelId, setCurrentChannelId] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
+
+  const fetchCurrentUser = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const id = localStorage.getItem("userId");
+      const response = await axios.get(
+        `http://localhost:3500/api/users/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const user = response.data;
+      setCurrentUser(user);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const fetchMessages = async (id, type) => {
     try {
+      console.log("Fetching messages for id:", id);
       const token = localStorage.getItem("token");
       const response = await axios.get(
         `http://localhost:3500/api/messages/${id}`,
@@ -84,6 +106,8 @@ export const ChatProvider = ({ children }) => {
       setTitleName(title);
       fetchMessages(id, "channel");
       setIsChannel(true);
+
+      setCurrentChannelId(id);
     } catch (error) {}
   };
 
@@ -211,6 +235,8 @@ export const ChatProvider = ({ children }) => {
     fetchProfile,
     saveNewProfile,
     fetchDirectMessages,
+    fetchCurrentUser,
+    currentUser,
   };
 
   return (
