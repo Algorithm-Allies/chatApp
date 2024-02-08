@@ -150,7 +150,7 @@ export const ChatProvider = ({ children }) => {
     const token = localStorage.getItem("token");
     try {
       const response = axios.get(
-        `http://localhost:${import.meta.env.VITE_BACKEND_PORT}/api/users`,
+        `http://localhost:3500/api/users`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

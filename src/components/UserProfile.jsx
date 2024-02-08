@@ -39,13 +39,42 @@ const UserProfile = () => {
     setIsChanged(true);
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setIsChanged(true);
-    setUserInfo((prevUserInfo) => ({
-      ...prevUserInfo,
-      profilePic: URL.createObjectURL(file),
-    }));
+  const handleFileChange = async (e) => {
+    const pic = e.target.files[0];
+    if (!pic || (pic.type !== "image/jpeg" && pic.type !== "image/png")) {
+      alert("Error with the profile photo");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const data = new FormData();
+      data.append("file", pic);
+      data.append("upload_preset", "chatApp");
+      data.append("cloud_name", "dddnteeyw");
+
+      const cloudinaryResponse = await fetch(
+        "https://api.cloudinary.com/v1_1/dddnteeyw/image/upload",
+        {
+          method: "post",
+          body: data,
+        }
+      );
+
+      const cloudinaryData = await cloudinaryResponse.json();
+
+      console.log(
+        "Cloudinary upload successful:",
+        cloudinaryData.url.toString()
+      );
+      setIsChanged(true);
+      setUserInfo((prevUserInfo) => ({
+        ...prevUserInfo,
+        profilePic: cloudinaryData.url.toString(),
+      }));
+    } catch (error) {
+      console.error("Error uploading to Cloudinary:", error);
+    }
   };
 
   const handleSave = async () => {

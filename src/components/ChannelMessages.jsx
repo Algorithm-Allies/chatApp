@@ -10,7 +10,7 @@ const ENDPOINT = "http://localhost:3500";
 const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
   const { messages, users, titleName, isChannel } = useContext(ChatContext);
   const { fetchMessages } = useContext(ChatContext);
-
+  console.log(messages);
   useEffect(() => {
     fetchMessages(titleName._id, isChannel);
   }, []);
