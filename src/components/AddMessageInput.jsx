@@ -1,8 +1,9 @@
 import React, { useState, useContext } from "react";
 import { ChatContext } from "../context/Context";
 
-function AddMessageInput() {
-  const { handleSendMessage } = useContext(ChatContext);
+function AddMessageInput({ socket, chatId }) {
+  const { handleSendMessage, fetchMessages, selectedChannel } =
+    useContext(ChatContext);
   const [inputMessage, setInputMessage] = useState("");
 
   const handleInputMessageChange = (e) => {
@@ -10,7 +11,16 @@ function AddMessageInput() {
   };
 
   const sendMessage = () => {
-    handleSendMessage(inputMessage);
+    //handleSendMessage(inputMessage);
+
+    //Emit a "sendMessage" event to the server with the message content
+    socket.emit("sendMessage", {
+      chatId: chatId,
+      text: inputMessage,
+    });
+
+    // Clear the input field after sending the message
+    setInputMessage("");
   };
 
   return (
