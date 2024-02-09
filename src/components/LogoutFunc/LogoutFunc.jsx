@@ -1,10 +1,6 @@
-import React from "react";
-
-export const handleLogout = (e, navigate) => {
-  //   e.preventDefault();
-  // localStorage.removeItem("token");
-  // navigate("/");
-  console.log("loging out");
+export const handleLogout = (navigate) => {
+  localStorage.clear();
+  navigate("/");
 };
 
 export const isTokenExpired = () => {
@@ -15,7 +11,6 @@ export const isTokenExpired = () => {
     const expirationTime = decodedToken.exp * 1000;
 
     if (Date.now() >= expirationTime) {
-      localStorage.removeItem("token");
       return true;
     }
   }
