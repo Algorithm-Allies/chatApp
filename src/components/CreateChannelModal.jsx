@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Data from "../Data/Data.json";
+
 import "../styles/CreateChannelModal.css";
 
 function CreateChannelModal({ channelModalRef, closeChannelModal }) {
@@ -9,7 +9,9 @@ function CreateChannelModal({ channelModalRef, closeChannelModal }) {
 
   useEffect(() => {
     setSearchedUsers(
-      Data.users.filter((user) => user.first_name.toLowerCase().includes(userSearchQuery.toLowerCase()))
+      Data.users.filter((user) =>
+        user.first_name.toLowerCase().includes(userSearchQuery.toLowerCase())
+      )
     );
   }, [userSearchQuery]);
 
