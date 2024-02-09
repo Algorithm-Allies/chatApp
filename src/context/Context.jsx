@@ -135,11 +135,16 @@ export const ChatProvider = ({ children }) => {
   const fetchUsers = () => {
     const token = localStorage.getItem("token");
     try {
-      const response = axios.get("http://localhost:3500/api/users", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+
+      const response = axios.get(
+        `http://localhost:3500/api/users`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       const users = response.data;
       setUsers(users);
     } catch (error) {

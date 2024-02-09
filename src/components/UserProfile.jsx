@@ -22,6 +22,16 @@ const UserProfile = () => {
       return;
     }
 
+
+  const handleFileChange = async (e) => {
+    const pic = e.target.files[0];
+    if (!pic || (pic.type !== "image/jpeg" && pic.type !== "image/png")) {
+      alert("Error with the profile photo");
+      setLoading(false);
+      return;
+    }
+
+
     try {
       const data = new FormData();
       data.append("file", pic);
@@ -38,17 +48,20 @@ const UserProfile = () => {
 
       const cloudinaryData = await cloudinaryResponse.json();
 
-      setProfilePhoto(cloudinaryData.url.toString());
+
       console.log(
         "Cloudinary upload successful:",
         cloudinaryData.url.toString()
       );
 
-      setLoading(false);
       setIsChanged(true);
+      setUserInfo((prevUserInfo) => ({
+        ...prevUserInfo,
+        profilePic: cloudinaryData.url.toString(),
+      }));
     } catch (error) {
       console.error("Error uploading to Cloudinary:", error);
-      setLoading(false);
+
     }
   };
 
