@@ -3,7 +3,7 @@ import { ChatContext } from "../context/Context";
 
 const Message = ({
   profilePic,
-  name,
+  firstName,
   lastName,
   message,
   timestamp,
@@ -18,30 +18,29 @@ const Message = ({
     : "flex justify-start mb-4";
 
   const messageStyle = isCurrentUser
-    ? "bg-purple-800 text-white p-4 rounded-lg"
+    ? "bg-purple-800 text-black p-4 rounded-lg"
     : "bg-gray-300 text-black p-4 rounded-lg";
 
   return (
     <>
       {isCurrentUser && (
         <div className={messageContainerStyle}>
-          <div>
+          <div className={`bg-blue-500 text-black p-4 rounded-lg max-w-md`}>
             <div
-              className={`flex items-center cursor-pointer ${
-                currentUser._id === senderId ? "text-purple-800" : "text-black"
-              }`}
+              className={`flex items-center cursor-pointer justify-end`}
               onClick={displayProfilePopup}
             >
-              <div className="text-sm font-bold mr-2">{name}</div>
-              <div className="text-sm font-bold mr-2">{lastName}</div>
-              <div className="text-sm text-gray-500">{timestamp}</div>
+              <div className="text-xs text-gray-800">{timestamp}</div>
+              <div className="text-sm font-semibold ml-2">
+                {firstName} {lastName}
+              </div>
             </div>
-            <p className="text-gray-800">{message}</p>
+            <p className="text-sm mt-2 text-end">{message}</p>
           </div>
           <img
-            src={profilePic || "https://www.w3schools.com/howto/img_avatar.png"}
-            alt={name}
-            className="w-10 h-10 rounded-full mr-4 cursor-pointer"
+            src={profilePic}
+            alt={firstName}
+            className="w-10 h-10 rounded-full ml-4 mr-3 cursor-pointer"
             onClick={displayProfilePopup}
           />
         </div>
@@ -49,23 +48,22 @@ const Message = ({
       {!isCurrentUser && (
         <div className={messageContainerStyle}>
           <img
-            src={profilePic || "https://www.w3schools.com/howto/img_avatar.png"}
-            alt={name}
-            className="w-10 h-10 rounded-full ml-4 cursor-pointer"
+            src={profilePic}
+            alt={firstName}
+            className="w-10 h-10 rounded-full mr-4 cursor-pointer"
             onClick={displayProfilePopup}
           />
-          <div>
+          <div className={`bg-gray-300 text-black p-4 rounded-lg max-w-md`}>
             <div
-              className={`flex items-center cursor-pointer ${
-                currentUser._id === senderId ? "text-purple-800" : "text-black"
-              }`}
+              className={`flex items-center cursor-pointer`}
               onClick={displayProfilePopup}
             >
-              <div className="text-sm font-bold mr-2">{name}</div>
-              <div className="text-sm font-bold mr-2">{lastName}</div>
-              <div className="text-sm text-gray-500">{timestamp}</div>
+              <div className="text-sm font-semibold mr-2">
+                {firstName} {lastName}
+              </div>
+              <div className="text-xs text-gray-500">{timestamp}</div>
             </div>
-            <p className="text-gray-800">{message}</p>
+            <p className="text-sm mt-2">{message}</p>
           </div>
         </div>
       )}

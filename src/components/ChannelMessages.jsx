@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef } from "react";
 import Message from "./Message";
-import RestructuredData from "../Data/RestructuredData.json";
 import { ChatContext } from "../context/Context";
 import AddMessageInput from "./AddMessageInput";
 import io from "socket.io-client";
@@ -11,7 +10,6 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
   const {
     messages,
     setMessages,
-    users,
     titleName,
     isChannel,
     selectedChannel,
@@ -26,8 +24,10 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
   const chatId = isChannel ? selectedChannel._id : selectedChannel.user._id;
 
   useEffect(() => {
-    fetchMessages(chatId, isChannel);
     fetchCurrentUser();
+    if (chatId) {
+      fetchMessages(chatId, isChannel);
+    }
   }, []);
 
   useEffect(() => {
@@ -42,14 +42,41 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
       console.log("Disconnected from server");
     });
     socket.current.on("newMessage", (message) => {
-      console.log("New message received:", message);
       setMessages((prevMessages) => [...prevMessages, message]);
+      if (messageContainerRef.current) {
+        messageContainerRef.current.scrollTo({
+          top: messageContainerRef.current.scrollHeight,
+          behavior: "smooth",
+        });
+      }
     });
-
     return () => {
       socket.current.disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const scrollToBottom = () => {
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTo({
+        top: messageContainerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  if (!chatId) {
+    return (
+      <div className="bg-gray-400 flex items-center justify-center h-full p-4">
+        <h1 className="text-3xl text-gray-700 font-bold">
+          Welcome! Please select a channel or direct message.
+        </h1>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-400 flex flex-col h-full p-4">
@@ -69,7 +96,7 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
 
       <br />
 
-      <div className="flex-grow overflow-y-auto">
+      <div className="flex-grow overflow-y-auto" ref={messageContainerRef}>
         <div className="flex flex-col">
           {isChannel ? (
             <div className="flex items-center justify-center text-gray-600 font-bold mb-5 pb-3">
@@ -89,14 +116,17 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
         {messages.map((message, index) => (
           <Message
             key={message._id}
-            profilePic={
-              message.user.profilePhoto ||
-              "https://www.w3schools.com/howto/img_avatar.png"
-            }
-            name={message.user.firstName}
+            profilePic={message.user.profilePhoto}
+            firstName={message.user.firstName}
             lastName={message.user.lastName}
             message={message.text}
-            timestamp={message.timestamp}
+            timestamp={new Date(message.createdAt).toLocaleString(undefined, {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
             position={position}
             displayProfilePopup={displayProfilePopup}
             isVisible={isVisible}
@@ -111,7 +141,4 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
   );
 };
 
-
-
 export default ChannelMessages;
-

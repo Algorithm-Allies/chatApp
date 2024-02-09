@@ -11,8 +11,6 @@ function AddMessageInput({ socket, chatId }) {
   };
 
   const sendMessage = () => {
-    //handleSendMessage(inputMessage);
-
     //Emit a "sendMessage" event to the server with the message content
     socket.emit("sendMessage", {
       chatId: chatId,
@@ -23,6 +21,12 @@ function AddMessageInput({ socket, chatId }) {
     setInputMessage("");
   };
 
+  const handleEnterPress = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      sendMessage();
+    }
+  };
+
   return (
     <div className="flex items-center p-2 bg-gray-300 rounded mt-auto mb-2">
       <input
@@ -30,6 +34,7 @@ function AddMessageInput({ socket, chatId }) {
         placeholder="Send a message..."
         value={inputMessage}
         onChange={handleInputMessageChange}
+        onKeyPress={handleEnterPress}
       />
       <button
         className="ml-2 bg-green-500 text-white rounded p-2"
