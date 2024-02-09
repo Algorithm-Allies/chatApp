@@ -26,10 +26,8 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
   const chatId = isChannel ? selectedChannel._id : selectedChannel.user._id;
 
   useEffect(() => {
-    if (chatId) {
-      fetchMessages(chatId, isChannel);
-      fetchCurrentUser();
-    }
+    fetchMessages(chatId, isChannel);
+    fetchCurrentUser();
   }, []);
 
   useEffect(() => {
@@ -52,16 +50,6 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
       socket.current.disconnect();
     };
   }, []);
-
-  if (!chatId) {
-    return (
-      <div className="bg-gray-400 flex items-center justify-center h-full p-4">
-        <h1 className="text-3xl text-gray-700 font-bold">
-          Welcome! Please select a channel or direct message.
-        </h1>
-      </div>
-    );
-  }
 
   return (
     <div className="bg-gray-400 flex flex-col h-full p-4">
