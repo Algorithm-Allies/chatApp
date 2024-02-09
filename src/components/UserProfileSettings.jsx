@@ -1,32 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import Popup from "./UserPopUp/Popup";
+import { ChatContext } from "../context/Context";
+import Loading from "./Loading/Loading";
 
 function UserProfileSettings() {
+  const { userProfile, fetchProfile } = useContext(ChatContext);
   const [showPopup, setShowPopup] = useState(false);
-  const [user, setUser] = useState({});
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userId = localStorage.getItem("userId");
-        const token = localStorage.getItem("token");
-
-        const response = await axios.get(
-          `http://localhost:3500/api/users/${userId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setUser(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUser();
+    fetchProfile();
   }, []);
+
+  console.log(userProfile);
+//   const handleLogout = () => {
+//     setShowPopup(false);
+//   };
+
+  const user = userProfile;
+
+  if (!user) {
+    return <Loading />;
+  }
 
   return (
     <div className="sticky bottom-0 w-full flex flex-col items-center bg-black">
@@ -37,10 +32,7 @@ function UserProfileSettings() {
       >
         <div className="flex items-center">
           <img
-            src={
-              user.profilePhoto ||
-              "https://www.w3schools.com/howto/img_avatar.png"
-            }
+            src={user.profilePhoto}
             alt={`${user.firstName} ${user.lastName}`}
             className="h-8 w-8 rounded-full mr-2"
           />

@@ -26,8 +26,10 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
   const chatId = isChannel ? selectedChannel._id : selectedChannel.user._id;
 
   useEffect(() => {
-    fetchMessages(chatId, isChannel);
-    fetchCurrentUser();
+    if (chatId) {
+      fetchMessages(chatId, isChannel);
+      fetchCurrentUser();
+    }
   }, []);
 
   useEffect(() => {
@@ -51,6 +53,15 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
     };
   }, []);
 
+  if (!chatId) {
+    return (
+      <div className="bg-gray-400 flex items-center justify-center h-full p-4">
+        <h1 className="text-3xl text-gray-700 font-bold">
+          Welcome! Please select a channel or direct message.
+        </h1>
+      </div>
+    );
+  }
   return (
     <div className="bg-gray-400 flex flex-col h-full p-4">
       <div className="text-5xl border-b border-gray-700 pb-4 flex items-center">
@@ -111,4 +122,7 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
   );
 };
 
+
+
 export default ChannelMessages;
+
