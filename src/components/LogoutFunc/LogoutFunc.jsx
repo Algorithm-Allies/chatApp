@@ -1,9 +1,9 @@
 import React from "react";
 
 export const handleLogout = (e, navigate) => {
-  e.preventDefault();
-  localStorage.removeItem("token");
-  navigate("/");
+  //   e.preventDefault();
+  // localStorage.removeItem("token");
+  // navigate("/");
   console.log("loging out");
 };
 
