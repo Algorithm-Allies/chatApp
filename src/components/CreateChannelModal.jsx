@@ -30,10 +30,12 @@ function CreateChannelModal({ channelModalRef, closeChannelModal }) {
     if (users) {
       const filteredUsers = users.filter(
         (user) =>
-          user.firstName
+          user.firstName &&
+          user.lastName &&
+          (user.firstName
             .toLowerCase()
             .includes(userSearchQuery.toLowerCase()) ||
-          user.lastName.toLowerCase().includes(userSearchQuery.toLowerCase())
+            user.lastName.toLowerCase().includes(userSearchQuery.toLowerCase()))
       );
       setSearchedUsers(filteredUsers);
     }
