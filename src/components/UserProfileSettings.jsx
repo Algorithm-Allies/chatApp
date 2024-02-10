@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
+import axios from "axios";
+import Popup from "./UserPopUp/Popup";
 import { ChatContext } from "../context/Context";
-import { Popup } from "./Popup";
 import Loading from "./Loading/Loading";
 
 function UserProfileSettings() {
   const { userProfile, fetchProfile } = useContext(ChatContext);
-
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
@@ -13,18 +13,19 @@ function UserProfileSettings() {
   }, []);
 
   console.log(userProfile);
-  const handleLogout = () => {
-    setShowPopup(false);
-  };
+//   const handleLogout = () => {
+//     setShowPopup(false);
+//   };
 
   const user = userProfile;
 
   if (!user) {
     return <Loading />;
   }
+
   return (
     <div className="sticky bottom-0 w-full flex flex-col items-center bg-black">
-      {showPopup && <Popup onClose={() => setShowPopup(false)} />}
+      {showPopup && <Popup />}
       <div
         className="border-t border-gray-200 text-white p-4 w-full hover:bg-gray-800 cursor-pointer"
         onClick={() => setShowPopup(true)}

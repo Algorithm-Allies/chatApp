@@ -38,7 +38,6 @@ export const ChatProvider = ({ children }) => {
 
   const fetchMessages = async (id, type) => {
     try {
-      console.log("Fetching messages for id:", id);
       const token = localStorage.getItem("token");
       const response = await axios.get(
         `http://localhost:3500/api/messages/${id}`,
