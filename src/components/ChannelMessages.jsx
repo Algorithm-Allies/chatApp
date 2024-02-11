@@ -114,30 +114,33 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
             </div>
           )}
         </div>
-        {messages.map((message, index) => (
-          <Message
-            key={message._id}
-            profilePic={
-              message.user.profilePhoto ||
-              "https://www.w3schools.com/howto/img_avatar.png"
-            }
-            firstName={message.user.firstName}
-            lastName={message.user.lastName}
-            message={message.text}
-            timestamp={new Date(message.createdAt).toLocaleString(undefined, {
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-            position={position}
-            displayProfilePopup={displayProfilePopup}
-            isVisible={isVisible}
-            currentUser={currentUser}
-            senderId={message.user._id}
-          />
-        ))}
+        {messages.map((message, index) => {
+          
+          return (
+            <Message
+              key={message._id}
+              profilePic={
+                message.user.profilePhoto ||
+                "https://www.w3schools.com/howto/img_avatar.png"
+              }
+              firstName={message.user.firstName}
+              lastName={message.user.lastName}
+              message={message.text}
+              timestamp={new Date(message.createdAt).toLocaleString(undefined, {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+              position={position}
+              displayProfilePopup={() => displayProfilePopup(message.user._id)} // Pass user._id as an argument
+              isVisible={isVisible}
+              currentUser={currentUser}
+              senderId={message.user._id}
+            />
+          );
+        })}
       </div>
 
       <AddMessageInput socket={socket.current} chatId={chatId} />
@@ -145,7 +148,4 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
   );
 };
 
-
-
 export default ChannelMessages;
-
