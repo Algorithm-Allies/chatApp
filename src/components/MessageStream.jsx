@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Message from "./Message";
 import { ChatContext } from "../context/Context";
 import AddMessageInput from "./AddMessageInput";
@@ -6,7 +6,7 @@ import io from "socket.io-client";
 
 const ENDPOINT = "http://localhost:3500";
 
-const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
+const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
   const {
     messages,
     setMessages,
@@ -16,33 +16,28 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
     fetchMessages,
     fetchCurrentUser,
     currentUser,
+    userProfilePhoto,
   } = useContext(ChatContext);
 
   const socket = useRef(null);
   const messageContainerRef = useRef(null);
 
-  const chatId = isChannel ? selectedChannel._id : selectedChannel.user._id;
+  const chatId = selectedChannel._id;
 
   useEffect(() => {
     fetchCurrentUser();
+
     if (chatId) {
       fetchMessages(chatId, isChannel);
     }
-  }, []);
+  }, [chatId, isChannel]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     socket.current = io(ENDPOINT, {
       auth: { token },
     });
-    socket.current.on("connect", () => {
-      console.log("Connected to server,", socket.current.id);
-    });
-    socket.current.on("disconnect", () => {
-      console.log("Disconnected from server");
-    });
     socket.current.on("newMessage", (message) => {
-      console.log("New message received:", message);
       setMessages((prevMessages) => [...prevMessages, message]);
       if (messageContainerRef.current) {
         messageContainerRef.current.scrollTo({
@@ -79,6 +74,7 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
       </div>
     );
   }
+
   return (
     <div className="bg-gray-400 flex flex-col h-full p-4">
       <div className="text-5xl border-b border-gray-700 pb-4 flex items-center">
@@ -89,7 +85,10 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
           </div>
         ) : (
           <div className="flex items-center">
-            <img src={titleName.img} className="rounded-full w-12 h-12 mr-2" />
+            <img
+              src={userProfilePhoto}
+              className="rounded-full w-12 h-12 mr-2"
+            />
             <div>{titleName.title}</div>
           </div>
         )}
@@ -145,7 +144,4 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
   );
 };
 
-
-
-export default ChannelMessages;
-
+export default MessageStream;

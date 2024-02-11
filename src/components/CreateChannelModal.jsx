@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { ChatContext } from "../context/Context";
 import "../styles/CreateChannelModal.css";
 import axios from "axios";
 
 function CreateChannelModal({ channelModalRef, closeChannelModal }) {
+  const { channels, setChannels } = useContext(ChatContext);
   const [channelName, setChannelName] = useState("");
   const [userSearchQuery, setUserSearchQuery] = useState("");
   const [users, setUsers] = useState([]);
@@ -54,7 +56,7 @@ function CreateChannelModal({ channelModalRef, closeChannelModal }) {
     if (channelName === "") return;
     try {
       const token = localStorage.getItem("token");
-      console.log("selectedUsers", selectedUsers);
+
       const response = await axios.post(
         "http://localhost:3500/api/channels/createChannel",
         {
@@ -68,8 +70,12 @@ function CreateChannelModal({ channelModalRef, closeChannelModal }) {
         }
       );
 
-      console.log("Channel created:", response.data);
       closeChannelModal();
+      setChannels([...channels, response.data]);
+
+      setChannelName("");
+      setUserSearchQuery("");
+      setSelectedUsers([]);
     } catch (error) {
       console.error("Error creating channel:", error);
     }
