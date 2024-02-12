@@ -6,7 +6,12 @@ import io from "socket.io-client";
 
 const ENDPOINT = "http://localhost:3500";
 
-const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
+const ChannelMessages = ({
+  elementClicked,
+  position,
+  displayProfilePopup,
+  isVisible,
+}) => {
   const {
     messages,
     setMessages,
@@ -115,7 +120,7 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
           )}
         </div>
         {messages.map((message, index) => {
-          
+          console.log("mesage:" + elementClicked);
           return (
             <Message
               key={message._id}
@@ -134,7 +139,7 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
                 minute: "2-digit",
               })}
               position={position}
-              displayProfilePopup={() => displayProfilePopup(message.user._id)} // Pass user._id as an argument
+              displayProfilePopup={() => displayProfilePopup(elementClicked)}
               isVisible={isVisible}
               currentUser={currentUser}
               senderId={message.user._id}

@@ -28,7 +28,7 @@ const Message = ({
           <div className={`bg-blue-500 text-black p-4 rounded-lg max-w-md`}>
             <div
               className={`flex items-center justify-end cursor-pointer`}
-              onClick={displayProfilePopup}
+              onClick={() => displayProfilePopup(senderId)}
             >
               <div className="text-xs text-gray-800">{timestamp}</div>
               <div className="text-sm font-semibold ml-2">
@@ -41,7 +41,7 @@ const Message = ({
             src={profilePic}
             alt={firstName}
             className="w-10 h-10 rounded-full ml-4 mr-2 cursor-pointer"
-            onClick={displayProfilePopup}
+            onClick={() => displayProfilePopup(senderId)}
           />
         </div>
       ) : (
@@ -50,12 +50,12 @@ const Message = ({
             src={profilePic}
             alt={firstName}
             className="w-10 h-10 rounded-full mr-4 cursor-pointer"
-            onClick={displayProfilePopup}
+            onClick={() => displayProfilePopup(senderId)}
           />
           <div className={`bg-gray-300 text-black p-4 rounded-lg max-w-md`}>
             <div
               className={`flex items-center cursor-pointer`}
-              onClick={displayProfilePopup}
+              onClick={() => displayProfilePopup(senderId)}
             >
               <div className="text-sm font-semibold mr-2">
                 {firstName} {lastName}

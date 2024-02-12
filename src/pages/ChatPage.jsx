@@ -3,6 +3,7 @@ import SideBar from "../components/SideBar";
 import ChannelMessages from "../components/ChannelMessages";
 import ProfilePopup from "../components/ProfilePopup";
 import CreateChannelModal from "../components/CreateChannelModal"; // Assuming this import is correct
+import { useCallback } from "react";
 
 // Chat page
 function ChatPage() {
@@ -24,20 +25,15 @@ function ChatPage() {
     }
   };
 
-  const displayProfilePopup = (event) => {
+  const displayProfilePopup = (senderId) => {
     setPosition({ x: event.clientX, y: event.clientY });
-    setElementClicked(event.target);
-
-    if (event.target === elementClicked) {
-      setElementClicked(null);
-      setIsVisible(false);
-    } else {
-      setIsVisible(true);
-    }
+    setElementClicked(senderId);
+    console.log("elementClicked: " + senderId);
+    setIsVisible(!isVisible); // Toggle visibility
   };
 
-  useEffect(() => {
-    let handler = (e) => {
+  const handleMouseUp = useCallback(
+    (e) => {
       e.preventDefault();
 
       if (popupRef.current && !popupRef.current.contains(e.target)) {
@@ -46,20 +42,24 @@ function ChatPage() {
           setIsVisible(false);
         }
       }
-    };
+    },
+    [elementClicked]
+  );
 
-    document.addEventListener("mouseup", handler);
+  useEffect(() => {
+    document.addEventListener("mouseup", handleMouseUp);
 
     return () => {
-      document.removeEventListener("mouseup", handler);
+      document.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [elementClicked]);
+  }, [handleMouseUp]);
 
   return (
     <div className="flex flex-row h-full">
       <SideBar openChannelModal={openChannelModal} />
       <div className="flex flex-col h-screen w-screen bg-stone-800">
         <ChannelMessages
+          elementClicked={elementClicked}
           position={position}
           displayProfilePopup={displayProfilePopup}
           isVisible={isVisible}
@@ -69,7 +69,13 @@ function ChatPage() {
         channelModalRef={channelModalRef}
         closeChannelModal={closeChannelModal}
       />
-      {isVisible && <ProfilePopup ref={popupRef} position={position} />}
+      {isVisible && (
+        <ProfilePopup
+          ref={popupRef}
+          position={position}
+          elementClicked={elementClicked}
+        />
+      )}
     </div>
   );
 }
