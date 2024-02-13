@@ -70,7 +70,7 @@ function AddChannel() {
   );
 }
 
-function SideBar({openChannelModal}) {
+function SideBar({ openChannelModal, openMessageModal, directMessages }) {
   const [channelArrowClick, setChannelArrowClick] = useState(false);
   const [messageArrowClick, setMessageArrowClick] = useState(false);
 
@@ -84,25 +84,38 @@ function SideBar({openChannelModal}) {
     setMessageArrowClick(!messageArrowClick);
   };
 
-  const handleAddChannel = () => {
-    console.log("adding channel");
-    displayMenu();
+  const handleAddChannel = (e) => {
+    displayChannelMenu(e);
   };
-  const handleAddDirectMessage = () => {
-    console.log("adding direct messages");
+  const handleAddDirectMessage = (e) => {
+    displayMessageMenu(e);
   };
 
-  const { show } = useContextMenu({
-    id: MENU_ID,
+  const { show: showChannelMenu } = useContextMenu({
+    id: "channelMenu",
   });
 
-  function handleItemClick({ event, props, triggerEvent, data }) {
-    openChannelModal()
+  const { show: showMessageMenu } = useContextMenu({
+    id: "messageMenu",
+  });
+
+  function handleItemChannelClick({ event, props, triggerEvent, data }) {
+    openChannelModal();
     console.log(event, props, triggerEvent, data);
   }
 
-  function displayMenu(e) {
-    show({
+  function handleItemDirectMessageClick({ event, props, triggerEvent, data }) {
+    openMessageModal();
+  }
+
+  function displayChannelMenu(e) {
+    showChannelMenu({
+      event: e,
+    });
+  }
+
+  function displayMessageMenu(e) {
+    showMessageMenu({
       event: e,
     });
   }
@@ -122,12 +135,12 @@ function SideBar({openChannelModal}) {
               </button>
               <h3 className="text-lg ml-1">Channels</h3>
             </div>
-            <button onClick={displayMenu}>
+            <button onClick={handleAddChannel}>
               <AddChannel />
             </button>
-            <Menu id={MENU_ID}>
-              <Item onClick={handleItemClick}>Create Channel</Item>
-              <Item onClick={handleItemClick}>Join Channel</Item>
+            <Menu id="channelMenu">
+              <Item onClick={handleItemChannelClick}>Create Channel</Item>
+              <Item onClick={handleItemChannelClick}>Join Channel</Item>
             </Menu>
           </div>
           {channelArrowClick && <Channels />}
@@ -146,8 +159,17 @@ function SideBar({openChannelModal}) {
             <button onClick={handleAddDirectMessage}>
               <AddChannel />
             </button>
+            <Menu id="messageMenu">
+              <Item onClick={handleItemDirectMessageClick}>
+                Send Direct Message
+              </Item>
+            </Menu>
           </div>
-          {messageArrowClick && <DirectMessages />}
+          {messageArrowClick && (
+            <DirectMessages
+              handleItemDirectMessageClick={handleItemDirectMessageClick}
+            />
+          )}
         </div>
       </div>
       <UserProfileSettings />
