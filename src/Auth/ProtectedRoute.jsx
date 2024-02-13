@@ -7,10 +7,10 @@ const ProtectedRoute = ({ Component }) => {
   const isTokenValid = () => {
     if (token) {
       const decodedToken = jwtDecode(token);
-      const currentTime = Date.now() / 1000; // Convert to seconds
+      const currentTime = Date.now() / 1000;
       return decodedToken.exp > currentTime;
     }
-    return false; // If token doesn't exist, consider it invalid
+    return false;
   };
   const auth = token && isTokenValid();
   return auth ? <Component /> : <Navigate to="/" />;
