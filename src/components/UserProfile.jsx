@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import Loading from "./Loading/Loading";
 
 const UserProfile = () => {
-  const { isLoading, fetchProfile, saveNewProfile } = useContext(ChatContext);
+  const { isLoading, fetchProfile, saveNewProfile, setSelectedChannel } =
+    useContext(ChatContext);
 
   const [userInfo, setUserInfo] = useState({
     displayName: "",
@@ -96,6 +97,7 @@ const UserProfile = () => {
 
   const handleEscPress = () => {
     navigate("/chat-page");
+    setSelectedChannel([]);
   };
   if (isLoading) {
     return <Loading />; // or render a loading spinner, etc.
