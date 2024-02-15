@@ -11,6 +11,7 @@ export const ChatProvider = ({ children }) => {
   const [directMessages, setDirectMessages] = useState([]);
   const [users, setUsers] = useState([]);
   const [titleName, setTitleName] = useState([]);
+  const [userProfilePhoto, setUserProfilePhoto] = useState("");
   const [isChannel, setIsChannel] = useState(true);
   const [userProfile, setUserProfile] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -78,7 +79,6 @@ export const ChatProvider = ({ children }) => {
         },
       });
       const channels = response.data;
-      console.log(channels);
       setChannels(channels);
     } catch (error) {
       console.error(error);
@@ -107,7 +107,10 @@ export const ChatProvider = ({ children }) => {
       setIsChannel(true);
 
       setCurrentChannelId(id);
-    } catch (error) {}
+      console.log(currentChannelId);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const fetchDirectMessages = async () => {
@@ -122,40 +125,61 @@ export const ChatProvider = ({ children }) => {
         }
       );
       const directMessages = response.data;
-      console.log(directMessages);
       setDirectMessages(directMessages);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const fetchSingleDirectMessages = (userInfo) => {
-    //api call for a single direct message
-    const id = userInfo.id;
-    const direct = RestructuredData.directMessages[id];
-    const img = userInfo.profile_pic;
-    const name = userInfo.first_name + " " + userInfo.last_name;
-    const title = {
-      title: name,
-      img: img,
-    };
-    setSelectDirect(direct);
-    setTitleName(title);
-    fetchMessages(id, "direct");
-    setIsChannel(false);
-  };
-
-  const fetchUsers = () => {
-    const token = localStorage.getItem("token");
+  const fetchSingleDirectMessages = async (id) => {
     try {
-      const response = axios.get(
-        `http://localhost:3500/api/users`,
+      const loggedInUserId = localStorage.getItem("userId");
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        `http://localhost:3500/api/channels/getChannelById/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
+
+      const channel = response.data;
+      setSelectedChannel(channel);
+
+      if (channel) {
+        const recipient = channel.members.find(
+          (member) => member.user._id !== loggedInUserId
+        );
+
+        const title = {
+          title: recipient.user.firstName + " " + recipient.user.lastName,
+        };
+
+        const photo = recipient.user.profilePhoto;
+
+        setTitleName(title);
+        setUserProfilePhoto(photo);
+        fetchMessages(id, "direct");
+        setIsChannel(false);
+
+        setCurrentChannelId(id);
+      } else {
+        console.log("Channel not found");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchUsers = () => {
+    const token = localStorage.getItem("token");
+    try {
+      const response = axios.get(`http://localhost:3500/api/users`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const users = response.data;
       setUsers(users);
     } catch (error) {
@@ -218,7 +242,9 @@ export const ChatProvider = ({ children }) => {
     selectedChannel,
     setSelectedChannel,
     channels,
+    setChannels,
     directMessages,
+    setDirectMessages,
     fetchMessages,
     fetchSingleChannel,
     handleSendMessage,
@@ -236,6 +262,9 @@ export const ChatProvider = ({ children }) => {
     fetchDirectMessages,
     fetchCurrentUser,
     currentUser,
+    userProfilePhoto,
+    currentChannelId,
+    setCurrentChannelId,
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Message from "./Message";
 import { ChatContext } from "../context/Context";
 import AddMessageInput from "./AddMessageInput";
@@ -6,7 +6,7 @@ import io from "socket.io-client";
 
 const ENDPOINT = "http://localhost:3500";
 
-const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
+const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
   const {
     messages,
     setMessages,
@@ -16,34 +16,40 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
     fetchMessages,
     fetchCurrentUser,
     currentUser,
+    userProfilePhoto,
   } = useContext(ChatContext);
 
   const socket = useRef(null);
   const messageContainerRef = useRef(null);
+  const [openMessageId, setOpenMessageId] = useState(null);
 
-  const chatId = isChannel ? selectedChannel._id : selectedChannel.user._id;
+  const chatId = selectedChannel._id;
 
   useEffect(() => {
     fetchCurrentUser();
+
     if (chatId) {
       fetchMessages(chatId, isChannel);
     }
-  }, []);
+  }, [chatId, isChannel]);
 
   useEffect(() => {
+    if (!chatId) return;
     const token = localStorage.getItem("token");
     socket.current = io(ENDPOINT, {
       auth: { token },
     });
+
     socket.current.on("connect", () => {
-      console.log("Connected to server,", socket.current.id);
+      if (chatId) {
+        socket.current.emit("join", chatId);
+      }
     });
-    socket.current.on("disconnect", () => {
-      console.log("Disconnected from server");
-    });
+
     socket.current.on("newMessage", (message) => {
-      console.log("New message received:", message);
-      setMessages((prevMessages) => [...prevMessages, message]);
+      if (chatId === message.chatId) {
+        setMessages((prevMessages) => [...prevMessages, message]);
+      }
       if (messageContainerRef.current) {
         messageContainerRef.current.scrollTo({
           top: messageContainerRef.current.scrollHeight,
@@ -52,10 +58,26 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
       }
     });
 
+    socket.current.on("messageEdited", (editedMessage) => {
+      setMessages((prevMessages) =>
+        prevMessages.map((msg) =>
+          msg._id === editedMessage._id ? editedMessage : msg
+        )
+      );
+    });
+
+    socket.current.on("messageDeleted", (deletedMessageId) => {
+      setMessages((prevMessages) =>
+        prevMessages.map((msg) =>
+          msg._id === deletedMessageId ? { ...msg, isDeleted: true } : msg
+        )
+      );
+    });
+
     return () => {
       socket.current.disconnect();
     };
-  }, []);
+  }, [chatId]);
 
   useEffect(() => {
     scrollToBottom();
@@ -79,6 +101,7 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
       </div>
     );
   }
+
   return (
     <div className="bg-gray-400 flex flex-col h-full p-4">
       <div className="text-5xl border-b border-gray-700 pb-4 flex items-center">
@@ -89,7 +112,10 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
           </div>
         ) : (
           <div className="flex items-center">
-            <img src={titleName.img} className="rounded-full w-12 h-12 mr-2" />
+            <img
+              src={userProfilePhoto}
+              className="rounded-full w-12 h-12 mr-2"
+            />
             <div>{titleName.title}</div>
           </div>
         )}
@@ -124,7 +150,7 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
             firstName={message.user.firstName}
             lastName={message.user.lastName}
             message={message.text}
-            timestamp={new Date(message.createdAt).toLocaleString(undefined, {
+            timestamp={new Date(message.updatedAt).toLocaleString(undefined, {
               year: "numeric",
               month: "2-digit",
               day: "2-digit",
@@ -136,6 +162,10 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
             isVisible={isVisible}
             currentUser={currentUser}
             senderId={message.user._id}
+            messageId={message._id}
+            openMessageId={openMessageId}
+            setOpenMessageId={setOpenMessageId}
+            socket={socket.current}
           />
         ))}
       </div>
@@ -145,7 +175,4 @@ const ChannelMessages = ({ position, displayProfilePopup, isVisible }) => {
   );
 };
 
-
-
-export default ChannelMessages;
-
+export default MessageStream;

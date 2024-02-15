@@ -1,38 +1,45 @@
-#channel-modal {
-    display: flex;
-    flex-direction: column;
-    background-color: #2f3136;
-    padding: 4rem;
+#channel-modal,
+#message-modal {
+  display: flex;
+  flex-direction: column;
+  background-color: #2f3136;
+  padding: 4rem;
 }
 
-.channel-modal-input-label {
-    color: #b9bbbe;
+.channel-modal-input-label,
+.message-modal-input-label {
+  color: #b9bbbe;
 }
 
-#channel-modal-input {
-    background-color: #313339;
-    color: white;
-    padding: .8rem;
-    border: 1px solid rgb(20, 20, 20);
+#channel-modal-input,
+#message-modal-input {
+  background-color: #313339;
+  color: white;
+  padding: 0.8rem;
+  border: 1px solid rgb(20, 20, 20);
 }
 
-#channel-modal-cancel {
-    padding: .5rem;
+#channel-modal-cancel,
+#message-modal-cancel {
+  padding: 0.5rem;
 }
 
-#channel-modal-create {
-    background-color: #7289da;
-    color: white;
-    padding: .5rem;
+#channel-modal-create,
+#message-modal-send {
+  background-color: #7289da;
+  color: white;
+  padding: 0.5rem;
 }
 
-#channel-modal-buttons {
-    color: white;
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
+#channel-modal-buttons,
+#message-modal-buttons {
+  color: white;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
-#channel-modal > button {
-    padding: .5rem;
+#channel-modal > button,
+#message-modal > button {
+  padding: 0.5rem;
 }

@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import SideBar from "../components/SideBar";
-import ChannelMessages from "../components/ChannelMessages";
+import MessageStream from "../components/MessageStream";
 import ProfilePopup from "../components/ProfilePopup";
-import CreateChannelModal from "../components/CreateChannelModal"; // Assuming this import is correct
+import CreateChannelModal from "../components/CreateChannelModal";
+import CreateMessageModal from "../components/CreateMessageModal";
 
 // Chat page
 function ChatPage() {
@@ -11,6 +12,7 @@ function ChatPage() {
   const [elementClicked, setElementClicked] = useState(null);
   const popupRef = useRef(null);
   const channelModalRef = useRef(null);
+  const messageModalRef = useRef(null);
 
   const openChannelModal = () => {
     if (channelModalRef.current) {
@@ -21,6 +23,18 @@ function ChatPage() {
   const closeChannelModal = () => {
     if (channelModalRef.current) {
       channelModalRef.current.close();
+    }
+  };
+
+  const openMessageModal = () => {
+    if (messageModalRef.current) {
+      messageModalRef.current.showModal();
+    }
+  };
+
+  const closeMessageModal = () => {
+    if (messageModalRef.current) {
+      messageModalRef.current.close();
     }
   };
 
@@ -57,9 +71,12 @@ function ChatPage() {
 
   return (
     <div className="flex flex-row h-full">
-      <SideBar openChannelModal={openChannelModal} />
+      <SideBar
+        openChannelModal={openChannelModal}
+        openMessageModal={openMessageModal}
+      />
       <div className="flex flex-col h-screen w-screen bg-stone-800">
-        <ChannelMessages
+        <MessageStream
           position={position}
           displayProfilePopup={displayProfilePopup}
           isVisible={isVisible}
@@ -68,6 +85,10 @@ function ChatPage() {
       <CreateChannelModal
         channelModalRef={channelModalRef}
         closeChannelModal={closeChannelModal}
+      />
+      <CreateMessageModal
+        messageModalRef={messageModalRef}
+        closeMessageModal={closeMessageModal}
       />
       {isVisible && <ProfilePopup ref={popupRef} position={position} />}
     </div>

@@ -12,11 +12,6 @@ function UserProfileSettings() {
     fetchProfile();
   }, []);
 
-  console.log(userProfile);
-//   const handleLogout = () => {
-//     setShowPopup(false);
-//   };
-
   const user = userProfile;
 
   if (!user) {
