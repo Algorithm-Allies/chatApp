@@ -3,9 +3,9 @@ import axios from "axios";
 
 function AddFriendToGroupChat({ group }) {
   const [friends, setFriends] = useState([]);
-  const [message, setMessage] = useState("");
   const [filteredFriends, setFilteredFriends] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const fetchFriends = async () => {
@@ -18,7 +18,6 @@ function AddFriendToGroupChat({ group }) {
         });
 
         const memberIds = group.members.map((member) => member.user._id);
-
         const friendsNotInGroup = response.data.filter(
           (friend) => !memberIds.includes(friend._id)
         );
@@ -35,8 +34,8 @@ function AddFriendToGroupChat({ group }) {
 
   useEffect(() => {
     const filtered = friends.filter((friend) => {
-      const username = friend.name || friend.firstName + " " + friend.lastName;
-      return username.toLowerCase().includes(searchQuery.toLowerCase());
+      const fullName = friend.firstName + " " + friend.lastName;
+      return fullName.toLowerCase().includes(searchQuery.toLowerCase());
     });
     setFilteredFriends(filtered);
   }, [searchQuery, friends]);
@@ -44,21 +43,17 @@ function AddFriendToGroupChat({ group }) {
   const handleAddFriendToGroupChat = async (friend) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.put(
+      await axios.put(
         `http://localhost:3500/api/channels/addUser`,
         { userId: friend._id, channelId: group._id },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       setMessage(`Friend added to group chat.`);
       setFriends((prevFriends) =>
         prevFriends.filter((f) => f._id !== friend._id)
       );
-      setFilteredFriends((prevFilteredFriends) =>
-        prevFilteredFriends.filter((f) => f._id !== friend._id)
+      setFilteredFriends((prevFiltered) =>
+        prevFiltered.filter((f) => f._id !== friend._id)
       );
     } catch (error) {
       setMessage("Error adding friend to group chat. Please try again.");

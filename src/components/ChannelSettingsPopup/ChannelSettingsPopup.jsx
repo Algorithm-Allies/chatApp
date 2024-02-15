@@ -4,16 +4,11 @@ import AddFriendToGroupChat from "./AddFriendToGroupChat/AddFriendToGroupChat";
 
 function ChannelSettingsPopup({ onClose, selectedChannel }) {
   const handleDeleteChannel = async () => {
-    const token = localStorage.getItem("token");
-    console.log(selectedChannel._id);
     try {
-      const response = await axios.delete(
+      const token = localStorage.getItem("token");
+      await axios.delete(
         `http://localhost:3500/api/channels/${selectedChannel._id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       onClose();
     } catch (error) {
@@ -30,10 +25,10 @@ function ChannelSettingsPopup({ onClose, selectedChannel }) {
           <h2 className="text-lg font-semibold text-black">Channel Settings</h2>
           <button
             onClick={onClose}
-            className="text-gray-600 hover:text-gray-800"
+            className="text-gray-600 hover:text-gray-800 transition-colors duration-300 transform hover:scale-110"
           >
             <svg
-              className="w-6 h-6"
+              className="w-8 h-8"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -48,16 +43,16 @@ function ChannelSettingsPopup({ onClose, selectedChannel }) {
           </button>
         </div>
         <AddFriendToGroupChat group={selectedChannel} />
-        <div className="h-10 flex flex-col items-start justify-center mt-4">
-          {isAdmin && (
+        {isAdmin && (
+          <div className="h-10 flex flex-col items-start justify-center mt-4">
             <button
               onClick={handleDeleteChannel}
               className="p-2 bg-red-500 text-sm text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
             >
               Delete Channel
             </button>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
