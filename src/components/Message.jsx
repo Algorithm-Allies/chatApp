@@ -15,6 +15,7 @@ const Message = ({
   openMessageId,
   setOpenMessageId,
   socket,
+  handleClickMessage,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -181,7 +182,15 @@ const Message = ({
               src={profilePic}
               alt={firstName}
               className="w-10 h-10 rounded-full ml-4 mr-2 cursor-pointer"
-              onClick={displayProfilePopup}
+              onClick={() => {
+                handleClickMessage({
+                  user: { _id: senderId },
+                  text: message,
+                  updatedAt: new Date().toISOString(),
+                  _id: messageId,
+                });
+                displayProfilePopup();
+              }}
             />
           </div>
         ) : (
@@ -190,8 +199,16 @@ const Message = ({
             <img
               src={profilePic}
               alt={firstName}
-              className="w-10 h-10 rounded-full mr-4 cursor-pointer"
-              onClick={displayProfilePopup}
+              className="w-10 h-10 rounded-full ml-4 mr-2 cursor-pointer"
+              onClick={() => {
+                handleClickMessage({
+                  user: { _id: senderId },
+                  text: message,
+                  updatedAt: new Date().toISOString(),
+                  _id: messageId,
+                });
+                displayProfilePopup();
+              }}
             />
             <div className={`bg-gray-300 text-black p-4 rounded-lg max-w-md`}>
               <div className={`flex items-center `}>

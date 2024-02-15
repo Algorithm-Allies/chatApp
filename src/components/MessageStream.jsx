@@ -18,7 +18,10 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
     currentUser,
     userProfilePhoto,
   } = useContext(ChatContext);
-
+  const handleClickMessage = (message) => {
+    console.log("Clicked Message:", message.user._id);
+    // Add any additional handling logic if needed
+  };
   const socket = useRef(null);
   const messageContainerRef = useRef(null);
   const [openMessageId, setOpenMessageId] = useState(null);
@@ -140,6 +143,7 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
             </div>
           )}
         </div>
+
         {messages.map((message, index) => (
           <Message
             key={message._id}
@@ -166,6 +170,7 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
             openMessageId={openMessageId}
             setOpenMessageId={setOpenMessageId}
             socket={socket.current}
+            handleClickMessage={() => handleClickMessage(message)} // Pass the function
           />
         ))}
       </div>
