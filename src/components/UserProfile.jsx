@@ -97,7 +97,6 @@ const UserProfile = () => {
 
   const handleEscPress = () => {
     navigate("/chat-page");
-    setSelectedChannel([]);
   };
   if (isLoading) {
     return <Loading />; // or render a loading spinner, etc.

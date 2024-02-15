@@ -39,15 +39,16 @@ const Message = ({
         setIsDeleted(true);
       }
     };
-
-    socket.on("messageEdited", handleEditMessage);
-    socket.on("messageDeleted", handleDeleteMessage);
+    if (socket) {
+      socket.on("messageEdited", handleEditMessage);
+      socket.on("messageDeleted", handleDeleteMessage);
+    }
 
     return () => {
       socket.off("messageEdited", handleEditMessage);
       socket.off("messageDeleted", handleDeleteMessage);
     };
-  }, []);
+  }, [socket]);
 
   const isCurrentUser = currentUser._id === senderId;
 

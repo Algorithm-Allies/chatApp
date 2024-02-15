@@ -92,7 +92,7 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
     }
   };
 
-  if (!chatId) {
+  if (!chatId || !socket.current) {
     return (
       <div className="bg-gray-400 flex items-center justify-center h-full p-4">
         <h1 className="text-3xl text-gray-700 font-bold">
