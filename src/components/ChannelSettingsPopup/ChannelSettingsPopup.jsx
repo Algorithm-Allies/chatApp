@@ -16,7 +16,6 @@ function ChannelSettingsPopup({
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      // Update the channels state by removing the deleted channel
       setChannels(
         channels.filter((channel) => channel._id !== selectedChannel._id)
       );
