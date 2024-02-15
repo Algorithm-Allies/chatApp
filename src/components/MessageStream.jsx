@@ -21,6 +21,7 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
 
   const socket = useRef(null);
   const messageContainerRef = useRef(null);
+  const [openMessageId, setOpenMessageId] = useState(null);
 
   const chatId = selectedChannel._id;
 
@@ -33,12 +34,22 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
   }, [chatId, isChannel]);
 
   useEffect(() => {
+    if (!chatId) return;
     const token = localStorage.getItem("token");
     socket.current = io(ENDPOINT, {
       auth: { token },
     });
+
+    socket.current.on("connect", () => {
+      if (chatId) {
+        socket.current.emit("join", chatId);
+      }
+    });
+
     socket.current.on("newMessage", (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
+      if (chatId === message.chatId) {
+        setMessages((prevMessages) => [...prevMessages, message]);
+      }
       if (messageContainerRef.current) {
         messageContainerRef.current.scrollTo({
           top: messageContainerRef.current.scrollHeight,
@@ -47,10 +58,26 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
       }
     });
 
+    socket.current.on("messageEdited", (editedMessage) => {
+      setMessages((prevMessages) =>
+        prevMessages.map((msg) =>
+          msg._id === editedMessage._id ? editedMessage : msg
+        )
+      );
+    });
+
+    socket.current.on("messageDeleted", (deletedMessageId) => {
+      setMessages((prevMessages) =>
+        prevMessages.map((msg) =>
+          msg._id === deletedMessageId ? { ...msg, isDeleted: true } : msg
+        )
+      );
+    });
+
     return () => {
       socket.current.disconnect();
     };
-  }, []);
+  }, [chatId]);
 
   useEffect(() => {
     scrollToBottom();
@@ -123,7 +150,7 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
             firstName={message.user.firstName}
             lastName={message.user.lastName}
             message={message.text}
-            timestamp={new Date(message.createdAt).toLocaleString(undefined, {
+            timestamp={new Date(message.updatedAt).toLocaleString(undefined, {
               year: "numeric",
               month: "2-digit",
               day: "2-digit",
@@ -135,6 +162,10 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
             isVisible={isVisible}
             currentUser={currentUser}
             senderId={message.user._id}
+            messageId={message._id}
+            openMessageId={openMessageId}
+            setOpenMessageId={setOpenMessageId}
+            socket={socket.current}
           />
         ))}
       </div>

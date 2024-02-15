@@ -214,7 +214,6 @@ const UserProfile = () => {
               alt=""
             />
             <p className="font-bold mt-2">{userInfo.displayName}</p>
-            <p>mario_mario83</p>
             <p>{userInfo.pronouns}</p>
             <hr className="my-2" />
             <p className="font-bold">About Me</p>
