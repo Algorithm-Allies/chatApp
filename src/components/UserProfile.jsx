@@ -101,7 +101,7 @@ const UserProfile = () => {
     return <Loading />; // or render a loading spinner, etc.
   }
   return (
-    <div className="bg-zinc-700	p-4 flex text-white justify-center items-start">
+    <div className="bg-zinc-700	p-4 flex text-white justify-center items-start min-h-screen">
       <div>
         <div className="flex flex-col">
           <label className="text-gray-200">Display Name</label>
