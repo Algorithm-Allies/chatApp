@@ -31,11 +31,11 @@ function Channels() {
         <div
           key={channel._id}
           id={channel._id}
-          className="border-b border-gray-800 p-4 hover:bg-gray-800 cursor-pointer whitespace-nowrap overflow-hidden overflow-ellipsis"
+          className="border-b border-gray-800 p-4 hover:bg-gray-800 cursor-pointer whitespace-nowrap"
           onClick={() => handleSelect(channel._id)}
         >
-          <div className="flex items-center justify-between">
-            <div>
+          <div className="flex items-center justify-between ">
+            <div className="min-w-0 flex-1 overflow-hidden overflow-ellipsis">
               <span className="text-green-600">#</span>
               <span>{channel.chatName}</span>
             </div>
