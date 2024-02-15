@@ -3,11 +3,10 @@ import { ChatContext } from "../context/Context";
 import ChannelSettingsPopup from "./ChannelSettingsPopup/ChannelSettingsPopup";
 
 function Channels() {
-  const { channels, fetchChannels, fetchSingleChannel } =
+  const { channels, fetchChannels, fetchSingleChannel, setChannels } =
     useContext(ChatContext);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedChannel, setSelectedChannel] = useState(null);
-
   useEffect(() => {
     fetchChannels();
   }, []);
@@ -62,6 +61,8 @@ function Channels() {
         <ChannelSettingsPopup
           onClose={handleClosePopup}
           selectedChannel={selectedChannel}
+          setChannels={setChannels}
+          channels={channels}
         />
       )}
     </div>
