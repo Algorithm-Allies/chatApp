@@ -38,36 +38,6 @@ function ChatPage() {
     }
   };
 
-  const displayProfilePopup = (event) => {
-    setPosition({ x: event.clientX, y: event.clientY });
-    setElementClicked(event.target);
-
-    if (event.target === elementClicked) {
-      setElementClicked(null);
-      setIsVisible(false);
-    } else {
-      setIsVisible(true);
-    }
-  };
-
-  useEffect(() => {
-    let handler = (e) => {
-      e.preventDefault();
-
-      if (popupRef.current && !popupRef.current.contains(e.target)) {
-        if (e.target !== elementClicked && elementClicked !== null) {
-          setElementClicked(null);
-          setIsVisible(false);
-        }
-      }
-    };
-
-    document.addEventListener("mouseup", handler);
-
-    return () => {
-      document.removeEventListener("mouseup", handler);
-    };
-  }, [elementClicked]);
 
   return (
     <div className="flex flex-row h-full">
@@ -78,7 +48,6 @@ function ChatPage() {
       <div className="flex flex-col h-screen w-screen bg-stone-800">
         <MessageStream
           position={position}
-          displayProfilePopup={displayProfilePopup}
           isVisible={isVisible}
         />
       </div>
@@ -90,7 +59,7 @@ function ChatPage() {
         messageModalRef={messageModalRef}
         closeMessageModal={closeMessageModal}
       />
-      {isVisible && <ProfilePopup ref={popupRef} position={position} />}
+      
     </div>
   );
 }

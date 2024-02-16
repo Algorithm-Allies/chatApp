@@ -3,10 +3,11 @@ import Message from "./Message";
 import { ChatContext } from "../context/Context";
 import AddMessageInput from "./AddMessageInput";
 import io from "socket.io-client";
+import ProfilePopup from "./ProfilePopup";
 
 const ENDPOINT = "http://localhost:3500";
 
-const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
+const MessageStream = ({ position, isVisible }) => {
   const {
     messages,
     setMessages,
@@ -18,10 +19,23 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
     currentUser,
     userProfilePhoto,
   } = useContext(ChatContext);
+
+  const [profilePopupData, setProfilePopupData] = useState(null);
+
   const handleClickMessage = (message) => {
     console.log("Clicked Message:", message.user._id);
-    // Add any additional handling logic if needed
+
+    // Get mouse position
+    const mouseX = window.event.clientX;
+    const mouseY = window.event.clientY;
+
+    // Set the profile popup data
+    setProfilePopupData({
+      userId: message.user._id,
+      position: { x: mouseX, y: mouseY },
+    });
   };
+
   const socket = useRef(null);
   const messageContainerRef = useRef(null);
   const [openMessageId, setOpenMessageId] = useState(null);
@@ -76,7 +90,6 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
         )
       );
     });
-
     return () => {
       socket.current.disconnect();
     };
@@ -162,7 +175,6 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
               minute: "2-digit",
             })}
             position={position}
-            displayProfilePopup={displayProfilePopup}
             isVisible={isVisible}
             currentUser={currentUser}
             senderId={message.user._id}
@@ -174,6 +186,14 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
           />
         ))}
       </div>
+
+      {/* Render ProfilePopup if profilePopupData is available */}
+      {profilePopupData && (
+        <ProfilePopup
+          userId={profilePopupData.userId}
+          position={profilePopupData.position}
+        />
+      )}
 
       <AddMessageInput socket={socket.current} chatId={chatId} />
     </div>

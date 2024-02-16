@@ -8,7 +8,6 @@ const Message = ({
   lastName,
   message,
   timestamp,
-  displayProfilePopup,
   currentUser,
   senderId,
   messageId,
@@ -115,7 +114,6 @@ const Message = ({
                 <div className="text-xs text-gray-800">{timestamp}</div>
                 <div
                   className="text-sm font-semibold ml-2 cursor-pointer"
-                  onClick={displayProfilePopup}
                 >
                   {firstName} {lastName}
                 </div>
@@ -189,7 +187,6 @@ const Message = ({
                   updatedAt: new Date().toISOString(),
                   _id: messageId,
                 });
-                displayProfilePopup();
               }}
             />
           </div>
@@ -207,14 +204,12 @@ const Message = ({
                   updatedAt: new Date().toISOString(),
                   _id: messageId,
                 });
-                displayProfilePopup();
               }}
             />
             <div className={`bg-gray-300 text-black p-4 rounded-lg max-w-md`}>
               <div className={`flex items-center `}>
                 <div
                   className="text-sm font-semibold mr-2 cursor-pointer"
-                  onClick={displayProfilePopup}
                 >
                   {firstName} {lastName}
                 </div>
