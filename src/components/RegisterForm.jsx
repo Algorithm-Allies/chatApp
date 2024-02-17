@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import zxcvbn from "zxcvbn"; // Password strength estimator library
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+const serverUrl = import.meta.env.VITE_APP_SERVER;
 
 function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -104,15 +105,11 @@ function RegisterForm() {
 
     // If all validations pass, proceed with form submission
     try {
-      const response = await axios.post(
-        "http://localhost:3500/api/users",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.post(`${serverUrl}/api/users`, formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (response.status !== 201) {
         throw new Error("Network response was not ok.");

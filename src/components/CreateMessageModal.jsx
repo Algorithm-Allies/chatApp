@@ -10,12 +10,13 @@ function CreateMessageModal({ messageModalRef, closeMessageModal }) {
   const [users, setUsers] = useState([]);
   const [searchedUsers, setSearchedUsers] = useState(users);
   const [selectedRecipient, setSelectedRecipient] = useState({});
+  const serverUrl = import.meta.env.VITE_APP_SERVER;
 
   useEffect(() => {
     const fetchUsers = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await axios.get("http://localhost:3500/api/users", {
+        const response = await axios.get(`${serverUrl}/api/users`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -56,7 +57,7 @@ function CreateMessageModal({ messageModalRef, closeMessageModal }) {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:3500/api/directMessages",
+        `${serverUrl}/api/directMessages`,
         {
           userId: selectedRecipient._id,
         },

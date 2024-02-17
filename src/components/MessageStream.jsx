@@ -4,7 +4,7 @@ import { ChatContext } from "../context/Context";
 import AddMessageInput from "./AddMessageInput";
 import io from "socket.io-client";
 
-const ENDPOINT = "http://localhost:3500";
+const ENDPOINT = import.meta.env.VITE_APP_SERVER;
 
 const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
   const {

@@ -9,12 +9,13 @@ function ChannelSettingsPopup({
   channels,
 }) {
   const handleDeleteChannel = async () => {
+    const serverUrl = import.meta.env.VITE_APP_SERVER;
+
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(
-        `http://localhost:3500/api/channels/${selectedChannel._id}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      await axios.delete(`${serverUrl}/api/channels/${selectedChannel._id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       setChannels(
         channels.filter((channel) => channel._id !== selectedChannel._id)

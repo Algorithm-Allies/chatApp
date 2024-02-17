@@ -11,11 +11,13 @@ function CreateChannelModal({ channelModalRef, closeChannelModal }) {
   const [searchedUsers, setSearchedUsers] = useState(users);
   const [selectedUsers, setSelectedUsers] = useState([]);
 
+  const serverUrl = import.meta.env.VITE_APP_SERVER;
+
   useEffect(() => {
     const fetchUsers = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await axios.get("http://localhost:3500/api/users", {
+        const response = await axios.get(`${serverUrl}/api/users`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -58,7 +60,7 @@ function CreateChannelModal({ channelModalRef, closeChannelModal }) {
       const token = localStorage.getItem("token");
 
       const response = await axios.post(
-        "http://localhost:3500/api/channels/createChannel",
+        `${serverUrl}/api/channels/createChannel`,
         {
           name: channelName,
           users: JSON.stringify(selectedUsers),

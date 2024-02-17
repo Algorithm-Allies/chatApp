@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+const serverUrl = import.meta.env.VITE_APP_SERVER;
 
 import "../styles/login.css";
 
@@ -21,13 +22,10 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3500/api/users/login",
-        {
-          email: email,
-          password: password,
-        }
-      );
+      const response = await axios.post(`${serverUrl}/api/users/login`, {
+        email: email,
+        password: password,
+      });
 
       const { data } = response;
       console.log(data);

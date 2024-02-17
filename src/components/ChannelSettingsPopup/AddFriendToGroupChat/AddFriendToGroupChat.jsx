@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+const serverUrl = import.meta.env.VITE_APP_SERVER;
 
 function AddFriendToGroupChat({ group }) {
   const [friends, setFriends] = useState([]);
@@ -11,7 +12,7 @@ function AddFriendToGroupChat({ group }) {
     const fetchFriends = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:3500/api/users", {
+        const response = await axios.get(`${serverUrl}/api/users`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -44,7 +45,7 @@ function AddFriendToGroupChat({ group }) {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:3500/api/channels/addUser`,
+        `${serverUrl}/api/channels/addUser`,
         { userId: friend._id, channelId: group._id },
         { headers: { Authorization: `Bearer ${token}` } }
       );

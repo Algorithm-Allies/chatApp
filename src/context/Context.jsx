@@ -2,6 +2,7 @@ import React, { createContext, useState } from "react";
 import RestructuredData from "../Data/RestructuredData.json";
 import axios from "axios";
 export const ChatContext = createContext();
+const serverUrl = import.meta.env.VITE_APP_SERVER;
 
 export const ChatProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
@@ -22,14 +23,11 @@ export const ChatProvider = ({ children }) => {
     try {
       const token = localStorage.getItem("token");
       const id = localStorage.getItem("userId");
-      const response = await axios.get(
-        `http://localhost:3500/api/users/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${serverUrl}/api/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const user = response.data;
       setCurrentUser(user);
     } catch (error) {
@@ -40,14 +38,11 @@ export const ChatProvider = ({ children }) => {
   const fetchMessages = async (id, type) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `http://localhost:3500/api/messages/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${serverUrl}/api/messages/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const messages = response.data;
       setMessages(messages);
     } catch (error) {
@@ -73,7 +68,7 @@ export const ChatProvider = ({ children }) => {
     //api call for all channels
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:3500/api/channels", {
+      const response = await axios.get(`${serverUrl}/api/channels`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -89,7 +84,7 @@ export const ChatProvider = ({ children }) => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `http://localhost:3500/api/channels/getChannelById/${id}`,
+        `${serverUrl}/api/channels/getChannelById/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -116,14 +111,11 @@ export const ChatProvider = ({ children }) => {
   const fetchDirectMessages = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        "http://localhost:3500/api/directMessages/",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${serverUrl}/api/directMessages/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const directMessages = response.data;
       setDirectMessages(directMessages);
     } catch (error) {
@@ -136,7 +128,7 @@ export const ChatProvider = ({ children }) => {
       const loggedInUserId = localStorage.getItem("userId");
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `http://localhost:3500/api/channels/getChannelById/${id}`,
+        `${serverUrl}/api/channels/getChannelById/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -175,7 +167,7 @@ export const ChatProvider = ({ children }) => {
   const fetchUsers = () => {
     const token = localStorage.getItem("token");
     try {
-      const response = axios.get(`http://localhost:3500/api/users`, {
+      const response = axios.get(`${serverUrl}/api/users`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -197,7 +189,7 @@ export const ChatProvider = ({ children }) => {
           throw new Error("Authentication token not found");
         }
 
-        const resp = await axios.get("http://localhost:3500/api/profile/", {
+        const resp = await axios.get(`${serverUrl}/api/profile/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -220,16 +212,12 @@ export const ChatProvider = ({ children }) => {
         throw new Error("Authentication token not found");
       }
       console.log(profileData);
-      const resp = await axios.put(
-        "http://localhost:3500/api/profile/",
-        profileData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const resp = await axios.put(`${serverUrl}/api/profile/`, profileData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
       console.log("Profile updated successfully:", resp.data);
     } catch (error) {
       console.error("Error updating profile:", error);
