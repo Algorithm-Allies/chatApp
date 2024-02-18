@@ -2,7 +2,12 @@ import React from "react";
 import axios from "axios";
 import AddFriendToGroupChat from "./AddFriendToGroupChat/AddFriendToGroupChat";
 
-function ChannelSettingsPopup({ onClose, selectedChannel }) {
+function ChannelSettingsPopup({
+  onClose,
+  selectedChannel,
+  setChannels,
+  channels,
+}) {
   const handleDeleteChannel = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -10,6 +15,11 @@ function ChannelSettingsPopup({ onClose, selectedChannel }) {
         `http://localhost:3500/api/channels/${selectedChannel._id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
+
+      setChannels(
+        channels.filter((channel) => channel._id !== selectedChannel._id)
+      );
+
       onClose();
     } catch (error) {
       console.error("Error deleting channel:", error);
