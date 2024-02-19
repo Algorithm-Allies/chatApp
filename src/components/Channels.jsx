@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ChatContext } from "../context/Context";
 import ChannelSettingsPopup from "./ChannelSettingsPopup/ChannelSettingsPopup";
 
-function Channels() {
+function Channels({ setMobileMenuOpen }) {
   const { channels, fetchChannels, fetchSingleChannel, setChannels } =
     useContext(ChatContext);
   const [showPopup, setShowPopup] = useState(false);
@@ -13,6 +13,7 @@ function Channels() {
 
   const handleSelect = (channelId) => {
     fetchSingleChannel(channelId);
+    setMobileMenuOpen(false);
   };
 
   const handleOpenPopup = (e, channelId) => {

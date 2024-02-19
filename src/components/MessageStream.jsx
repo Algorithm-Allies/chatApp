@@ -104,17 +104,20 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
 
   return (
     <div className="flex flex-col h-full p-4 bg-white ">
-      <div className="text-deep-blue text-5xl border-b border-black pb-4 flex items-center">
+      <div className="md:hidden lg:hidden h-10"></div>
+      <div className="text-deep-blue text-4xl md:text-5xl border-b border-black pb-4 flex items-center">
         {isChannel ? (
-          <div className="flex items-center">
-            <div className="font-bold">#</div>
-            <div>{titleName.title}</div>
+          <div className="flex items-center sm:items-end ms-3 mt-4">
+            <div>
+              <span className="font-bold">#</span>
+              {titleName.title}
+            </div>
           </div>
         ) : (
           <div className="flex items-center">
             <img
               src={userProfilePhoto}
-              className="rounded-full w-12 h-12 mr-2"
+              className="rounded-full w-12 h-12 mr-2 hidden md:block"
             />
             <div>{titleName.title}</div>
           </div>

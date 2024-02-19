@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { ChatContext } from "../context/Context";
-function DirectMessages() {
+function DirectMessages({ setMobileMenuOpen }) {
   const {
     directMessages,
     users,
@@ -17,6 +17,7 @@ function DirectMessages() {
 
   const handleSelect = (chatId) => {
     fetchSingleDirectMessages(chatId);
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -28,7 +29,7 @@ function DirectMessages() {
         return (
           <div
             key={dm._id}
-            className=" flex items-center  p-2 rounded hover:bg-gray-300 cursor-pointer whitespace-nowrap transition-transform duration-300 transform hover:-translate-y-1"
+            className=" flex items-center  p-2 rounded hover:bg-gray-300 cursor-pointer min-w-0 flex-1 overflow-hidden overflow-ellipsis transition-transform duration-300 transform hover:-translate-y-1"
             onClick={() => handleSelect(dm._id)}
           >
             <img
