@@ -107,7 +107,6 @@ export const ChatProvider = ({ children }) => {
       setIsChannel(true);
 
       setCurrentChannelId(id);
-      console.log(currentChannelId);
     } catch (error) {
       console.error(error);
     }
@@ -219,7 +218,6 @@ export const ChatProvider = ({ children }) => {
       if (!token) {
         throw new Error("Authentication token not found");
       }
-      console.log(profileData);
       const resp = await axios.put(
         "http://localhost:3500/api/profile/",
         profileData,
@@ -230,7 +228,6 @@ export const ChatProvider = ({ children }) => {
           },
         }
       );
-      console.log("Profile updated successfully:", resp.data);
     } catch (error) {
       console.error("Error updating profile:", error);
     }

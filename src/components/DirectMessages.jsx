@@ -20,7 +20,7 @@ function DirectMessages() {
   };
 
   return (
-    <div className="text-white">
+    <div className="text-gray-700 overflow-hidden">
       {directMessages.map((dm) => {
         const otherMember = dm.members.find(
           (member) => member.user._id !== currentUser._id
@@ -28,7 +28,7 @@ function DirectMessages() {
         return (
           <div
             key={dm._id}
-            className="text-white hover:bg-gray-800 cursor-pointer flex items-center p-1"
+            className=" flex items-center  p-2 rounded hover:bg-gray-300 cursor-pointer whitespace-nowrap transition-transform duration-300 transform hover:-translate-y-1"
             onClick={() => handleSelect(dm._id)}
           >
             <img

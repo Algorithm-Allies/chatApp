@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from "react";
-import "../styles/CreateChannelModal.css";
 import { ChatContext } from "../context/Context";
 import axios from "axios";
 
@@ -74,24 +73,28 @@ function CreateMessageModal({ messageModalRef, closeMessageModal }) {
   };
 
   return (
-    <dialog ref={messageModalRef}>
-      <div id="message-modal">
-        <label className="message-modal-input-label" htmlFor="">
-          Recipient
-        </label>
-        <input
-          id="message-modal-input"
-          type="text"
-          placeholder="Enter recipient name here"
-          value={userSearchQuery || ""}
-          onChange={(e) => setUserSearchQuery(e.target.value)}
-        />
-        <fieldset className="overflow-y-scroll h-40 text-white">
-          <legend className="message-modal-input-label">
+    <dialog className="max-w-md w-full rounded-md" ref={messageModalRef}>
+      <div className="flex flex-col max-w-xl w-full">
+        <div className="m-4">
+          {" "}
+          <label className="text-gray-700 font-semibold" htmlFor="Recipient">
+            Recipient
+          </label>
+          <input
+            type="text"
+            placeholder="Enter recipient name here"
+            className="w-full border rounded px-3 py-2 focus:border-blue-500"
+            value={userSearchQuery || ""}
+            onChange={(e) => setUserSearchQuery(e.target.value)}
+          />
+        </div>
+
+        <fieldset className="overflow-y-scroll h-40 text-black m-5 mt-1">
+          <legend className="text-gray-700 font-semibold mb-2">
             Select recipient
           </legend>
           {searchedUsers.map((user) => (
-            <div key={user._id} className="flex">
+            <div key={user._id} className="flex items-center mb-2">
               <input
                 type="radio"
                 name="recipient"
@@ -106,11 +109,17 @@ function CreateMessageModal({ messageModalRef, closeMessageModal }) {
             </div>
           ))}
         </fieldset>
-        <div id="message-modal-buttons">
-          <button id="message-modal-cancel" onClick={() => closeMessageModal()}>
+        <div className="flex justify-between">
+          <button
+            className="w-1/2 m-3 bg-gray-300 text-gray-800 font-semibold py-2 rounded hover:bg-gray-400 focus:outline-none"
+            onClick={() => closeMessageModal()}
+          >
             Cancel
           </button>
-          <button id="message-modal-send" onClick={handleSendMessage}>
+          <button
+            className="w-1/2 m-3 bg-dark-blue text-white font-semibold py-2 rounded hover:bg-medium-blue focus:outline-none"
+            onClick={handleSendMessage}
+          >
             Start Direct Message
           </button>
         </div>

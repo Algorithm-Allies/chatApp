@@ -99,12 +99,11 @@ function SideBar({ openChannelModal, openMessageModal, directMessages }) {
     id: "messageMenu",
   });
 
-  function handleItemChannelClick({ event, props, triggerEvent, data }) {
+  function handleItemChannelClick() {
     openChannelModal();
-    console.log(event, props, triggerEvent, data);
   }
 
-  function handleItemDirectMessageClick({ event, props, triggerEvent, data }) {
+  function handleItemDirectMessageClick() {
     openMessageModal();
   }
 
@@ -121,18 +120,21 @@ function SideBar({ openChannelModal, openMessageModal, directMessages }) {
   }
 
   return (
-    <div className="flex flex-col items-center h-screen bg-black w-64 overflow-y-scroll">
-      <div className="text-white text-2xl font-bold mb-4 mt-4">Ripple</div>
+    <div className="flex flex-col items-center h-screen bg-sidebar-color w-64 overflow-y-scroll text-black">
+      <div className=" text-2xl font-bold mb-4 mt-4">ChatApp</div>
       <div className="flex flex-col w-full h-full p-3 mb-72">
         <div className="flex flex-col w-full">
-          <div className="text-white flex flex-row w-full justify-between items-center mb-2">
-            <div className="flex flex-row">
-              <button
-                onClick={channelArrowChange}
-                className="bg-gray-800 p-1 rounded"
-              >
-                {!channelArrowClick ? <ArrowDown /> : <ArrowUp />}
-              </button>
+          <div className="flex flex-row w-full justify-between items-center mb-2">
+            <div className="flex flex-row ">
+              <div>
+                <button
+                  onClick={channelArrowChange}
+                  className="bg-gray-400 text-white p-1 rounded"
+                >
+                  {!channelArrowClick ? <ArrowDown /> : <ArrowUp />}
+                </button>
+              </div>
+
               <h3 className="text-lg ml-1">Channels</h3>
             </div>
             <button onClick={handleAddChannel}>
@@ -146,19 +148,22 @@ function SideBar({ openChannelModal, openMessageModal, directMessages }) {
           {channelArrowClick && <Channels />}
         </div>
         <div className="flex flex-col w-full mt-4">
-          <div className="text-white flex flex-row w-full justify-between items-center mb-2">
-            <div className="flex flex-row">
-              <button
-                onClick={messageArrowChange}
-                className="bg-gray-800 p-1 rounded"
-              >
-                {!messageArrowClick ? <ArrowDown /> : <ArrowUp />}
-              </button>
+          <div className="flex flex-row w-full justify-between items-center mb-2">
+            <div className="flex flex-row items-start">
+              <div>
+                <button
+                  onClick={messageArrowChange}
+                  className="bg-gray-400 text-white p-1 rounded"
+                >
+                  {!messageArrowClick ? <ArrowDown /> : <ArrowUp />}
+                </button>
+              </div>
+
               <h3 className="text-lg ml-1">Direct Messages</h3>
+              <button className="mt-1" onClick={handleAddDirectMessage}>
+                <AddChannel />
+              </button>
             </div>
-            <button onClick={handleAddDirectMessage}>
-              <AddChannel />
-            </button>
             <Menu id="messageMenu">
               <Item onClick={handleItemDirectMessageClick}>
                 Send Direct Message

@@ -25,17 +25,17 @@ function Channels() {
   };
 
   return (
-    <div className="text-white">
+    <div className="text-gray-700">
       {channels.map((channel) => (
         <div
           key={channel._id}
           id={channel._id}
-          className="border-b border-gray-800 p-4 hover:bg-gray-800 cursor-pointer whitespace-nowrap"
+          className=" p-4 rounded hover:bg-gray-300 cursor-pointer whitespace-nowrap transition-transform duration-300 transform hover:-translate-y-1"
           onClick={() => handleSelect(channel._id)}
         >
           <div className="flex items-center justify-between ">
             <div className="min-w-0 flex-1 overflow-hidden overflow-ellipsis">
-              <span className="text-green-600">#</span>
+              <span className="text-dark-teal font-bold ">#</span>
               <span>{channel.chatName}</span>
             </div>
             <div onClick={(e) => handleOpenPopup(e, channel)}>
@@ -45,7 +45,7 @@ function Channels() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6 hover:text-gray-500 cursor-pointer transition-colors duration-300 ease-in-out"
+                className="w-6 h-6 hover:text-white cursor-pointer transition-colors duration-300 ease-in-out"
               >
                 <path
                   strokeLinecap="round"

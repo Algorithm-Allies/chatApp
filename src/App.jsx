@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ChatPage from "./pages/ChatPage";
-import "./styles/login.css";
 import Login from "./pages/login";
 import Register from "./pages/Register";
 import UserProfile from "./components/UserProfile";
