@@ -3,10 +3,11 @@ import Message from "./Message";
 import { ChatContext } from "../context/Context";
 import AddMessageInput from "./AddMessageInput";
 import io from "socket.io-client";
+import ProfilePopup from "./ProfilePopup";
 
 const ENDPOINT = "http://localhost:3500";
 
-const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
+const MessageStream = ({ position, isVisible }) => {
   const {
     messages,
     setMessages,
@@ -18,6 +19,19 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
     currentUser,
     userProfilePhoto,
   } = useContext(ChatContext);
+
+  const [profilePopupData, setProfilePopupData] = useState(null);
+
+  const handleClickMessage = (message) => {
+    console.log("Clicked Message:", message.user._id);
+    // Set the profile popup data
+    setProfilePopupData({
+      userId: message.user._id,
+    });
+  };
+  const handleProfilePopupClose = () => {
+    setProfilePopupData(null);
+  };
 
   const socket = useRef(null);
   const messageContainerRef = useRef(null);
@@ -73,7 +87,6 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
         )
       );
     });
-
     return () => {
       socket.current.disconnect();
     };
@@ -143,6 +156,7 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
             </div>
           )}
         </div>
+
         {messages.map((message, index) => (
           <Message
             key={message._id}
@@ -161,7 +175,6 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
               minute: "2-digit",
             })}
             position={position}
-            displayProfilePopup={displayProfilePopup}
             isVisible={isVisible}
             currentUser={currentUser}
             senderId={message.user._id}
@@ -169,9 +182,20 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
             openMessageId={openMessageId}
             setOpenMessageId={setOpenMessageId}
             socket={socket.current}
+            handleClickMessage={() => handleClickMessage(message)} // Pass the function
           />
         ))}
       </div>
+      {/* Center the ProfilePopup within the container */}
+      {profilePopupData && (
+        <div className="flex justify-center">
+          <ProfilePopup
+            userId={profilePopupData.userId}
+            position={profilePopupData.position}
+            onClose={handleProfilePopupClose}
+          />
+        </div>
+      )}
 
       <AddMessageInput socket={socket.current} chatId={chatId} />
     </div>

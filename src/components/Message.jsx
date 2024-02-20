@@ -8,13 +8,13 @@ const Message = ({
   lastName,
   message,
   timestamp,
-  displayProfilePopup,
   currentUser,
   senderId,
   messageId,
   openMessageId,
   setOpenMessageId,
   socket,
+  handleClickMessage,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -130,7 +130,6 @@ const Message = ({
                 <div className="text-xs text-gray-300">{timestamp}</div>
                 <div
                   className="text-sm font-semibold ml-2 cursor-pointer"
-                  onClick={displayProfilePopup}
                 >
                   {firstName} {lastName}
                 </div>
@@ -198,7 +197,14 @@ const Message = ({
               src={profilePic}
               alt={firstName}
               className="w-10 h-10 rounded-full ml-4 mr-2 cursor-pointer"
-              onClick={displayProfilePopup}
+              onClick={() => {
+                handleClickMessage({
+                  user: { _id: senderId },
+                  text: message,
+                  updatedAt: new Date().toISOString(),
+                  _id: messageId,
+                });
+              }}
             />
           </div>
         ) : (
@@ -207,8 +213,15 @@ const Message = ({
             <img
               src={profilePic}
               alt={firstName}
-              className="w-10 h-10 rounded-full mr-4 cursor-pointer"
-              onClick={displayProfilePopup}
+              className="w-10 h-10 rounded-full ml-4 mr-2 cursor-pointer"
+              onClick={() => {
+                handleClickMessage({
+                  user: { _id: senderId },
+                  text: message,
+                  updatedAt: new Date().toISOString(),
+                  _id: messageId,
+                });
+              }}
             />
             <div
               className={`bg-recipient-color text-black p-4 rounded-lg max-w-md`}
@@ -216,7 +229,6 @@ const Message = ({
               <div className={`flex items-center `}>
                 <div
                   className="text-sm font-semibold mr-2 cursor-pointer"
-                  onClick={displayProfilePopup}
                 >
                   {firstName} {lastName}
                 </div>
