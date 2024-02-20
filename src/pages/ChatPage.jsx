@@ -75,7 +75,7 @@ function ChatPage() {
         openChannelModal={openChannelModal}
         openMessageModal={openMessageModal}
       />
-      <div className="flex flex-col h-screen w-screen bg-stone-800">
+      <div className="flex flex-col h-screen w-screen bg-white">
         <MessageStream
           position={position}
           displayProfilePopup={displayProfilePopup}
@@ -86,6 +86,7 @@ function ChatPage() {
         channelModalRef={channelModalRef}
         closeChannelModal={closeChannelModal}
       />
+
       <CreateMessageModal
         messageModalRef={messageModalRef}
         closeMessageModal={closeMessageModal}

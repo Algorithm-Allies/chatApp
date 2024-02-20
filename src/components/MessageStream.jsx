@@ -94,8 +94,8 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
 
   if (!chatId || !socket.current) {
     return (
-      <div className="bg-gray-400 flex items-center justify-center h-full p-4">
-        <h1 className="text-3xl text-gray-700 font-bold">
+      <div className="flex items-center justify-center h-full p-4 ">
+        <h1 className="text-3xl text-black font-bold">
           Welcome! Please select a channel or direct message.
         </h1>
       </div>
@@ -103,18 +103,21 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
   }
 
   return (
-    <div className="bg-gray-400 flex flex-col h-full p-4">
-      <div className="text-5xl border-b border-gray-700 pb-4 flex items-center">
+    <div className="flex flex-col h-full p-4 bg-white ">
+      <div className="md:hidden lg:hidden h-10"></div>
+      <div className="text-deep-blue text-4xl md:text-5xl border-b border-black pb-4 flex items-center">
         {isChannel ? (
-          <div className="flex items-center">
-            <div className="font-bold">#</div>
-            <div>{titleName.title}</div>
+          <div className="flex items-center sm:items-end ms-3 mt-4">
+            <div>
+              <span className="font-bold">#</span>
+              {titleName.title}
+            </div>
           </div>
         ) : (
           <div className="flex items-center">
             <img
               src={userProfilePhoto}
-              className="rounded-full w-12 h-12 mr-2"
+              className="rounded-full w-12 h-12 mr-2 hidden md:block"
             />
             <div>{titleName.title}</div>
           </div>
@@ -126,7 +129,7 @@ const MessageStream = ({ position, displayProfilePopup, isVisible }) => {
       <div className="flex-grow overflow-y-auto" ref={messageContainerRef}>
         <div className="flex flex-col">
           {isChannel ? (
-            <div className="flex items-center justify-center text-gray-600 font-bold mb-5 pb-3">
+            <div className="flex items-center justify-center text-gray-400 font-bold mb-5 pb-3">
               <p className="flex-grow">
                 This is the start of the #{titleName.title} channel
               </p>

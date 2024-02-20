@@ -30,16 +30,16 @@ function AddMessageInput({ socket, chatId }) {
   };
 
   return (
-    <div className="flex items-center p-2 bg-gray-300 rounded mt-auto mb-2">
+    <div className="flex items-center p-2 bg-gray-200 rounded mb-2 mt-4">
       <input
         className="w-full text-black bg-transparent outline-none"
         placeholder="Send a message..."
         value={inputMessage}
         onChange={handleInputMessageChange}
-        onKeyPress={handleEnterPress}
+        onKeyDown={handleEnterPress}
       />
       <button
-        className="ml-2 bg-green-500 text-white rounded p-2"
+        className="ml-2 bg-blue-green text-white rounded p-2"
         onClick={sendMessage}
       >
         send

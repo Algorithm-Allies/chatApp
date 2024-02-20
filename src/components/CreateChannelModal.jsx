@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import { ChatContext } from "../context/Context";
-import "../styles/CreateChannelModal.css";
 import axios from "axios";
 
 function CreateChannelModal({ channelModalRef, closeChannelModal }) {
@@ -81,34 +80,39 @@ function CreateChannelModal({ channelModalRef, closeChannelModal }) {
     }
   };
   return (
-    <dialog ref={channelModalRef}>
-      <div id="channel-modal">
-        <label className="channel-modal-input-label" htmlFor="">
-          Channel Name
-        </label>
-        <input
-          id="channel-modal-input"
-          type="text"
-          placeholder="Enter channel name here"
-          value={channelName}
-          onChange={(e) => setChannelName(e.target.value)}
-        />
-        <label className="channel-modal-input-label" htmlFor="">
-          Find users
-        </label>
-        <input
-          id="channel-modal-input"
-          type="text"
-          placeholder="Enter user name here"
-          value={userSearchQuery}
-          onChange={(e) => setUserSearchQuery(e.target.value)}
-        />
-        <fieldset className="overflow-y-scroll h-40 text-white">
-          <legend className="channel-modal-input-label">
+    <dialog className="max-w-md w-full rounded-md" ref={channelModalRef}>
+      <div className="flex flex-col max-w-xl w-full">
+        <div className="m-4">
+          <label className="text-gray-700 font-semibold" htmlFor="channelName">
+            Channel Name
+          </label>
+          <input
+            type="text"
+            placeholder="Enter channel name here"
+            className="w-full border rounded px-3 py-2 focus:border-blue-500"
+            value={channelName}
+            onChange={(e) => setChannelName(e.target.value)}
+          />
+        </div>
+        <div className="m-4 mt-1">
+          <label className="text-gray-700 font-semibold" htmlFor="userQuery">
+            Find users
+          </label>
+          <input
+            type="text"
+            placeholder="Enter user name here"
+            className="w-full border rounded px-3 py-2 focus:border-blue-500"
+            value={userSearchQuery}
+            onChange={(e) => setUserSearchQuery(e.target.value)}
+          />
+        </div>
+
+        <fieldset className="overflow-y-scroll h-40 text-black m-5 mt-1">
+          <legend className="text-gray-700 font-semibold mb-2">
             Add users to channel
           </legend>
           {searchedUsers.map((user) => (
-            <div key={user._id} className="flex">
+            <div key={user._id} className="flex items-center mb-2">
               <input
                 type="checkbox"
                 checked={selectedUsers.includes(user._id)}
@@ -120,11 +124,17 @@ function CreateChannelModal({ channelModalRef, closeChannelModal }) {
             </div>
           ))}
         </fieldset>
-        <div id="channel-modal-buttons">
-          <button id="channel-modal-cancel" onClick={() => closeChannelModal()}>
+        <div className="flex justify-between">
+          <button
+            className="w-1/2 m-3 bg-gray-300 text-gray-800 font-semibold py-2 rounded hover:bg-gray-400 focus:outline-none"
+            onClick={() => closeChannelModal()}
+          >
             Cancel
           </button>
-          <button id="channel-modal-create" onClick={handleCreateChannel}>
+          <button
+            className="w-1/2 m-3 bg-dark-blue text-white font-semibold py-2 rounded hover:bg-medium-blue focus:outline-none"
+            onClick={handleCreateChannel}
+          >
             Create Channel
           </button>
         </div>

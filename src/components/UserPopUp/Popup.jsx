@@ -9,7 +9,7 @@ function Popup() {
     handleLogout(navigate);
   };
   return (
-    <div className="w-11/12 m-2 bg-white flex flex-col justify-center">
+    <div className="w-11/12 m-2 text-white bg-profile-color flex flex-col justify-center">
       <Link
         className="p-2 flex flex-row justify-start hover:bg-gray-400 w-full cursor-pointer"
         to="/profile"

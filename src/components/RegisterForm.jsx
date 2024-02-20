@@ -72,9 +72,6 @@ function RegisterForm() {
       if (birthDate > eighteenYearsAgo) {
         console.log("You must be 18 years or older to register.");
         return; // Exit the function if under 18
-      } else {
-        // Proceed with registration
-        alert("Registration successful!"); // Or any other action after validation
       }
     }
 
@@ -119,7 +116,6 @@ function RegisterForm() {
       }
 
       alert("Registration successful!");
-      console.log("formData:", formData);
 
       // Redirect to login page
       navigate("/");
@@ -129,7 +125,7 @@ function RegisterForm() {
     }
   };
   return (
-    <form className="flex flex-col w-full" onSubmit={handleSubmit}>
+    <form className="flex flex-col w-full max-h-screen" onSubmit={handleSubmit}>
       <div className="mb-4 md:flex md:flex-row flex-col w-full items-start justify-center">
         <div className="firstName">
           <label htmlFor="firstName" className="text-gray-700 font-semibold">
@@ -249,7 +245,7 @@ function RegisterForm() {
           id="confirm-password"
           name="confirmPassword"
           placeholder="Confirm your password"
-          className="form-input"
+          className=" w-full border rounded px-3 py-2 focus:border-blue-500"
           value={formData.confirmPassword}
           onChange={handleInputChanges}
           required
@@ -261,7 +257,7 @@ function RegisterForm() {
       </div>
       <button
         type="submit"
-        className="w-full bg-blue-500 text-white font-semibold py-2 rounded hover:bg-blue-600 focus:outline-none"
+        className="w-full mt-3 bg-dark-blue text-white font-semibold py-2 rounded hover:bg-medium-blue focus:outline-none"
       >
         Create Account
       </button>
