@@ -1,66 +1,99 @@
-import React, { forwardRef, useEffect, useState } from "react";
+// ProfilePopup.js
 
-const ProfilePopup = forwardRef(({ position }, ref) => {
-  const [popupPositionY, setPopupPositionY] = useState(0);
-  const [popupPositionX, setPopupPositionX] = useState(0);
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+const serverUrl = import.meta.env.VITE_APP_SERVER;
+
+const ProfilePopup = ({ userId, onClose }) => {
+  const [userData, setUserData] = useState(null);
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    if (ref.current) {
-      let availableSpace = window.innerHeight - position.y;
-      let menuHeight = ref.current.getBoundingClientRect().height;
-      let menuWidth = ref.current.getBoundingClientRect().width;
-
-      //Adjust Y
-      if (availableSpace < menuHeight) {
-        setPopupPositionY(availableSpace - menuHeight + position.y);
-      } else {
-        setPopupPositionY(position.y);
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`${serverUrl}/api/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUserData(response.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
       }
+    };
 
-      //Adjust X
-      if (position.x + menuWidth > window.innerWidth) {
-        setPopupPositionX(position.x - menuWidth);
-      } else {
-        setPopupPositionX(position.x);
-      }
+    if (userId) {
+      fetchUserData();
     }
-  }, [ref]);
+  }, [userId, token]);
 
-  if (ref)
-    return (
-      <div
-        ref={ref}
-        style={{ top: `${popupPositionY}px`, left: `${popupPositionX}px` }}
-        className="absolute bg-zinc-800 p-4 text-white z-50 max-w-xs rounded-md"
-      >
+  if (!userData) {
+    return null;
+  }
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
+      <div className="bg-gray-300 p-8 rounded max-w-lg w-full md:w-2/3 lg:w-1/2 xl:w-1/3 relative">
+        <button
+          className="absolute top-2 right-7 text-gray-500 hover:text-gray-700 cursor-pointer text-3xl p-2"
+          onClick={onClose}
+        >
+          x
+        </button>
+        <div className="flex justify-center items-center">
+          <img
+            src={userData.profilePhoto || "default-profile-image.jpg"}
+            alt=""
+            className="w-24 h-24 bg-black rounded-full object-cover"
+          />
+        </div>
+        <div className="bg-gray-400 rounded-md p-8 mt-6">
+          <p className="font-bold">
+            {userData.firstName} {userData.lastName}
+          </p>
+          <hr className="mt-2" />
+          <p className="mt-2 font-bold">About Me</p>
+          <p
+            style={{
+              maxHeight: "10rem",
+              minHeight: "10rem",
+              overflowY: "auto",
+              scrollbarWidth: "thin",
+              scrollbarColor: "#4a5568 #cbd5e0",
+              borderRadius: "4px",
+            }}
+          >
+            {userData.aboutMe || "No information available"}
+          </p>
+          <hr className="mt-2" />
+          <p className="mt-2 font-bold">Member since</p>
+          <p>
+            {new Date(userData.createdAt).toLocaleDateString() || "Unknown"}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProfilePopup;
+
+/*      <div className="flex justify-center items-center">
         <img
-          src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src={userData.profilePhoto || "default-profile-image.jpg"}
           alt=""
           className="w-24 h-24 bg-black rounded-full object-cover"
         />
-        <div className="bg-zinc-900 rounded-md p-4 mt-6">
-          <p className="font-bold">Namey McName</p>
-          <hr className="mt-2" />
-          <p className="mt-2 font-medium">About Me</p>
-          <p>
-            "Hey, you two robbers! You're under arrest! Ah, just kidding, happy
-            Halloween!"
-          </p>
-          <hr className="mt-2" />
-          <p className="mt-2">Member since</p>
-          <p>Dec 10, 2022</p>
-          <input
-            type="text"
-            name="message"
-            placeholder="Message @Namey McName"
-            className="p-2 mt-8 bg-transparent border w-full rounded-md"
-          />
-          <button className="bg-white text-black p-2 mt-4 font-medium rounded-md">
-            View Profile
-          </button>
-        </div>
       </div>
-    );
-});
-
-export default ProfilePopup;
+      <div className="bg-zinc-900 rounded-md p-4 mt-6">
+        <p className="font-bold">
+          {userData.firstName} {userData.lastName}
+        </p>
+        <hr className="mt-2" />
+        <p className="mt-2 font-medium">About Me</p>
+        <p>{userData.aboutMe || "No information available"}</p>
+        <hr className="mt-2" />
+        <p className="mt-2">Member since</p>
+        <p>{new Date(userData.createdAt).toLocaleDateString() || "Unknown"}</p>
+      </div>
+      */

@@ -8,13 +8,13 @@ const Message = ({
   lastName,
   message,
   timestamp,
-  displayProfilePopup,
   currentUser,
   senderId,
   messageId,
   openMessageId,
   setOpenMessageId,
   socket,
+  handleClickMessage,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -64,9 +64,18 @@ const Message = ({
       return;
     }
 
-    // Close any existing menu before opening a new one
     if (openMessageId !== null) {
       setOpenMessageId(null);
+      setConfirmingDelete(false);
+      // Reset editing state and edited message if toggling to a different message
+      if (openMessageId !== messageId) {
+        setEditing(false);
+        setEditedMessage(message);
+      } else {
+        // Reset editing state and edited message if no message was open
+        setEditing(false);
+        setEditedMessage(message);
+      }
     }
 
     // Only open the menu if it's not already open for this message
@@ -103,19 +112,24 @@ const Message = ({
 
   return (
     <>
-      <div onClick={() => setIsMenuOpen(false)}>
+      <div>
         {isCurrentUser ? (
           // Message sent by the current user
           <div
             className={messageContainerStyle}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className={`bg-blue-500 text-black p-4 rounded-lg max-w-md`}>
-              <div className={`flex items-center justify-end`}>
-                <div className="text-xs text-gray-800">{timestamp}</div>
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className={`bg-sender-color text-white p-4 rounded-lg max-w-md`}
+            >
+              <div
+                onClick={(e) => e.stopPropagation}
+                className={`flex items-center justify-end`}
+              >
+                <div className="text-xs text-gray-300">{timestamp}</div>
                 <div
                   className="text-sm font-semibold ml-2 cursor-pointer"
-                  onClick={displayProfilePopup}
                 >
                   {firstName} {lastName}
                 </div>
@@ -127,11 +141,12 @@ const Message = ({
                 {editing ? (
                   <textarea
                     value={editedMessage}
+                    onClick={(e) => e.stopPropagation()}
                     onChange={(e) => setEditedMessage(e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded-lg mt-2"
+                    className="w-full p-2 border text-black border-gray-300 rounded-lg mt-2"
                   />
                 ) : isDeleted ? (
-                  <p className="text-sm mt-2 text-red-800 font-semibold">
+                  <p className="text-sm mt-2 text-red-900 font-semibold">
                     This message has been deleted
                   </p>
                 ) : (
@@ -146,16 +161,16 @@ const Message = ({
                   {editing ? (
                     <button
                       onClick={handleSaveMessage}
-                      className="px-2 py-1 text-xs bg-green-300 bg-opacity-30 rounded-lg text-green-800 hover:bg-green-700
-                      hover:text-white"
+                      className="px-2 py-1 text-xs hover:bg-green-300 hover:bg-opacity-30 rounded-lg hover:text-green-800 bg-green-700
+                      text-white"
                     >
                       Save
                     </button>
                   ) : (
                     <button
                       onClick={handleEditMessage}
-                      className="px-2 py-1 text-xs bg-gray-300 bg-opacity-30 rounded-lg text-gray-700 hover:bg-gray-700
-                      hover:text-gray-300"
+                      className="px-2 py-1 text-xs hover:bg-gray-300 hover:bg-opacity-30 rounded-lg hover:text-gray-700 bg-gray-700
+                      text-gray-300"
                     >
                       Edit
                     </button>
@@ -170,7 +185,7 @@ const Message = ({
                   ) : (
                     <button
                       onClick={handleDeleteMessage}
-                      className="px-2 py-1 text-xs bg-gray-300 bg-opacity-30 rounded-lg text-red-800 hover:text-gray-300 hover:bg-red-800 ml-2"
+                      className="px-2 py-1 text-xs hover:bg-gray-300 hover:bg-opacity-30 rounded-lg hover:text-red-800 text-gray-300 bg-red-800 ml-2"
                     >
                       Delete
                     </button>
@@ -182,7 +197,14 @@ const Message = ({
               src={profilePic}
               alt={firstName}
               className="w-10 h-10 rounded-full ml-4 mr-2 cursor-pointer"
-              onClick={displayProfilePopup}
+              onClick={() => {
+                handleClickMessage({
+                  user: { _id: senderId },
+                  text: message,
+                  updatedAt: new Date().toISOString(),
+                  _id: messageId,
+                });
+              }}
             />
           </div>
         ) : (
@@ -191,14 +213,22 @@ const Message = ({
             <img
               src={profilePic}
               alt={firstName}
-              className="w-10 h-10 rounded-full mr-4 cursor-pointer"
-              onClick={displayProfilePopup}
+              className="w-10 h-10 rounded-full ml-4 mr-2 cursor-pointer"
+              onClick={() => {
+                handleClickMessage({
+                  user: { _id: senderId },
+                  text: message,
+                  updatedAt: new Date().toISOString(),
+                  _id: messageId,
+                });
+              }}
             />
-            <div className={`bg-gray-300 text-black p-4 rounded-lg max-w-md`}>
+            <div
+              className={`bg-recipient-color text-black p-4 rounded-lg max-w-md`}
+            >
               <div className={`flex items-center `}>
                 <div
                   className="text-sm font-semibold mr-2 cursor-pointer"
-                  onClick={displayProfilePopup}
                 >
                   {firstName} {lastName}
                 </div>

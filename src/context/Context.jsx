@@ -102,7 +102,6 @@ export const ChatProvider = ({ children }) => {
       setIsChannel(true);
 
       setCurrentChannelId(id);
-      console.log(currentChannelId);
     } catch (error) {
       console.error(error);
     }

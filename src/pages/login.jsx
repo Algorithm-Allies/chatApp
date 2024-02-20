@@ -4,8 +4,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const serverUrl = import.meta.env.VITE_APP_SERVER;
 
-import "../styles/login.css";
-
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,7 +26,6 @@ function Login() {
       });
 
       const { data } = response;
-      console.log(data);
 
       alert("Login success!");
 
@@ -88,14 +85,17 @@ function Login() {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full bg-dark-blue hover:bg-medium-blue text-white font-semibold py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             Login
           </button>
         </form>
         <p className="text-sm text-gray-700 mt-4">
           Don't have an account?{" "}
-          <Link to="/register" className="text-blue-500 hover:text-blue-800">
+          <Link
+            to="/register"
+            className="text-dark-blue hover:text-medium-blue"
+          >
             Create Account
           </Link>
         </p>
