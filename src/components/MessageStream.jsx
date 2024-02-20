@@ -24,16 +24,13 @@ const MessageStream = ({ position, isVisible }) => {
 
   const handleClickMessage = (message) => {
     console.log("Clicked Message:", message.user._id);
-
-    // Get mouse position
-    const mouseX = window.event.clientX;
-    const mouseY = window.event.clientY;
-
     // Set the profile popup data
     setProfilePopupData({
       userId: message.user._id,
-      position: { x: mouseX, y: mouseY },
     });
+  };
+  const handleProfilePopupClose = () => {
+    setProfilePopupData(null);
   };
 
   const socket = useRef(null);
@@ -186,13 +183,15 @@ const MessageStream = ({ position, isVisible }) => {
           />
         ))}
       </div>
-
-      {/* Render ProfilePopup if profilePopupData is available */}
+      {/* Center the ProfilePopup within the container */}
       {profilePopupData && (
-        <ProfilePopup
-          userId={profilePopupData.userId}
-          position={profilePopupData.position}
-        />
+        <div className="flex justify-center">
+          <ProfilePopup
+            userId={profilePopupData.userId}
+            position={profilePopupData.position}
+            onClose={handleProfilePopupClose}
+          />
+        </div>
       )}
 
       <AddMessageInput socket={socket.current} chatId={chatId} />
