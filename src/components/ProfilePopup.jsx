@@ -35,13 +35,10 @@ const ProfilePopup = ({ userId, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
-      <div
-        className="bg-gray-300 p-8 rounded max-w-lg relative"
-        style={{ minWidth: "32rem" }}
-      >
+      <div className="bg-gray-300 p-8 rounded max-w-lg w-full md:w-2/3 lg:w-1/2 xl:w-1/3 relative">
         <button
           className="absolute top-2 right-7 text-gray-500 hover:text-gray-700 cursor-pointer text-3xl p-2"
-          onClick={onClose} // Trigger the onClose function when clicked
+          onClick={onClose}
         >
           x
         </button>
