@@ -35,13 +35,15 @@ const ProfilePopup = ({ userId, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
-      <div className="bg-gray-300 p-8 rounded max-w-lg relative">
+      <div
+        className="bg-gray-300 p-8 rounded max-w-lg relative"
+        style={{ minWidth: "32rem" }}
+      >
         <button
-          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 cursor-pointer"
+          className="absolute top-2 right-7 text-gray-500 hover:text-gray-700 cursor-pointer text-3xl p-2"
           onClick={onClose} // Trigger the onClose function when clicked
         >
-          {/* Close button (X) */}
-          &times;
+          x
         </button>
         <div className="flex justify-center items-center">
           <img
@@ -59,6 +61,7 @@ const ProfilePopup = ({ userId, onClose }) => {
           <p
             style={{
               maxHeight: "10rem",
+              minHeight: "10rem",
               overflowY: "auto",
               scrollbarWidth: "thin",
               scrollbarColor: "#4a5568 #cbd5e0",
