@@ -170,7 +170,7 @@ function SideBar({ openChannelModal, openMessageModal, directMessages }) {
             </div>
             <div className="flex flex-col"></div>
             <div className="flex flex-col items-center h-screen bg-sidebar-color w-full text-black">
-              <div className=" text-2xl font-bold mb-4 mt-4">ChatApp</div>
+              <div className=" text-2xl font-bold mb-4 mt-4">Ripple</div>
               <div className="flex flex-col w-full h-full p-3 mb-72">
                 <div className="flex flex-col w-full">
                   <div className="flex flex-row w-full justify-between items-center mb-2">
